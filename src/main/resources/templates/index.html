@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>STT</th>
+        <th>Mã sinh viên</th>
+    </tr>
+    </thead>
+    <tbody th:each="sv, stt: ${sinhViens}">
+        <tr>
+            <td th:text="${stt.index}"></td>
+            <td th:text="${sv.getMaSV()}"></td>
+            <td th:text="${sv.getTenSV()}"></td>
+            <td th:text="${sv.getBacDaoTao()}"></td>
+            <td th:text="${sv.getDiaChi()}"></td>
+            <td th:text="${sv.isGioiTinh()}"></td>
+            <td th:text="${sv.getEmail()}"></td>
+            <td th:text="${sv.getNgaySinh()}"></td>
+            <td th:text="${sv.getNgayVaoTruong()}"></td>
+            <td th:text="${sv.getSoCMND()}"></td>
+            <td th:text="${sv.getSoDienThoai()}"></td>
+            <td th:text="${sv.getKhoa().getTenKhoa()}"></td>
+            <td th:text="${sv.getLopHoc().getTenLop()}"></td>
+            <td th:text="${sv.getChuyenNganh().getTenChuyenNganh()}"></td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>
