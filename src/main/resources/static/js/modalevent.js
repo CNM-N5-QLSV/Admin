@@ -215,4 +215,44 @@ $(document).ready(function () {
     });
 });
 
+//Lớp học phần
+$(document).ready(function () {
+    $('.createBtnLHP').on('click', function (event) {
+        event.preventDefault();
+
+        $('.myForm #myIdLHP').val(0);
+        $('.myForm #tenviettat').val('');
+        $('.myForm #tenlophocphan').val('');
+        $('.myForm #soluongdangkyhientai').val('');
+        $('.myForm #soluongdangkytoida').val('');
+        $('.myForm #trangthai').val('');
+        $('.myForm #hocky').val('');
+        $('.myForm #hocphan').val('');
+        $('.myForm #mota').val('');
+
+        $('.myForm #myModal').modal();
+    });
+});
+
+$(document).ready(function () {
+    $('.uBtnLHP').on('click', function (event) {
+        event.preventDefault();
+        var href = $(this).attr('href');
+
+        $.get(href, function (lhp, status) {
+            $('.myForm #myIdLHP').val(lhp.maLHP);
+            $('.myForm #tenviettat').val(lhp.tenVietTat);
+            $('.myForm #tenlophocphan').val(lhp.tenLHP);
+            $('.myForm #soluongdangkyhientai').val(lhp.soLuongDangKyHienTai);
+            $('.myForm #soluongdangkytoida').val(lhp.soLuongDangKyToiDa);
+            $('.myForm #trangthai').val(lhp.trangThai);
+            $('.myForm #hocky').val(lhp.hocKy.maHK);
+            $('.myForm #hocphan').val(lhp.hocPhan.maHocPhan);
+            $('.myForm #mota').val(lhp.moTa);
+
+        });
+
+        $('.myForm #myModal').modal();
+    });
+});
 

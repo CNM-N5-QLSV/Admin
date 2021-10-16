@@ -101,6 +101,7 @@
                             <div class="sparkline13-list">
                                 <div class="sparkline13-hd">
                                     <div class="main-sparkline13-hd">
+                                        <h1></h1>
                                         <a class="btn btn-info createBtn">Thêm sinh viên</a>
                                         <button type="submit" class="btn btn-danger btn-custon-rounded-four">
                                             <span>Xóa</span>
@@ -109,14 +110,6 @@
                                 </div>
 
                                 <div class="sparkline13-graph">
-<!--                                    <div id="toolbar">-->
-<!--                                        <form th:action="@{/search}" method="get" role="search" class="sr-input-func">-->
-<!--                                            <input style="border-radius: 5px 5px 5px 5px; margin-right: 50px;"-->
-<!--                                                   type="text" name="mssv" th:value="${mssv}"-->
-<!--                                                   placeholder="Tìm kiếm theo mã sinh viên"-->
-<!--                                                   class="search-int form-control">-->
-<!--                                        </form>-->
-<!--                                    </div>-->
                                     <div class="datatable-dashv1-list custom-datatable-overright">
                                         <table id="table" data-toggle="table" data-search="true"
                                                data-show-columns="true" data-show-pagination-switch="true"
@@ -127,7 +120,6 @@
                                             <thead>
                                             <tr>
                                                 <th><i class="fa fa-check"></i></th>
-<!--                                                <th>STT</th>-->
                                                 <th>Mã sinh viên</th>
                                                 <th>Tên sinh viên</th>
                                                 <th>Bậc đào tạo</th>
@@ -148,7 +140,6 @@
                                             <tr th:each="sv, stt: ${sinhViens}">
                                                 <td><input type="checkbox" class="checkbox" th:name="idSV"
                                                            th:value="${sv.getMaSV()}"></td>
-<!--                                                <td th:text="${stt.index} + 1"></td>-->
                                                 <td th:text="${sv.getMaSV()}"></td>
                                                 <td th:text="${sv.getTenSV()}"></td>
                                                 <td th:text="${sv.getBacDaoTao()}"></td>
