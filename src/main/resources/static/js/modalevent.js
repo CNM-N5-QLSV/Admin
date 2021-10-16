@@ -27,6 +27,12 @@ $(document).ready(function () {
             $('.myForm #nvt').val(sv.ngayVaoTruong.split('T')[0]);
             $('.myForm #myPass').val(sv.password);
             $('.myForm #myRole').val(sv.roleName);
+
+            //Hoc Ky
+            $('.myForm #hocKyId').val(hk.maHK);
+            $('.myForm #nbd').val(hk.namBatDau);
+            $('.myForm #nkt').val(hk.namKetThuc);
+            $('.myForm #mota').val(hk.moTa);
         });
 
         $('.myForm #myModal').modal();
@@ -56,14 +62,76 @@ $(document).ready(function () {
 
         var d = new Date();
 
-        var month = d.getMonth()+1;
+        var month = d.getMonth() + 1;
         var day = d.getDate();
 
         var output = d.getFullYear() + '-' +
-            (month<10 ? '0' : '') + month + '-' +
-            (day<10 ? '0' : '') + day;
+            (month < 10 ? '0' : '') + month + '-' +
+            (day < 10 ? '0' : '') + day;
 
         $('.myForm #nvt').val(output);
+
+        $('.myForm #myModal').modal();
+    });
+});
+
+//Update hoc ky
+$(document).ready(function () {
+    $('.btnUpdateHocKy').on('click', function (event) {
+        event.preventDefault();
+        var href = $(this).attr('href');
+
+        $.get(href, function (hk, status) {
+            $('.myForm #hocKyId').val(hk.maHK);
+            $('.myForm #nbd').val(hk.namBatDau);
+            $('.myForm #nkt').val(hk.namKetThuc);
+            $('.myForm #tthk').val(hk.thuTuHocKy);
+            $('.myForm #mota').val(hk.moTa);
+        });
+
+        $('.myForm #myModal').modal();
+    });
+});
+
+//Create hoc ky
+$(document).ready(function () {
+    $('.btnCreateHocKy').on('click', function (event) {
+        event.preventDefault();
+
+        $('.myForm #hocKyId').val(0);
+        $('.myForm #nbd').val('');
+        $('.myForm #nkt').val('');
+        $('.myForm #tthk').val('');
+        $('.myForm #mota').val('');
+
+        $('.myForm #myModal').modal();
+    });
+});
+
+//Update chuyen nganh
+$(document).ready(function () {
+    $('.btnUpdateChuyenNganh').on('click', function (event) {
+        event.preventDefault();
+        var href = $(this).attr('href');
+
+        $.get(href, function (cn, status) {
+            $('.myForm #chuyenNganhId').val(cn.maChuyenNganh);
+            $('.myForm #tenCN').val(cn.tenChuyenNganh);
+            $('.myForm #khoaId').val(cn.khoa.maKhoa);
+        });
+
+        $('.myForm #myModal').modal();
+    });
+});
+
+//Create chuyen nganh
+$(document).ready(function () {
+    $('.btnCreateChuyenNganh').on('click', function (event) {
+        event.preventDefault();
+
+        $('.myForm #chuyenNganhId').val(0);
+        $('.myForm #tenCN').val('');
+        $('.myForm #khoaId').val('');
 
         $('.myForm #myModal').modal();
     });

@@ -9,7 +9,7 @@
     <div class="left-sidebar-pro">
         <nav th:id="sidebar" class="">
             <div class="sidebar-header">
-                <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt=""/></a>
+                <a th:href="@{/}"><img class="main-logo" src="img/logo/logo.png" alt=""/></a>
                 <strong><a href="index.html"><img src="img/logo/logosn.png" alt=""/></a></strong>
             </div>
             <div class="left-custom-menu-adp-wrap comment-scrollbar">
@@ -27,16 +27,22 @@
                                     class="mini-click-non">Quản lý</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
                                 <li>
-                                    <a href="hocki.html" aria-expanded="false"><span></span> <span>Học
-                                            kì</span></a>
+                                    <a th:href="@{/hocKy}" aria-expanded="false">
+                                        <span></span>
+                                        <span>Học kỳ</span>
+                                    </a>
                                 </li>
                                 <li>
-                                    <a href="/" aria-expanded="false"><span></span> <span>Sinh
-                                            viên</span></a>
+                                    <a th:href="@{/sinhVien}" aria-expanded="false">
+                                        <span></span>
+                                        <span>Sinh viên</span>
+                                    </a>
                                 </li>
                                 <li>
-                                    <a href="chuyenganh.html" aria-expanded="false"><span></span> <span>Chuyên
-                                            ngành</span></a>
+                                    <a th:href="@{/chuyenNganh}" aria-expanded="false">
+                                        <span></span>
+                                        <span>Chuyên ngành</span>
+                                    </a>
                                 </li>
                                 <li>
                                     <a href="khoa.html" aria-expanded="false"><span></span> <span>Khoa</span></a>
