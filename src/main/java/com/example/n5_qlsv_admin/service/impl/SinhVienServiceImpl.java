@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -57,7 +56,7 @@ public class SinhVienServiceImpl implements SinhVienService {
     }
 
     @Override
-    public void deleteSinhViens(long ma_sv) {
+    public void deleteSinhVien(long ma_sv) {
         restTemplate.delete(url + "/" + ma_sv);
     }
 

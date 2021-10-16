@@ -8,9 +8,11 @@
 <div th:fragment="left_menu">
     <div class="left-sidebar-pro">
         <nav th:id="sidebar" class="">
-            <div class="sidebar-header">
-                <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt=""/></a>
-                <strong><a href="index.html"><img src="img/logo/logosn.png" alt=""/></a></strong>
+            <div class="sidebar-header" style="margin: 8px 0 10px 0;">
+                <a th:href="@{/}">
+                    <img class="main-logo" src="https://demobucket0411.s3.ap-southeast-1.amazonaws.com/logo1.png" alt=""/>
+                </a>
+                <strong><a th:href="@{/}"><img src="https://media.iuh.edu.vn/Media/2_sviuh/Images/icon65d669c1-0-e.ico" alt=""/></a></strong>
             </div>
             <div class="left-custom-menu-adp-wrap comment-scrollbar">
                 <nav class="sidebar-nav left-sidebar-menu-pro">
@@ -27,16 +29,22 @@
                                     class="mini-click-non">Quản lý</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
                                 <li>
-                                    <a href="hocki.html" aria-expanded="false"><span></span> <span>Học
-                                            kì</span></a>
+                                    <a th:href="@{/hocKy}" aria-expanded="false">
+                                        <span></span>
+                                        <span>Học kỳ</span>
+                                    </a>
                                 </li>
                                 <li>
-                                    <a href="/" aria-expanded="false"><span></span> <span>Sinh
-                                            viên</span></a>
+                                    <a th:href="@{/sinhVien}" aria-expanded="false">
+                                        <span></span>
+                                        <span>Sinh viên</span>
+                                    </a>
                                 </li>
                                 <li>
-                                    <a href="chuyenganh.html" aria-expanded="false"><span></span> <span>Chuyên
-                                            ngành</span></a>
+                                    <a th:href="@{/chuyenNganh}" aria-expanded="false">
+                                        <span></span>
+                                        <span>Chuyên ngành</span>
+                                    </a>
                                 </li>
                                 <li>
                                     <a th:href="@{/khoa}" aria-expanded="false"><span></span> <span>Khoa</span></a>
