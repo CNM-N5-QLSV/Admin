@@ -8,4 +8,11 @@ public interface LopHocService {
 
     List<LopHoc> getAllLopHocs();
 
+    List<LopHoc> getAllLopHocsByPageAndSize(int pageIndex, int pageSize);
+
+    void saveLopHoc(LopHoc lopHoc);
+
+    void deleteLopHocs(long maLopHoc);
+
+    LopHoc findById(long maLopHoc);
 }
