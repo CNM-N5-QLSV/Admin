@@ -30,4 +30,36 @@ public class LopHocServiceImpl implements LopHocService {
         List<LopHoc> lopHocList = responseEntity.getBody();
         return lopHocList;
     }
+
+    @Override
+    public List<LopHoc> getAllLopHocsByPageAndSize(int pageIndex, int pageSize) {
+        ResponseEntity<List<LopHoc>> responseEntity
+                = restTemplate.exchange(url + "?page=" + pageIndex + "&size=" + pageSize,
+                HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<LopHoc>>() {
+                });
+        List<LopHoc> lopHocList = responseEntity.getBody();
+        return lopHocList;
+    }
+
+    @Override
+    public void saveLopHoc(LopHoc lopHoc) {
+        long maLopHoc = lopHoc.getMaLop();
+        if (maLopHoc == 0){
+            restTemplate.postForEntity(url, lopHoc, String.class);
+        }else{
+            restTemplate.put(url + "/" + maLopHoc, lopHoc);
+        }
+    }
+
+    @Override
+    public void deleteLopHocs(long maLopHoc) {
+        restTemplate.delete(url + "/" + maLopHoc);
+    }
+
+    @Override
+    public LopHoc findById(long maLopHoc) {
+        LopHoc lopHoc = restTemplate.getForObject(url + "/" + maLopHoc, LopHoc.class);
+        return lopHoc;
+    }
 }
