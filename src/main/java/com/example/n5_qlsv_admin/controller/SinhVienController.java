@@ -1,8 +1,5 @@
 package com.example.n5_qlsv_admin.controller;
 
-import com.example.n5_qlsv_admin.model.ChuyenNganh;
-import com.example.n5_qlsv_admin.model.Khoa;
-import com.example.n5_qlsv_admin.model.LopHoc;
 import com.example.n5_qlsv_admin.model.SinhVien;
 import com.example.n5_qlsv_admin.service.ChuyenNganhService;
 import com.example.n5_qlsv_admin.service.KhoaService;
@@ -14,12 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/sinhVien")
 public class SinhVienController {
 
     @Autowired
@@ -89,7 +83,7 @@ public class SinhVienController {
         String[] ma_svs = req.getParameterValues("idSV");
         if (ma_svs != null) {
             for (String ma_sv : ma_svs) {
-                sinhVienService.deleteSinhViens(Long.parseLong(ma_sv));
+                sinhVienService.deleteSinhVien(Long.parseLong(ma_sv));
             }
         }
         return "redirect:/";

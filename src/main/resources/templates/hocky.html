@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Admin | Sinh viên</title>
+    <title>Admin | Học kỳ</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
@@ -97,11 +97,11 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <form th:action="@{/sinhVien/deleteSinhViens}" method="get">
+                        <form th:action="@{/hocKy/deleteHocKys}" method="get">
                             <div class="sparkline13-list">
                                 <div class="sparkline13-hd">
                                     <div class="main-sparkline13-hd">
-                                        <a class="btn btn-info createBtn">Thêm sinh viên</a>
+                                        <a class="btn btn-info btnCreateHocKy">Thêm học kỳ</a>
                                         <button type="submit" class="btn btn-danger btn-custon-rounded-four">
                                             <span>Xóa</span>
                                         </button>
@@ -109,62 +109,36 @@
                                 </div>
 
                                 <div class="sparkline13-graph">
-<!--                                    <div id="toolbar">-->
-<!--                                        <form th:action="@{/search}" method="get" role="search" class="sr-input-func">-->
-<!--                                            <input style="border-radius: 5px 5px 5px 5px; margin-right: 50px;"-->
-<!--                                                   type="text" name="mssv" th:value="${mssv}"-->
-<!--                                                   placeholder="Tìm kiếm theo mã sinh viên"-->
-<!--                                                   class="search-int form-control">-->
-<!--                                        </form>-->
-<!--                                    </div>-->
                                     <div class="datatable-dashv1-list custom-datatable-overright">
                                         <table id="table" data-toggle="table" data-search="true"
                                                data-show-columns="true" data-show-pagination-switch="true"
                                                data-show-refresh="true" data-key-events="true" data-show-toggle="true"
                                                data-resizable="true" data-cookie="true" data-cookie-id-table="saveId"
                                                data-show-export="true" data-click-to-select="true"
-                                               data-toolbar="#toolbar" class="tbl">
+                                               data-toolbar="#toolbar">
                                             <thead>
                                             <tr>
                                                 <th><i class="fa fa-check"></i></th>
-<!--                                                <th>STT</th>-->
-                                                <th>Mã sinh viên</th>
-                                                <th>Tên sinh viên</th>
-                                                <th>Bậc đào tạo</th>
-                                                <th>Địa chỉ</th>
-                                                <th>Giới tính</th>
-                                                <th>Email</th>
-                                                <th>Ngày sinh</th>
-                                                <th>Ngày vào trường</th>
-                                                <th>Số CMND</th>
-                                                <th>Số điện thoại</th>
-                                                <th>Khoa</th>
-                                                <th>Lớp</th>
-                                                <th>Chuyên ngành</th>
+                                                <th>Mã học kỳ</th>
+                                                <th>Năm bắt đầu</th>
+                                                <th>Năm kết thúc</th>
+                                                <th>Thứ tự học kỳ</th>
+                                                <th>Mô tả</th>
                                                 <th>Thao tác</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr th:each="sv, stt: ${sinhViens}">
-                                                <td><input type="checkbox" class="checkbox" th:name="idSV"
-                                                           th:value="${sv.getMaSV()}"></td>
-<!--                                                <td th:text="${stt.index} + 1"></td>-->
-                                                <td th:text="${sv.getMaSV()}"></td>
-                                                <td th:text="${sv.getTenSV()}"></td>
-                                                <td th:text="${sv.getBacDaoTao()}"></td>
-                                                <td th:text="${sv.getDiaChi()}"></td>
-                                                <td th:text="${sv.isGioiTinh() == true ? 'Nam' : 'Nữ'}"></td>
-                                                <td th:text="${sv.getEmail()}"></td>
-                                                <td th:text="${#dates.format(sv.getNgaySinh(), 'dd/MM/yyyy')}"></td>
-                                                <td th:text="${#dates.format(sv.getNgayVaoTruong(), 'dd/MM/yyyy')}"></td>
-                                                <td th:text="${sv.getSoCMND()}"></td>
-                                                <td th:text="${sv.getSoDienThoai()}"></td>
-                                                <td th:text="${sv.getKhoa().getTenKhoa()}"></td>
-                                                <td th:text="${sv.getLopHoc().getTenLop()}"></td>
-                                                <td th:text="${sv.getChuyenNganh().getTenChuyenNganh()}"></td>
+                                            <tr th:each="hk, stt: ${hocKys}">
+                                                <td><input type="checkbox" class="checkbox" th:name="idHK"
+                                                           th:value="${hk.getMaHK()}"></td>
+                                                <td th:text="${hk.getMaHK()}"></td>
+                                                <td th:text="${hk.getNamBatDau()}"></td>
+                                                <td th:text="${hk.getNamKetThuc()}"></td>
+                                                <td th:text="${hk.getThuTuHocKy()}"></td>
+                                                <td th:text="${hk.getMoTa()}"></td>
                                                 <td>
-                                                    <a class="uBtn btn btn-warning"
-                                                       th:href="@{findSV/(id=${sv.maSV})}">
+                                                    <a class="btnUpdateHocKy btn btn-warning"
+                                                       th:href="@{/hocKy/findHK/(id=${hk.maHK})}">
                                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                     </a>
                                                 </td>
@@ -174,15 +148,15 @@
                                         <div class="pull-right pagination">
                                             <ul class="pagination">
                                                 <li class="page-pre">
-                                                    <a th:href="@{/sinhVien(pageIndex=${currentPage - 1})}">‹</a>
+                                                    <a th:href="@{/hocKy(pageIndex=${currentPage - 1})}">‹</a>
                                                 </li>
                                                 <li class="page-number"
-                                                th:each="i : ${#numbers.sequence(0, totalPage - 1)}"
+                                                    th:each="i : ${#numbers.sequence(0, totalPage - 1)}"
                                                     th:classappend="${currentPage}==${i}?'active':''">
-                                                    <a th:href="@{/sinhVien(pageIndex=${i})}" th:text="${i + 1}"></a>
+                                                    <a th:href="@{/hocKy(pageIndex=${i})}" th:text="${i + 1}"></a>
                                                 </li>
                                                 <li class="page-next">
-                                                    <a th:href="@{/sinhVien(pageIndex=${currentPage + 1})}">›</a>
+                                                    <a th:href="@{/hocKy(pageIndex=${currentPage + 1})}">›</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -196,131 +170,51 @@
         </div>
 
         <div class="myForm">
-            <form th:action="@{/sinhVien}" method="post" th:object="${sinhVien}">
+            <form th:action="@{/hocKy}" method="post" th:object="${hocKy}">
                 <div class="modal fade" id="myModal" role="dialog">
-                    <div class="modal-dialog modal-lg">
+                    <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header" style="background-color: rgb(130, 216, 130);">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 <div class="text-center" style="color: white;">
-                                    <h3>THÔNG TIN SINH VIÊN</h3>
+                                    <h3>THÔNG TIN HỌC KỲ</h3>
                                 </div>
                             </div>
                             <div class="modal-body">
-                                <input type="hidden" id="myId" value="" th:field="*{maSV}">
-                                <input type="hidden" id="myPass" value="" th:field="*{password}">
-                                <input type="hidden" id="myRole" value="" th:field="*{roleName}">
+                                <input type="hidden" id="hocKyId" value="" th:field="*{maHK}">
                                 <div class="col-sm-12" style="padding-top: 20px;">
-                                    <div class="form-group col-sm-6">
-                                        <label>Tên sinh viên</label>
+                                    <div class="form-group col-sm-4">
+                                        <label>Năm bắt đầu</label>
                                         <div>
-                                            <input type="text" id="tensv" value="" th:field="*{tenSV}"
-                                                   class="form-control" placeholder="Ví dụ: Nguyễn Văn A">
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-sm-6">
-                                        <label>Số CMND</label>
-                                        <div>
-                                            <input type="text" id="cmnd" value="" th:field="*{soCMND}"
-                                                   class="form-control" placeholder="Ví dụ: 123456789 (hoặc căn cước)">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="form-group col-sm-3">
-                                        <label>Giới tính</label>
-                                        <div style="margin-top: 10px;">
-                                            <input type="radio" id="male"  value="" name="rad" th:field="*{gioiTinh}"
-                                                   th:value="true">&nbsp;Nam
-                                            &nbsp;&nbsp;
-                                            <input type="radio" id="female" value="" name="rad" th:field="*{gioiTinh}"
-                                                   th:value="false">&nbsp;Nữ
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-sm-3">
-                                        <label>Ngày vào trường</label>
-                                        <div>
-                                            <input type="date" id="nvt" value="" th:field="*{{ngayVaoTruong}}"
+                                            <input type="number" id="nbd" value="" th:field="*{namBatDau}"
                                                    class="form-control">
                                         </div>
                                     </div>
-                                    <div class="form-group col-sm-3">
-                                        <label>Bậc đào tạo</label>
+                                    <div class="form-group col-sm-4">
+                                        <label>Năm kết thúc</label>
                                         <div>
-                                            <input type="text" id="bdt" value="" th:field="*{bacDaoTao}"
-                                                   placeholder="Cao Đẳng, Đại Học, ..."
+                                            <input type="number" id="nkt" value="" th:field="*{namKetThuc}"
                                                    class="form-control">
                                         </div>
                                     </div>
-                                    <div class="form-group col-sm-3">
-                                        <label>Ngày sinh</label>
+                                    <div class="form-group col-sm-4">
+                                        <label>Thứ tự học kì</label>
                                         <div>
-                                            <input type="date" id="birthDate" value="" th:field="*{{ngaySinh}}"
+                                            <input type="number" id="tthk" value="" th:field="*{thuTuHocKy}"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-12">
+                                        <label>Mô tả</label>
+                                        <div>
+                                            <input type="text" id="mota" value="" th:field="*{moTa}"
                                                    class="form-control">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-12">
-                                    <div class="form-group col-sm-6">
-                                        <label>Số điện thoại</label>
-                                        <div><input type="text" id="phone" value="" th:field="*{soDienThoai}"
-                                                    class="form-control" placeholder="Ví dụ: XXXX XXX XXX">
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-sm-6">
-                                        <label>Chuyên ngành</label>
-                                        <div>
-                                            <select value="" id="chuyenN" th:field="*{chuyenNganh.maChuyenNganh}"
-                                                    class="form-control">
-                                                <tr th:each="cn, stt: ${chuyenNganhs}">
-                                                    <option th:value="${cn.getMaChuyenNganh()}"
-                                                            th:text="${cn.getTenChuyenNganh()}"></option>
-                                                </tr>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="form-group col-sm-6">
-                                        <label>Lớp</label>
-                                        <div>
-                                            <select id="classRoom" value="" th:field="*{lopHoc.maLop}" class="form-control">
-                                                <tr th:each="lh, stt: ${lopHocs}">
-                                                    <option th:value="${lh.getMaLop()}"
-                                                            th:text="${lh.getTenLop()}"></option>
-                                                </tr>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-sm-6">
-                                        <label>Khoa</label>
-                                        <div>
-                                            <select id="department" value="" th:field="*{khoa.maKhoa}" class="form-control">
-                                                <tr th:each="k, stt: ${khoas}">
-                                                    <option th:value="${k.getMaKhoa()}"
-                                                            th:text="${k.getTenKhoa()}"></option>
-                                                </tr>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="form-group col-sm-6">
-                                        <label>Email</label>
-                                        <div>
-                                            <input id="myEmail" type="text" value="" th:field="*{email}"
-                                                   class="form-control" placeholder="Ví dụ: abc@gmail.com">
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-sm-6">
-                                        <label>Địa chỉ</label>
-                                        <div>
-                                            <input id="address" type="text" value="" th:field="*{diaChi}"
-                                                   class="form-control" placeholder="Ví dụ: 123/45 tên đường, quận, phường, tỉnh ">
-                                        </div>
-                                    </div>
-                                </div>
-                                <input type="submit" value="Lưu thông tin" class="btn btn-success"
+
+                                <input type="submit" value="Lưu thông tin"
+                                       class="btn btn-success"
                                        style="margin-left: 30px;">
                             </div>
                         </div>
@@ -333,7 +227,7 @@
 
 <!-- jquery
 ============================================ -->
-    <script th:src="@{/js/vendor/jquery-1.12.4.min.js}"></script>
+<script th:src="@{/js/vendor/jquery-1.12.4.min.js}"></script>
 <!-- bootstrap JS
 ============================================ -->
 <script th:src="@{/js/bootstrap.min.js}"></script>

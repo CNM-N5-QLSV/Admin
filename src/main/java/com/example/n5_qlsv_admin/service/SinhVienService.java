@@ -12,7 +12,7 @@ public interface SinhVienService {
 
     void saveSinhVien(SinhVien sinhVien);
 
-    void deleteSinhViens(long ma_sv);
+    void deleteSinhVien(long ma_sv);
 
     SinhVien findById(long ma_sv);
 }
