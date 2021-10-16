@@ -27,12 +27,6 @@ $(document).ready(function () {
             $('.myForm #nvt').val(sv.ngayVaoTruong.split('T')[0]);
             $('.myForm #myPass').val(sv.password);
             $('.myForm #myRole').val(sv.roleName);
-
-            //Hoc Ky
-            $('.myForm #hocKyId').val(hk.maHK);
-            $('.myForm #nbd').val(hk.namBatDau);
-            $('.myForm #nkt').val(hk.namKetThuc);
-            $('.myForm #mota').val(hk.moTa);
         });
 
         $('.myForm #myModal').modal();
@@ -62,14 +56,98 @@ $(document).ready(function () {
 
         var d = new Date();
 
-        var month = d.getMonth() + 1;
+        var month = d.getMonth()+1;
         var day = d.getDate();
 
         var output = d.getFullYear() + '-' +
-            (month < 10 ? '0' : '') + month + '-' +
-            (day < 10 ? '0' : '') + day;
+            (month<10 ? '0' : '') + month + '-' +
+            (day<10 ? '0' : '') + day;
 
         $('.myForm #nvt').val(output);
+
+        $('.myForm #myModal').modal();
+    });
+});
+
+//Môn học
+$(document).ready(function () {
+    $('.createBtnMH').on('click', function (event) {
+        event.preventDefault();
+
+        $('.myForm #myIdMH').val('0');
+        $('.myForm #tenmonhoc').val('');
+        $('.myForm #mota').val('');
+
+        $('.myForm #myModal').modal();
+    });
+});
+
+$(document).ready(function () {
+    $('.uBtnMH').on('click', function (event) {
+        event.preventDefault();
+        var href = $(this).attr('href');
+
+        $.get(href, function (mh, status) {
+            $('.myForm #myIdMH').val(mh.maMonHoc);
+            $('.myForm #tenmonhoc').val(mh.tenMonHoc);
+            $('.myForm #mota').val(mh.moTa);
+
+        });
+
+        $('.myForm #myModal').modal();
+    });
+});
+
+//Giảng viên
+$(document).ready(function () {
+    $('.createBtn').on('click', function (event) {
+        event.preventDefault();
+
+        $('.myForm #myIdGV').val('0');
+        $('.myForm #tengv').val('');
+
+        $('#male').prop("checked", false);
+
+        $('#female').prop("checked", false);
+
+        $('.myForm #ns').val('');
+        $('.myForm #email').val('');
+        $('.myForm #department').val('');
+
+        var d = new Date();
+
+        var month = d.getMonth()+1;
+        var day = d.getDate();
+
+        var output = d.getFullYear() + '-' +
+            (month<10 ? '0' : '') + month + '-' +
+            (day<10 ? '0' : '') + day;
+
+        $('.myForm #myModal').modal();
+    });
+});
+
+$(document).ready(function () {
+    $('.uBtnGV').on('click', function (event) {
+        event.preventDefault();
+        var href = $(this).attr('href');
+
+        $.get(href, function (gv, status) {
+            $('.myForm #myIdGV').val(gv.maGV);
+            $('.myForm #tengv').val(gv.tenGV);
+
+            var gt = gv.gioiTinh;
+            if (gt === true) {
+                $('#male').prop("checked", true);
+            } else if (gt === false) {
+                $('#female').prop("checked", true);
+            }
+
+            $('.myForm #ns').val(gv.ngaySinh.split('T')[0]);
+            $('.myForm #email').val(gv.email);
+            $('.myForm #department').val(gv.khoa.maKhoa);
+
+        });
 
         $('.myForm #myModal').modal();
     });
@@ -136,3 +214,45 @@ $(document).ready(function () {
         $('.myForm #myModal').modal();
     });
 });
+
+//Lớp học phần
+$(document).ready(function () {
+    $('.createBtnLHP').on('click', function (event) {
+        event.preventDefault();
+
+        $('.myForm #myIdLHP').val(0);
+        $('.myForm #tenviettat').val('');
+        $('.myForm #tenlophocphan').val('');
+        $('.myForm #soluongdangkyhientai').val('');
+        $('.myForm #soluongdangkytoida').val('');
+        $('.myForm #trangthai').val('');
+        $('.myForm #hocky').val('');
+        $('.myForm #hocphan').val('');
+        $('.myForm #mota').val('');
+
+        $('.myForm #myModal').modal();
+    });
+});
+
+$(document).ready(function () {
+    $('.uBtnLHP').on('click', function (event) {
+        event.preventDefault();
+        var href = $(this).attr('href');
+
+        $.get(href, function (lhp, status) {
+            $('.myForm #myIdLHP').val(lhp.maLHP);
+            $('.myForm #tenviettat').val(lhp.tenVietTat);
+            $('.myForm #tenlophocphan').val(lhp.tenLHP);
+            $('.myForm #soluongdangkyhientai').val(lhp.soLuongDangKyHienTai);
+            $('.myForm #soluongdangkytoida').val(lhp.soLuongDangKyToiDa);
+            $('.myForm #trangthai').val(lhp.trangThai);
+            $('.myForm #hocky').val(lhp.hocKy.maHK);
+            $('.myForm #hocphan').val(lhp.hocPhan.maHocPhan);
+            $('.myForm #mota').val(lhp.moTa);
+
+        });
+
+        $('.myForm #myModal').modal();
+    });
+});
+

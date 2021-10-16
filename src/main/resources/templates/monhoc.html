@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Admin | Chuyên Ngành</title>
+    <title>Admin | Môn Học</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
@@ -78,7 +78,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" th:src="@{/js/modalevent.js}" src="../static/js/modalevent.js"></script>
 </head>
-
 <body>
 
 <!-- Start Left menu area -->
@@ -97,12 +96,12 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <form th:action="@{/chuyenNganh/deleteChuyenNganhs}" method="get">
+                        <form th:action="@{monhoc/deleteMonHocs}" method="get">
                             <div class="sparkline13-list">
                                 <div class="sparkline13-hd">
                                     <div class="main-sparkline13-hd">
                                         <h1></h1>
-                                        <a class="btn btn-info btnCreateChuyenNganh">Thêm chuyên ngành</a>
+                                        <a class="btn btn-info createBtnMH">Thêm môn học</a>
                                         <button type="submit" class="btn btn-danger btn-custon-rounded-four">
                                             <span>Xóa</span>
                                         </button>
@@ -116,26 +115,26 @@
                                                data-show-refresh="true" data-key-events="true" data-show-toggle="true"
                                                data-resizable="true" data-cookie="true" data-cookie-id-table="saveId"
                                                data-show-export="true" data-click-to-select="true"
-                                               data-toolbar="#toolbar">
+                                               data-toolbar="#toolbar" class="tbl">
                                             <thead>
                                             <tr>
                                                 <th><i class="fa fa-check"></i></th>
-                                                <th>Mã chuyên ngành</th>
-                                                <th>Tên chuyên ngành</th>
-                                                <th>Khoa</th>
+                                                <th>Mã môn học</th>
+                                                <th>Tên môn học</th>
+                                                <th>Mô tả</th>
                                                 <th>Thao tác</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr th:each="cn, stt: ${chuyenNganhs}">
-                                                <td><input type="checkbox" class="checkbox" th:name="idCN"
-                                                           th:value="${cn.getMaChuyenNganh()}"></td>
-                                                <td th:text="${cn.getMaChuyenNganh()}"></td>
-                                                <td th:text="${cn.getTenChuyenNganh()}"></td>
-                                                <td th:text="${cn.getKhoa().getTenKhoa()}"></td>
+                                            <tr th:each="mh, stt: ${monHocs}">
+                                                <td><input type="checkbox" class="checkbox" th:name="idMH"
+                                                           th:value="${mh.getMaMonHoc()}"></td>
+                                                <td th:text="${mh.getMaMonHoc()}"></td>
+                                                <td th:text="${mh.getTenMonHoc()}"></td>
+                                                <td th:text="${mh.getMoTa()}"></td>
                                                 <td>
-                                                    <a class="btnUpdateChuyenNganh btn btn-warning"
-                                                       th:href="@{/chuyenNganh/findCN/(id=${cn.maChuyenNganh})}">
+                                                    <a class="uBtnMH btn btn-warning"
+                                                       th:href="@{monhoc/findMH/(ma_mh=${mh.maMonHoc})}">
                                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                     </a>
                                                 </td>
@@ -145,15 +144,15 @@
                                         <div class="pull-right pagination">
                                             <ul class="pagination">
                                                 <li class="page-pre">
-                                                    <a th:href="@{/chuyenNganh(pageIndex=${currentPage - 1})}">‹</a>
+                                                    <a th:href="@{/monhoc(pageIndex=${currentPage - 1})}">‹</a>
                                                 </li>
                                                 <li class="page-number"
                                                     th:each="i : ${#numbers.sequence(0, totalPage - 1)}"
                                                     th:classappend="${currentPage}==${i}?'active':''">
-                                                    <a th:href="@{/chuyenNganh(pageIndex=${i})}" th:text="${i + 1}"></a>
+                                                    <a th:href="@{/monhoc(pageIndex=${i})}" th:text="${i + 1}"></a>
                                                 </li>
                                                 <li class="page-next">
-                                                    <a th:href="@{/chuyenNganh(pageIndex=${currentPage + 1})}">›</a>
+                                                    <a th:href="@{/monhoc(pageIndex=${currentPage + 1})}">›</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -167,42 +166,34 @@
         </div>
 
         <div class="myForm">
-            <form th:action="@{/chuyenNganh}" method="post" th:object="${chuyenNganh}">
+            <form th:action="@{/monhoc}" method="post" th:object="${monHoc}">
                 <div class="modal fade" id="myModal" role="dialog">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header" style="background-color: rgb(130, 216, 130);">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 <div class="text-center" style="color: white;">
-                                    <h3>THÔNG TIN CHUYÊN NGÀNH</h3>
+                                    <h3>THÔNG TIN MÔN HỌC</h3>
                                 </div>
                             </div>
                             <div class="modal-body">
-                                <input type="hidden" id="chuyenNganhId" value="" th:field="*{maChuyenNganh}">
-                                <div class="col-sm-12" style="padding-top: 20px;">
-                                    <div class="form-group col-sm-12">
-                                        <label>Tên chuyên ngành</label>
-                                        <div>
-                                            <input type="text" id="tenCN" value="" th:field="*{tenChuyenNganh}"
-                                                   class="form-control">
-                                        </div>
+                                <input type="hidden" id="myIdMH" value="" th:field="*{maMonHoc}">
+                                <div class="form-group">
+                                    <label>Tên môn học</label>
+                                    <div>
+                                        <input type="text" id="tenmonhoc" value="" th:field="*{tenMonHoc}"
+                                               class="form-control">
                                     </div>
-                                    <div class="form-group col-sm-12">
-                                        <label>Khoa</label>
-                                        <div>
-                                            <select id="khoaId" value="" th:field="*{khoa.maKhoa}" class="form-control">
-                                                <tr th:each="k, stt: ${khoas}">
-                                                    <option th:value="${k.getMaKhoa()}"
-                                                            th:text="${k.getTenKhoa()}"></option>
-                                                </tr>
-                                            </select>
-                                        </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Mô tả</label>
+                                    <div>
+                                        <input type="text" id="mota" value="" th:field="*{moTa}"
+                                               class="form-control">
                                     </div>
                                 </div>
 
-                                <input type="submit" value="Lưu thông tin"
-                                       class="btn btn-success"
-                                       style="margin-left: 30px;">
+                                <input type="submit" value="Lưu thông tin" class="btn btn-success">
                             </div>
                         </div>
                     </div>
