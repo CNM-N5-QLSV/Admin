@@ -62,7 +62,7 @@ $(document).ready(function () {
         $('.myForm #monHoc').val('');
         $('.myForm #soTCLT').val('');
         $('.myForm #soTCTH').val('');
-        $('.myForm #hocPhanBatBuoc').val('');
+        $('.myForm #hocPhanBatBuoc').prop("checked", false);
         $('.myForm #tenChuyenNganh').val('');
 
         $('.myForm #myModal').modal();
@@ -75,14 +75,20 @@ $(document).ready(function () {
         var href = $(this).attr('href');
 
         $.get(href, function (hocphan, status) {
-            $('.myForm #maHocPhan').val(hocphan.maHocPhan);
-            $('.myForm #monHoc').val(hocphan.monHoc.tenMonHoc);
-            $('.myForm #soTCLT').val(hocphan.soTCLT);
-            $('.myForm #soTCTH').val(hocphan.soTCTH);
-            $('.myForm #hocPhanBatBuoc').val(hocphan.hocPhanBatBuoc);
-            $('.myForm #tenChuyenNganh').val(hocphan.chuyenNganh.maChuyenNganh);
+            $('.myFormUpdate #maHocPhanUpdate').val(hocphan.maHocPhan);
+            $('.myFormUpdate #monHocUpdate').val(hocphan.monHoc.maMonHoc);
+            $('.myFormUpdate #soTCLTUpdate').val(hocphan.soTCLT);
+            $('.myFormUpdate #soTCTHUpdate').val(hocphan.soTCTH);
+
+            var hpbb = hocphan.hocPhanBatBuoc;
+            if (hpbb === true){
+                $('#hocPhanBatBuocUpdate').prop("checked", true);
+            }else {
+                $('#hocPhanBatBuocUpdate').prop("checked", false);
+            }
+            $('.myFormUpdate #tenChuyenNganhUpdate').val(hocphan.chuyenNganh.maChuyenNganh);
         });
 
-        $('.myForm #myModal').modal();
+        $('.myFormUpdate #myModalUpdate').modal();
     });
 });

@@ -93,7 +93,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <form th:action="@{khoa/deleteHocPhans}" method="get">
+                        <form th:action="@{hocphan/deleteHocPhans}" method="get">
                             <div class="sparkline13-list">
                                 <div class="sparkline13-hd">
                                     <div class="main-sparkline13-hd">
@@ -110,7 +110,8 @@
                                                data-show-columns="true" data-show-pagination-switch="true"
                                                data-show-refresh="true" data-key-events="true" data-show-toggle="true"
                                                data-resizable="true" data-cookie="true" data-cookie-id-table="saveId"
-                                               data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                                               data-show-export="true" data-click-to-select="true"
+                                               data-toolbar="#toolbar">
                                             <thead>
                                             <tr>
                                                 <th><i class="fa fa-check"></i></th>
@@ -125,18 +126,19 @@
                                             </thead>
                                             <tbody>
                                             <tr th:each="hocphan, status: ${hocphans}">
-                                                <td><input type="checkbox" class="checkbox" th:name="maHocPhan"
+                                                <td><input type="checkbox" class="checkbox" th:name="mahp"
                                                            th:value="${hocphan.getMaHocPhan()}"></td>
                                                 <td th:text="${hocphan.getMaHocPhan()}"></td>
-                                                <td th:text="${hocphan.getMonHoc()}"></td>
+                                                <td th:text="${hocphan.getMonHoc().getTenMonHoc()}"></td>
                                                 <td th:text="${hocphan.getSoTCLT()}"></td>
                                                 <td th:text="${hocphan.getSoTCTH()}"></td>
-                                                <td th:text="${hocphan.isHocPhanBatBuoc()}"></td>
-                                                <!--chuyen ngành-->
-                                                <td></td>
                                                 <td>
-                                                    <a class="uBtn btn btn-warning"
-                                                         th:href="@{findHocPhan/(id=${hocphan.maHocPhan})}">
+                                                    <input type="checkbox" disabled th:checked="${hocphan.isHocPhanBatBuoc()}">
+                                                </td>
+                                                <td th:text="${hocphan.getChuyenNganh().getTenChuyenNganh()}"></td>
+                                                <td>
+                                                    <a class="btnUpdateHocPhan btn btn-warning"
+                                                       th:href="@{hocphan/findHocPhan/(maHocPhan=${hocphan.maHocPhan})}">
                                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                     </a>
                                                 </td>
@@ -167,76 +169,154 @@
             </div>
         </div>
 
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header" style="background-color: rgb(130, 216, 130);">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <div class="text-center" style="color: white;">
-                            <h3>THÔNG TIN HỌC PHẦN</h3>
+        <div class="myForm">
+            <form th:action="@{/hocphan}" method="post" th:object="${hocPhan}">
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color: rgb(130, 216, 130);">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <div class="text-center" style="color: white;">
+                                    <h3>THÔNG TIN HỌC PHẦN</h3>
+                                </div>
+                            </div>
+
+                            <div class="modal-body">
+                                <input type="hidden" id="maHocPhan" value="" th:field="*{maHocPhan}">
+
+                                <div class="form-group">
+                                    <label for="monHoc">Môn học</label>
+                                    <div>
+                                        <select value="" id="monHoc" th:field="*{monHoc.maMonHoc}"
+                                                class="form-control">
+                                            <tr th:each="monhoc, status: ${monHocs}">
+                                                <option th:value="${monhoc.getMaMonHoc()}"
+                                                        th:text="${monhoc.getTenMonHoc()}"></option>
+                                            </tr>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="soTCLT">Số tín chỉ lý thuyết</label>
+                                    <div><input type="text" id="soTCLT" value="" th:field="*{soTCLT}"
+                                                class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="soTCTH">Số tín chỉ thực hành</label>
+                                    <div><input type="text" id="soTCTH" value="" th:field="*{soTCTH}"
+                                                class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="hocPhanBatBuoc">Học phần bắt buộc</label>
+                                    <div>
+                                        <input type="checkbox" id="hocPhanBatBuoc" value=""
+                                                th:value="true" th:field="*{hocPhanBatBuoc}">
+                                    </div>
+                                </div>
+
+                                <div class=" form-group">
+                                    <label for="tenChuyenNganh">Chuyên ngành</label>
+                                    <div>
+                                        <select value="" id="tenChuyenNganh" th:field="*{chuyenNganh.maChuyenNganh}"
+                                                class="form-control">
+                                            <tr th:each="cn, status: ${chuyenNganhs}">
+                                                <option th:value="${cn.getMaChuyenNganh()}"
+                                                        th:text="${cn.getTenChuyenNganh()}"></option>
+                                            </tr>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="submit" value="Lưu thông tin" class="btn btn-success">
+                                </div>
+                            </div>
                         </div>
                     </div>
+                </div>
+            </form>
+        </div>
 
-                    <div class="modal-body" style="padding-left: 20px; padding-right: 20px;">
-                        <form action="" id="frm">
-
-                            <div class="form-group">
-                                <label for="" class="col-3">Môn học</label>
-                                <div> <input type="text" name="" class="form-control">
+        <div class="myFormUpdate">
+            <form th:action="@{/hocphan}" method="post" th:object="${hocPhan}">
+                <div class="modal fade" id="myModalUpdate" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color: rgb(130, 216, 130);">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <div class="text-center" style="color: white;">
+                                    <h3>THÔNG TIN HỌC PHẦN</h3>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="" class="col-3">Số tín chỉ lý thuyết</label>
-                                <div> <input type="text" name="" class="form-control">
+                            <div class="modal-body">
+                                <input type="hidden" id="maHocPhanUpdate" value="" th:field="*{maHocPhan}">
+
+                                <div class="form-group">
+                                    <label for="monHocUpdate">Môn học</label>
+                                    <div>
+                                        <select value="" id="monHocUpdate" th:field="*{monHoc.maMonHoc}"
+                                                class="form-control">
+                                            <tr th:each="monhoc, status: ${monHocAll}">
+                                                <option th:value="${monhoc.getMaMonHoc()}"
+                                                        th:text="${monhoc.getTenMonHoc()}"></option>
+                                            </tr>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="soTCLTUpdate">Số tín chỉ lý thuyết</label>
+                                    <div><input type="text" id="soTCLTUpdate" value="" th:field="*{soTCLT}"
+                                                class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="soTCTHUpdate">Số tín chỉ thực hành</label>
+                                    <div><input type="text" id="soTCTHUpdate" value="" th:field="*{soTCTH}"
+                                                class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="hocPhanBatBuocUpdate">Học phần bắt buộc</label>
+                                    <div>
+                                        <input type="checkbox" id="hocPhanBatBuocUpdate" value=""
+                                               th:value="true" th:field="*{hocPhanBatBuoc}">
+                                    </div>
+                                </div>
+
+                                <div class=" form-group">
+                                    <label for="tenChuyenNganhUpdate">Chuyên ngành</label>
+                                    <div>
+                                        <select value="" id="tenChuyenNganhUpdate" th:field="*{chuyenNganh.maChuyenNganh}"
+                                                class="form-control">
+                                            <tr th:each="cn, status: ${chuyenNganhs}">
+                                                <option th:value="${cn.getMaChuyenNganh()}"
+                                                        th:text="${cn.getTenChuyenNganh()}"></option>
+                                            </tr>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="submit" value="Lưu thông tin" class="btn btn-success">
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <label for="" class="col-3">Số tín chỉ thực hành</label>
-                                <div> <input type="text" name="" class="form-control">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="" class="col-3">Học phần bắt buộc</label>
-                                <div> <input type="checkbox" name="">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="" class="col-3">Chuyên ngành</label>
-                                <div>
-                                    <select name="tenChuyenNganh" id="tenChuyenNganh" class="form-control">
-                                        <option>Công nghệ thông tin
-                                        </option>
-                                        <option>Công nghệ may - thời trang
-                                        </option>
-                                        <option>Luật
-                                        </option>
-                                        <option value="">Công nghệ cơ khí
-                                        </option>
-                                        <option value="">Khoa học cơ bản
-                                        </option>
-                                        <option value="">Công nghệ điện
-                                        </option>
-                                        <option value="">Công nghệ hóa học
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <input type="submit" value="Lưu thông tin" class="col-12 btn btn-success" name=""
-                                       id="btnLuu" data-dismiss="modal">
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
+
 
 
 <!-- jquery
