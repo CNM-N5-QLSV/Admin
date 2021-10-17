@@ -62,4 +62,14 @@ public class MonHocServiceImpl implements MonHocService {
         MonHoc monHoc = restTemplate.getForObject(url + "/" + maMonHoc, MonHoc.class);
         return monHoc;
     }
+
+    @Override
+    public List<MonHoc> getAllMonHocNotInHocPhan() {
+        ResponseEntity<List<MonHoc>> responseEntity
+                = restTemplate.exchange(url + "/notinhocphan", HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<MonHoc>>() {
+                });
+        List<MonHoc> monHocList = responseEntity.getBody();
+        return monHocList;
+    }
 }

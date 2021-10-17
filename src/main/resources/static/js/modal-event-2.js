@@ -26,7 +26,6 @@ $(document).ready(function () {
     });
 });
 /*Sự kiện Create Lớp học*/
-
 $(document).ready(function () {
     $('#createLopHocBtn').on('click', function (event) {
         event.preventDefault();
@@ -39,7 +38,6 @@ $(document).ready(function () {
 });
 
 /*Sự kiện Update Lớp học*/
-
 $(document).ready(function () {
     $('.btnUpdateLopHoc').on('click', function (event) {
         event.preventDefault();
@@ -52,5 +50,45 @@ $(document).ready(function () {
         });
 
         $('.myForm #myModal').modal();
+    });
+});
+
+/*Sự kiện Create học phần*/
+$(document).ready(function () {
+    $('#createHocPhanBtn').on('click', function (event) {
+        event.preventDefault();
+
+        $('.myForm #maHocPhan').val('0');
+        $('.myForm #monHoc').val('');
+        $('.myForm #soTCLT').val('');
+        $('.myForm #soTCTH').val('');
+        $('.myForm #hocPhanBatBuoc').prop("checked", false);
+        $('.myForm #tenChuyenNganh').val('');
+
+        $('.myForm #myModal').modal();
+    });
+});
+/*Sự kiện Update học phần*/
+$(document).ready(function () {
+    $('.btnUpdateHocPhan').on('click', function (event) {
+        event.preventDefault();
+        var href = $(this).attr('href');
+
+        $.get(href, function (hocphan, status) {
+            $('.myFormUpdate #maHocPhanUpdate').val(hocphan.maHocPhan);
+            $('.myFormUpdate #monHocUpdate').val(hocphan.monHoc.maMonHoc);
+            $('.myFormUpdate #soTCLTUpdate').val(hocphan.soTCLT);
+            $('.myFormUpdate #soTCTHUpdate').val(hocphan.soTCTH);
+
+            var hpbb = hocphan.hocPhanBatBuoc;
+            if (hpbb === true){
+                $('#hocPhanBatBuocUpdate').prop("checked", true);
+            }else {
+                $('#hocPhanBatBuocUpdate').prop("checked", false);
+            }
+            $('.myFormUpdate #tenChuyenNganhUpdate').val(hocphan.chuyenNganh.maChuyenNganh);
+        });
+
+        $('.myFormUpdate #myModalUpdate').modal();
     });
 });

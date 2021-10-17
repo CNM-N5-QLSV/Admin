@@ -1,7 +1,9 @@
 package com.example.n5_qlsv_admin.controller;
 
 import com.example.n5_qlsv_admin.model.HocPhan;
+import com.example.n5_qlsv_admin.service.ChuyenNganhService;
 import com.example.n5_qlsv_admin.service.HocPhanService;
+import com.example.n5_qlsv_admin.service.MonHocService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,12 @@ public class HocPhanController {
 
     @Autowired
     private HocPhanService hocPhanService;
+
+    @Autowired
+    private ChuyenNganhService chuyenNganhService;
+
+    @Autowired
+    private MonHocService monHocService;
 
     @GetMapping
     public String danhSachHocPhan(Model model, @RequestParam(defaultValue = "0") int pageIndex){
@@ -37,8 +45,11 @@ public class HocPhanController {
         model.addAttribute("totalPage", totalPage);
         model.addAttribute("currentPage", pageIndex);
 
+        model.addAttribute("monHocs", monHocService.getAllMonHocNotInHocPhan());
+        model.addAttribute("monHocAll", monHocService.getAllMonHoc());
+        model.addAttribute("chuyenNganhs", chuyenNganhService.getAllChuyenNganhs());
         model.addAttribute("hocphans", hocPhanService.getAllHocPhansByPageAndSize(pageIndex, pageSize));
-        model.addAttribute("hocphan", new HocPhan());
+        model.addAttribute("hocPhan", new HocPhan());
         return "hocphan";
     }
 
@@ -56,7 +67,7 @@ public class HocPhanController {
 
     @GetMapping("/deleteHocPhans")
     public String deleteHocPhan(HttpServletRequest request){
-        String[] maHocPhans = request.getParameterValues("maHocPhan");
+        String[] maHocPhans = request.getParameterValues("mahp");
         if(maHocPhans != null){
             for(String maHocPhan : maHocPhans){
                 hocPhanService.deleteHocPhans(Long.parseLong(maHocPhan));

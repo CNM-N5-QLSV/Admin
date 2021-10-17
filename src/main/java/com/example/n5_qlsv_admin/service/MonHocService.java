@@ -16,4 +16,5 @@ public interface MonHocService {
 
     MonHoc findById(long maMonHoc);
 
+    List<MonHoc> getAllMonHocNotInHocPhan();
 }

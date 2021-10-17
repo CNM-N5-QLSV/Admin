@@ -69,5 +69,4 @@ public class MonHocController {
         }
         return "redirect:/monhoc";
     }
-
 }
