@@ -186,11 +186,13 @@
                             </div>
                             <div class="modal-body">
                                 <input type="hidden" id="myIdGV" value="" th:field="*{maGV}">
-                                <div class="form-group col-sm-12">
-                                    <label>Tên giảng viên</label>
-                                    <div>
-                                        <input type="text" id="tengv" value="" th:field="*{tenGV}"
-                                               class="form-control">
+                                <div class="col-sm-12">
+                                    <div class="form-group col-sm-12">
+                                        <label>Tên giảng viên</label>
+                                        <div>
+                                            <input type="text" id="tengv" value="" th:field="*{tenGV}"
+                                                   class="form-control">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
@@ -213,26 +215,29 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12">
-                                    <label>Email</label>
-                                    <div>
-                                        <input type="text" id="email" value="" th:field="*{email}"
-                                               class="form-control">
+                                    <div class="form-group col-sm-6">
+                                        <label>Email</label>
+                                        <div>
+                                            <input type="text" id="email" value="" th:field="*{email}"
+                                                   class="form-control">
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group col-sm-12">
-                                    <label>Khoa</label>
-                                    <div>
-                                        <select id="department" value="" th:field="*{khoa.maKhoa}" class="form-control">
-                                            <tr th:each="k, stt: ${khoas}">
-                                                <option th:value="${k.getMaKhoa()}"
-                                                        th:text="${k.getTenKhoa()}"></option>
-                                            </tr>
-                                        </select>
+                                    <div class="form-group col-sm-6">
+                                        <label>Khoa</label>
+                                        <div>
+                                            <select id="department" value="" th:field="*{khoa.maKhoa}"
+                                                    class="form-control">
+                                                <tr th:each="k, stt: ${khoas}">
+                                                    <option th:value="${k.getMaKhoa()}"
+                                                            th:text="${k.getTenKhoa()}"></option>
+                                                </tr>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                            <input type="submit" value="Lưu thông tin" class="btn btn-success"
-                                   style="margin-left: 15px;">
+                                <input type="submit" value="Lưu thông tin" class="btn btn-success"
+                                       style="margin-left: 30px;">
                             </div>
                         </div>
                     </div>
