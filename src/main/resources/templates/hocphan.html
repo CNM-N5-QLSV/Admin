@@ -99,9 +99,9 @@
                                     <div class="main-sparkline13-hd">
                                         <h1></h1>
                                         <a id="createHocPhanBtn" class="btn btn-info">Thêm học phần</a>
-<!--                                        <button type="submit" class="btn btn-danger btn-custon-rounded-four">-->
-<!--                                            <span>Xóa</span>-->
-<!--                                        </button>-->
+                                        <button type="submit" class="btn btn-danger btn-custon-rounded-four">
+                                            <span>Xóa</span>
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="sparkline13-graph">
@@ -114,7 +114,7 @@
                                                data-toolbar="#toolbar">
                                             <thead>
                                             <tr>
-<!--                                                <th><i class="fa fa-check"></i></th>-->
+                                                <th><i class="fa fa-check"></i></th>
                                                 <th>Mã học phần</th>
                                                 <th>Môn học</th>
                                                 <th>Số tín chỉ lý thuyết</th>
@@ -126,8 +126,8 @@
                                             </thead>
                                             <tbody>
                                             <tr th:each="hocphan, status: ${hocphans}">
-<!--                                                <td><input type="checkbox" class="checkbox" th:name="mahp"-->
-<!--                                                           th:value="${hocphan.getMaHocPhan()}"></td>-->
+                                                <td><input type="checkbox" class="checkbox" th:name="mahp"
+                                                           th:value="${hocphan.getMaHocPhan()}"></td>
                                                 <td th:text="${hocphan.getMaHocPhan()}"></td>
                                                 <td th:text="${hocphan.getMonHoc().getTenMonHoc()}"></td>
                                                 <td th:text="${hocphan.getSoTCLT()}"></td>
