@@ -101,7 +101,8 @@
                                 <div class="sparkline13-hd">
                                     <div class="main-sparkline13-hd">
                                         <h1></h1>
-                                        <a class="btn btn-warning" th:href="@{/lophocphan}"><i class="fa fa-chevron-left"></i> Trở về lớp học phần</a>
+                                        <a class="btn btn-warning" th:href="@{/lophocphan}"><i
+                                                class="fa fa-chevron-left"></i> Trở về lớp học phần</a>
                                         <a class="btn btn-info createBtnCTLHP">Thêm chi tiết lớp học phần</a>
                                         <button type="submit" class="btn btn-danger btn-custon-rounded-four">
                                             <input type="hidden" th:name="idLHP" th:value="${idLopHocPhan}">
@@ -120,7 +121,11 @@
                                                data-toolbar="#toolbar" class="tbl">
                                             <thead>
                                             <tr>
-                                                <th><i class="fa fa-check"></i></th>
+                                                <th>
+                                                    <div align="center">
+                                                        <i class="fa fa-check"></i>
+                                                    </div>
+                                                </th>
                                                 <th>Mã chi tiết lớp học phần</th>
                                                 <th>Tiết học</th>
                                                 <th>Cơ sở</th>
@@ -165,7 +170,8 @@
         </div>
 
         <div class="myForm">
-            <form th:action="@{/lophocphan/CTLHP(idLHP=${idLopHocPhan})}" method="post" th:object="${chiTietLopHocPhan}">
+            <form th:action="@{/lophocphan/CTLHP(idLHP=${idLopHocPhan})}" method="post"
+                  th:object="${chiTietLopHocPhan}">
                 <div class="modal fade" id="myModal" role="dialog">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
