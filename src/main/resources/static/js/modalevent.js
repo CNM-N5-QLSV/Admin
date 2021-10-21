@@ -256,3 +256,46 @@ $(document).ready(function () {
     });
 });
 
+//Create chi tiet lop hoc phan
+$(document).ready(function () {
+    $('.createBtnCTLHP').on('click', function (event) {
+        event.preventDefault();
+
+        $('.myForm #myIdCTLHP').val(0);
+        $('.myForm #idlhp').val(0);
+        $('.myForm #tiethoc').val('');
+        $('.myForm #coso').val('');
+        $('.myForm #daynha').val('');
+        $('.myForm #phong').val('');
+        $('.myForm #ngaybatdau').val('');
+        $('.myForm #ngayketthuc').val('');
+        $('.myForm #gv').val('');
+        $('.myForm #mt').val('');
+
+        $('.myForm #myModal').modal();
+    });
+});
+
+//Update chi tiet lop hoc phan
+$(document).ready(function () {
+    $('.uBtnCTLHP').on('click', function (event) {
+        event.preventDefault();
+        var href = $(this).attr('href');
+
+        $.get(href, function (ctlhp, status) {
+            $('.myForm #myIdCTLHP').val(ctlhp.maCTLHP);
+            $('.myForm #idlhp').val(ctlhp.lopHocPhan.maLHP);
+            $('.myForm #tiethoc').val(ctlhp.tietHoc);
+            $('.myForm #coso').val(ctlhp.coSo);
+            $('.myForm #daynha').val(ctlhp.dayNha);
+            $('.myForm #phong').val(ctlhp.phong);
+            $('.myForm #ngaybatdau').val(ctlhp.ngayBatDau.split('T')[0]);
+            $('.myForm #ngayketthuc').val(ctlhp.ngayKetThuc.split('T')[0]);
+            $('.myForm #gv').val(ctlhp.giangVien.maGV);
+            $('.myForm #mt').val(ctlhp.moTa);
+
+        });
+
+        $('.myForm #myModal').modal();
+    });
+});

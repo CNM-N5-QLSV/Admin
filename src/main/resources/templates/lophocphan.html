@@ -147,8 +147,12 @@
                                                 <td th:text="${lhp.getMoTa()}"></td>
                                                 <td>
                                                     <a class="uBtnLHP btn btn-warning"
-                                                       th:href="@{lophocphan/findLHP/(ma_lhp=${lhp.maLHP})}">
+                                                       th:href="@{lophocphan/findLHP(ma_lhp=${lhp.maLHP})}">
                                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                    </a>
+                                                    <a class="btn btn-warning"
+                                                       th:href="@{lophocphan/CTLHP(idLHP=${lhp.maLHP})}">
+                                                        <i class="fa fa-eye"></i>
                                                     </a>
                                                 </td>
                                             </tr>
