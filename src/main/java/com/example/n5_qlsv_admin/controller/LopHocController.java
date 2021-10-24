@@ -1,13 +1,19 @@
 package com.example.n5_qlsv_admin.controller;
 
 import com.example.n5_qlsv_admin.model.LopHoc;
+import com.example.n5_qlsv_admin.model.SinhVien;
 import com.example.n5_qlsv_admin.service.LopHocService;
+import com.example.n5_qlsv_admin.service.SinhVienService;
+import com.example.n5_qlsv_admin.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/lophoc")
@@ -16,8 +22,11 @@ public class LopHocController {
     @Autowired
     private LopHocService lopHocService;
 
+    @Autowired
+    private SinhVienService sinhVienService;
+
     @GetMapping
-    public String danhSachLopHoc(Model model, @RequestParam(defaultValue = "0") int pageIndex){
+    public String danhSachLopHoc(Model model, @RequestParam(defaultValue = "0") int pageIndex, Principal principal){
         int pageSize = 5;
         int totalPage = 0;
         int count = lopHocService.getAllLopHocs().size();
@@ -38,6 +47,12 @@ public class LopHocController {
         model.addAttribute("currentPage", pageIndex);
         model.addAttribute("lophocs", lopHocService.getAllLopHocsByPageAndSize(pageIndex, pageSize));
         model.addAttribute("lophoc", new LopHoc());
+
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        SinhVien sinhVien = sinhVienService.findById(Long.valueOf(loginedUser.getUsername()));
+        String userInfo = WebUtils.toString(loginedUser);
+        model.addAttribute("tensinhvien", sinhVien.getTenSV());
+
         return "lophoc";
     }
 

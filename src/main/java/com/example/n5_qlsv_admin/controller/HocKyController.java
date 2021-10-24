@@ -1,13 +1,19 @@
 package com.example.n5_qlsv_admin.controller;
 
 import com.example.n5_qlsv_admin.model.HocKy;
+import com.example.n5_qlsv_admin.model.SinhVien;
 import com.example.n5_qlsv_admin.service.HocKyService;
+import com.example.n5_qlsv_admin.service.SinhVienService;
+import com.example.n5_qlsv_admin.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/hocKy")
@@ -16,8 +22,11 @@ public class HocKyController {
     @Autowired
     private HocKyService hocKyService;
 
+    @Autowired
+    private SinhVienService sinhVienService;
+
     @GetMapping
-    String danhSachHocKy(Model theModel, @RequestParam(defaultValue = "0") int pageIndex) {
+    String danhSachHocKy(Model theModel, @RequestParam(defaultValue = "0") int pageIndex, Principal principal) {
 
         int pageSize = 10;
         int totalPage = 0;
@@ -40,6 +49,12 @@ public class HocKyController {
 
         theModel.addAttribute("hocKys", hocKyService.getAllHocKysByPageAndSize(pageIndex, pageSize));
         theModel.addAttribute("hocKy", new HocKy());
+
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        SinhVien sinhVien = sinhVienService.findById(Long.valueOf(loginedUser.getUsername()));
+        String userInfo = WebUtils.toString(loginedUser);
+        theModel.addAttribute("tensinhvien", sinhVien.getTenSV());
+
         return "hocky";
     }
 

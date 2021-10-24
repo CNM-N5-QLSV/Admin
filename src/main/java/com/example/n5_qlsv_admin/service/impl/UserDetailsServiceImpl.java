@@ -34,7 +34,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
 
         String role = restTemplate.getForObject(url + "/" + Long.valueOf(s) + "/role", String.class);
-        System.out.println(role);
 
         List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
 

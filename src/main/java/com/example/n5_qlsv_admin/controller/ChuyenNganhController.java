@@ -1,14 +1,20 @@
 package com.example.n5_qlsv_admin.controller;
 
 import com.example.n5_qlsv_admin.model.ChuyenNganh;
+import com.example.n5_qlsv_admin.model.SinhVien;
 import com.example.n5_qlsv_admin.service.ChuyenNganhService;
 import com.example.n5_qlsv_admin.service.KhoaService;
+import com.example.n5_qlsv_admin.service.SinhVienService;
+import com.example.n5_qlsv_admin.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/chuyenNganh")
@@ -20,8 +26,11 @@ public class ChuyenNganhController {
     @Autowired
     private KhoaService khoaService;
 
+    @Autowired
+    private SinhVienService sinhVienService;
+
     @GetMapping
-    String danhSachChuyenNganh(Model theModel, @RequestParam(defaultValue = "0") int pageIndex) {
+    String danhSachChuyenNganh(Model theModel, @RequestParam(defaultValue = "0") int pageIndex, Principal principal) {
 
         int pageSize = 10;
         int totalPage = 0;
@@ -45,6 +54,12 @@ public class ChuyenNganhController {
         theModel.addAttribute("khoas", khoaService.getAllKhoas());
         theModel.addAttribute("chuyenNganhs", chuyenNganhService.getAllChuyenNganhsByPageAndSize(pageIndex, pageSize));
         theModel.addAttribute("chuyenNganh", new ChuyenNganh());
+
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        SinhVien sinhVien = sinhVienService.findById(Long.valueOf(loginedUser.getUsername()));
+        String userInfo = WebUtils.toString(loginedUser);
+        theModel.addAttribute("tensinhvien", sinhVien.getTenSV());
+
         return "chuyennganh";
     }
 
