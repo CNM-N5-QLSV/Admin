@@ -7,9 +7,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,6 +24,9 @@ public class SinhVienServiceImpl implements SinhVienService {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Value("${app.url.sinhvien}")
     private String url;
@@ -45,12 +55,12 @@ public class SinhVienServiceImpl implements SinhVienService {
     @Override
     public void saveSinhVien(SinhVien sinhVien) {
         long ma_sv = sinhVien.getMaSV();
-        if(ma_sv == 0){
+        if (ma_sv == 0) {
 //            sinhVien.setNgayVaoTruong(new Date(System.currentTimeMillis()));
-            sinhVien.setPassword("1111");
-            sinhVien.setRoleName("USER");
+            sinhVien.setPassword(passwordEncoder.encode("1111"));
+            sinhVien.setRoleName("ROLE_USER");
             restTemplate.postForEntity(url, sinhVien, String.class);
-        }else {
+        } else {
             restTemplate.put(url + "/" + ma_sv, sinhVien);
         }
     }
