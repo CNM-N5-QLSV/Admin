@@ -1,6 +1,7 @@
 package com.example.n5_qlsv_admin.model;
 
 import lombok.*;
+
 import java.util.List;
 
 @Getter
@@ -35,6 +36,4 @@ public class LopHocPhan {
     private List<ChiTietLopHocPhan> chiTietLopHocPhanList;
 
     private List<KetQuaHocTap> ketQuaHocTapList;
-
-    private List<LichHoc> lichHocList;
 }

@@ -1,10 +1,8 @@
 package com.example.n5_qlsv_admin.controller;
 
+import com.example.n5_qlsv_admin.model.ChiTietLopHocPhan;
 import com.example.n5_qlsv_admin.model.LopHocPhan;
-import com.example.n5_qlsv_admin.model.SinhVien;
-import com.example.n5_qlsv_admin.service.HocKyService;
-import com.example.n5_qlsv_admin.service.HocPhanService;
-import com.example.n5_qlsv_admin.service.LopHocPhanService;
+import com.example.n5_qlsv_admin.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +22,12 @@ public class LopHocPhanController {
 
     @Autowired
     private HocPhanService hocPhanService;
+
+    @Autowired
+    private CTLHPService ctlhpService;
+
+    @Autowired
+    private GiangVienService giangVienService;
 
     @GetMapping
     String danhSachLopHocPhan(Model theModel, @RequestParam(defaultValue = "0") int pageIndex) {
@@ -78,5 +82,36 @@ public class LopHocPhanController {
         return "redirect:/lophocphan";
     }
 
+    @GetMapping("/CTLHP")
+    String xemCTLHP(Model model, @RequestParam long idLHP){
+        model.addAttribute("CTLHPs", ctlhpService.getAllCTLHPsByLHP(idLHP));
+        model.addAttribute("chiTietLopHocPhan", new ChiTietLopHocPhan());
+        model.addAttribute("giangViens", giangVienService.getAllGiangVien());
+        model.addAttribute("idLopHocPhan", idLHP);
+        return "chitietlophocphan";
+    }
+
+    @PostMapping("/CTLHP")
+    String themCTLHP(ChiTietLopHocPhan chiTietLopHocPhan, long idLHP){
+        ctlhpService.saveCTLHP(chiTietLopHocPhan, idLHP);
+        return "redirect:/lophocphan/CTLHP?idLHP=" + idLHP;
+    }
+
+    @GetMapping(value = "/delCTLHPs")
+    String deleteCTLHPs(HttpServletRequest req, @RequestParam long idLHP) {
+        String[] ma_ctlhps = req.getParameterValues("idCTLHP");
+        if (ma_ctlhps != null) {
+            for (String ma_ctlhp : ma_ctlhps) {
+                ctlhpService.deleteCTLHP(Long.parseLong(ma_ctlhp));
+            }
+        }
+        return "redirect:/lophocphan/CTLHP?idLHP=" + idLHP;
+    }
+
+    @ResponseBody
+    @GetMapping("/findCTLHP")
+    ChiTietLopHocPhan findCTLHP(long ma_ctlhp){
+        return ctlhpService.findById(ma_ctlhp);
+    }
 }
 

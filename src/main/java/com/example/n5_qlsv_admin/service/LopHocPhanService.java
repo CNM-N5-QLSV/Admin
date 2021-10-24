@@ -1,7 +1,7 @@
 package com.example.n5_qlsv_admin.service;
 
-import com.example.n5_qlsv_admin.model.LopHocPhan;
 
+import com.example.n5_qlsv_admin.model.LopHocPhan;
 
 import java.util.List;
 
