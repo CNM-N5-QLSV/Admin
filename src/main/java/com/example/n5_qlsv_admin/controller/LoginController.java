@@ -1,6 +1,9 @@
 package com.example.n5_qlsv_admin.controller;
 
+import com.example.n5_qlsv_admin.model.SinhVien;
+import com.example.n5_qlsv_admin.service.SinhVienService;
 import com.example.n5_qlsv_admin.util.WebUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
@@ -14,13 +17,17 @@ import java.security.Principal;
 @RequestMapping("/")
 public class LoginController {
 
+    @Autowired
+    private SinhVienService sinhVienService;
+
     @GetMapping
     public String adminPage(Model model, Principal principal) {
 
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
-
+        SinhVien sinhVien = sinhVienService.findById(Long.valueOf(loginedUser.getUsername()));
         String userInfo = WebUtils.toString(loginedUser);
         model.addAttribute("userInfo", userInfo);
+        model.addAttribute("tensinhvien", sinhVien.getTenSV());
 
         return "index";
     }
