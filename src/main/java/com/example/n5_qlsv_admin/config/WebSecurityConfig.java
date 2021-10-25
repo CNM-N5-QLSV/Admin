@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -37,8 +38,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //Các trang không yêu cầu login
                 .antMatchers("/login", "/logout").permitAll()
 
+                //Các static không cần login
+                .antMatchers("/static/css/**").permitAll()
+                .antMatchers("/static/**").permitAll()
+
                 //Trang chỉ dành cho admin
-                .antMatchers("/**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/*").access("hasRole('ROLE_ADMIN')")
 
                 //Trang không đúng role sẽ bắt lỗi
                 .and()

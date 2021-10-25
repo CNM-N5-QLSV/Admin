@@ -40,7 +40,7 @@ public class LoginController {
 
     @GetMapping(value = "/logoutSuccessful")
     public String logoutSuccessfulPage(Model model) {
-        model.addAttribute("title", "Logout");
+        model.addAttribute("messege", "Sai tài khoản hoặc mật khẩu");
         return "login";
     }
 
@@ -68,10 +68,12 @@ public class LoginController {
 
             String userInfo = WebUtils.toString(loginedUser);
 
-            model.addAttribute("userInfo", userInfo);
+//            model.addAttribute("userInfo", userInfo);
 
-            String message = "Hi " + principal.getName() //
-                    + "<br> You do not have permission to access this page!";
+            SinhVien sinhVien = sinhVienService.findById(Long.valueOf(principal.getName()));
+
+                String message = "<b style='font-size: 20px;'>Xin lỗi</b> <br><b style='color: red; font-size: 25px'>" + sinhVien.getTenSV()
+                    + "</b><br> <p style='font-size: 20px;'>Bạn không có quyền truy cập vào trang này!</p>";
             model.addAttribute("message", message);
         }
 
