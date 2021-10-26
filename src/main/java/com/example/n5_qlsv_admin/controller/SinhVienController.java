@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
 @Controller
@@ -33,7 +34,8 @@ public class SinhVienController {
     private LopHocService lopHocService;
 
     @GetMapping
-    String danhSachSinhVien(Model theModel, @RequestParam(defaultValue = "0") int pageIndex, Principal principal) {
+    String danhSachSinhVien(Model theModel, @RequestParam(defaultValue = "0") int pageIndex,
+                            Principal principal, HttpSession session) {
 
         int pageSize = 5;
         int totalPage = 0;
@@ -59,11 +61,6 @@ public class SinhVienController {
         theModel.addAttribute("khoas", khoaService.getAllKhoas());
         theModel.addAttribute("lopHocs", lopHocService.getAllLopHocs());
         theModel.addAttribute("sinhVien", new SinhVien());
-
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-        SinhVien sinhVien = sinhVienService.findById(Long.valueOf(loginedUser.getUsername()));
-        String userInfo = WebUtils.toString(loginedUser);
-        theModel.addAttribute("tensinhvien", sinhVien.getTenSV());
 
         return "sinhvien";
     }

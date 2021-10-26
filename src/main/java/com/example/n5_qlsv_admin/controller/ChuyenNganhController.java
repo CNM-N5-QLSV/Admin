@@ -55,11 +55,6 @@ public class ChuyenNganhController {
         theModel.addAttribute("chuyenNganhs", chuyenNganhService.getAllChuyenNganhsByPageAndSize(pageIndex, pageSize));
         theModel.addAttribute("chuyenNganh", new ChuyenNganh());
 
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-        SinhVien sinhVien = sinhVienService.findById(Long.valueOf(loginedUser.getUsername()));
-        String userInfo = WebUtils.toString(loginedUser);
-        theModel.addAttribute("tensinhvien", sinhVien.getTenSV());
-
         return "chuyennganh";
     }
 

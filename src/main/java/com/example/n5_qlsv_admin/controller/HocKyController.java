@@ -50,11 +50,6 @@ public class HocKyController {
         theModel.addAttribute("hocKys", hocKyService.getAllHocKysByPageAndSize(pageIndex, pageSize));
         theModel.addAttribute("hocKy", new HocKy());
 
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-        SinhVien sinhVien = sinhVienService.findById(Long.valueOf(loginedUser.getUsername()));
-        String userInfo = WebUtils.toString(loginedUser);
-        theModel.addAttribute("tensinhvien", sinhVien.getTenSV());
-
         return "hocky";
     }
 

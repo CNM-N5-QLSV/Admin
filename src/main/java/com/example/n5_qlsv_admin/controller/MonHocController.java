@@ -52,11 +52,6 @@ public class MonHocController {
 
         theModel.addAttribute("monHoc", new MonHoc());
 
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-        SinhVien sinhVien = sinhVienService.findById(Long.valueOf(loginedUser.getUsername()));
-        String userInfo = WebUtils.toString(loginedUser);
-        theModel.addAttribute("tensinhvien", sinhVien.getTenSV());
-
         return "monhoc";
     }
 

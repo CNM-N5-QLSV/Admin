@@ -48,11 +48,6 @@ public class LopHocController {
         model.addAttribute("lophocs", lopHocService.getAllLopHocsByPageAndSize(pageIndex, pageSize));
         model.addAttribute("lophoc", new LopHoc());
 
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-        SinhVien sinhVien = sinhVienService.findById(Long.valueOf(loginedUser.getUsername()));
-        String userInfo = WebUtils.toString(loginedUser);
-        model.addAttribute("tensinhvien", sinhVien.getTenSV());
-
         return "lophoc";
     }
 

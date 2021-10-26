@@ -50,11 +50,6 @@ public class KhoaController {
         model.addAttribute("khoas", khoaService.getAllKhoasByPageAndSize(pageIndex, pageSize));
         model.addAttribute("khoa", new Khoa());
 
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-        SinhVien sinhVien = sinhVienService.findById(Long.valueOf(loginedUser.getUsername()));
-        String userInfo = WebUtils.toString(loginedUser);
-        model.addAttribute("tensinhvien", sinhVien.getTenSV());
-
         return "khoa";
     }
 

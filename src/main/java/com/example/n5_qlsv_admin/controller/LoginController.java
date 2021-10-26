@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
 @Controller
@@ -21,13 +22,13 @@ public class LoginController {
     private SinhVienService sinhVienService;
 
     @GetMapping
-    public String adminPage(Model model, Principal principal) {
+    public String adminPage(Model model, Principal principal, HttpSession session) {
 
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
         SinhVien sinhVien = sinhVienService.findById(Long.valueOf(loginedUser.getUsername()));
         String userInfo = WebUtils.toString(loginedUser);
         model.addAttribute("userInfo", userInfo);
-        model.addAttribute("tensinhvien", sinhVien.getTenSV());
+        session.setAttribute("tensinhvien", sinhVien.getTenSV());
 
         return "index";
     }

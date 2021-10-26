@@ -60,11 +60,6 @@ public class HocPhanController {
         model.addAttribute("hocphans", hocPhanService.getAllHocPhansByPageAndSize(pageIndex, pageSize));
         model.addAttribute("hocPhan", new HocPhan());
 
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-        SinhVien sinhVien = sinhVienService.findById(Long.valueOf(loginedUser.getUsername()));
-        String userInfo = WebUtils.toString(loginedUser);
-        model.addAttribute("tensinhvien", sinhVien.getTenSV());
-
         return "hocphan";
     }
 

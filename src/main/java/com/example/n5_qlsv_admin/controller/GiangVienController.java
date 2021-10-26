@@ -57,11 +57,6 @@ public class GiangVienController {
 
         theModel.addAttribute("giangVien", new GiangVien());
 
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-        SinhVien sinhVien = sinhVienService.findById(Long.valueOf(loginedUser.getUsername()));
-        String userInfo = WebUtils.toString(loginedUser);
-        theModel.addAttribute("tensinhvien", sinhVien.getTenSV());
-
         return "giangvien";
     }
 
