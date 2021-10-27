@@ -7,6 +7,9 @@ $(document).ready(function () {
             $('.myForm #myId').val(sv.maSV);
             $('.myForm #tensv').val(sv.tenSV);
             $('.myForm #cmnd').val(sv.soCMND);
+            $('.myForm #nvt').val(sv.ngayVaoTruong.split('T')[0]);
+            $('.myForm #myPass').val(sv.password);
+            $('.myForm #myRole').val(sv.roleName);
 
             var gt = sv.gioiTinh;
             if (gt === true) {
@@ -17,16 +20,32 @@ $(document).ready(function () {
 
             $('.myForm #bdt').val(sv.bacDaoTao);
             $('.myForm #phone').val(sv.soDienThoai);
-            $('.myForm #chuyenN').val(sv.chuyenNganh.maChuyenNganh);
-            $('.myForm #classRoom').val(sv.lopHoc.maLop);
-            $('.myForm #department').val(sv.khoa.maKhoa);
             $('.myForm #myEmail').val(sv.email);
             $('.myForm #address').val(sv.diaChi);
-            $('.myForm #birthDate').val(sv.ngaySinh.split('T')[0]);
 
-            $('.myForm #nvt').val(sv.ngayVaoTruong.split('T')[0]);
-            $('.myForm #myPass').val(sv.password);
-            $('.myForm #myRole').val(sv.roleName);
+            if($('.myForm #birthDate').val(sv.ngaySinh) != null){
+                $('.myForm #birthDate').val(sv.ngaySinh.split('T')[0]);
+            }else{
+                $('.myForm #birthDate').val("");
+            }
+
+            if($('.myForm #chuyenN').val(sv.chuyenNganh.maChuyenNganh) != null){
+                $('.myForm #chuyenN').val(sv.chuyenNganh.maChuyenNganh);
+            }else {
+                $('.myForm #chuyenN').val("");
+            }
+
+            if($('.myForm #classRoom').val(sv.lopHoc.maLop) != null){
+                $('.myForm #classRoom').val(sv.lopHoc.maLop);
+            }else {
+                $('.myForm #classRoom').val("");
+            }
+
+            if($('.myForm #department').val(sv.khoa.maKhoa) != null){
+                $('.myForm #department').val(sv.khoa.maKhoa);
+            }else{
+                $('.myForm #department').val("");
+            }
         });
 
         $('.myForm #myModal').modal();
@@ -37,7 +56,7 @@ $(document).ready(function () {
     $('.createBtn').on('click', function (event) {
         event.preventDefault();
 
-        $('.myForm #myId').val('0');
+        $('.myForm #myId').val('');
         $('.myForm #tensv').val('');
         $('.myForm #cmnd').val('');
 
