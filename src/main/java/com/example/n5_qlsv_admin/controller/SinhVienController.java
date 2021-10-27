@@ -93,6 +93,6 @@ public class SinhVienController {
                 sinhVienService.deleteSinhVien(Long.parseLong(ma_sv));
             }
         }
-        return "redirect:/";
+        return "redirect:/sinhVien";
     }
 }

@@ -159,7 +159,7 @@
                                                 <td th:text="${sv.getChuyenNganh().getTenChuyenNganh()}"></td>
                                                 <td>
                                                     <a class="uBtn btn btn-warning"
-                                                       th:href="@{findSV/(id=${sv.maSV})}">
+                                                       th:href="@{/sinhVien/findSV(id=${sv.maSV})}">
                                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                     </a>
                                                 </td>
@@ -242,9 +242,18 @@
                                     <div class="form-group col-sm-3">
                                         <label>Bậc đào tạo</label>
                                         <div>
-                                            <input type="text" id="bdt" value="" th:field="*{bacDaoTao}"
-                                                   placeholder="Cao Đẳng, Đại Học, ..."
-                                                   class="form-control">
+<!--                                            <input type="text" id="bdt" value="" th:field="*{bacDaoTao}"-->
+<!--                                                   placeholder="Cao Đẳng, Đại Học, ..."-->
+<!--                                                   class="form-control">-->
+                                            <select value="" id="bdt" th:field="*{bacDaoTao}" class="form-control">
+                                                <tr>
+                                                    <option value="Đại học">Đại học</option>
+                                                    <option value="Cao đẳng">Cao đẳng</option>
+                                                    <option value="Trung cấp">Trung cấp</option>
+                                                    <option value="Thạc sĩ">Thạc sĩ</option>
+                                                    <option value="Tiến sĩ">Tiến sĩ</option>
+                                                </tr>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-3">
