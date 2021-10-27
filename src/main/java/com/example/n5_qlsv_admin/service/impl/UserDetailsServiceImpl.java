@@ -27,13 +27,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
 
-        SinhVien sinhVien = restTemplate.getForObject(url + "/" + Long.valueOf(s), SinhVien.class);
+        SinhVien sinhVien = restTemplate.getForObject(url + "/" + s, SinhVien.class);
 
         if (sinhVien == null) {
             throw new UsernameNotFoundException("Sinh vien " + sinhVien + " was not found in the database");
         }
 
-        String role = restTemplate.getForObject(url + "/" + Long.valueOf(s) + "/role", String.class);
+        String role = restTemplate.getForObject(url + "/" + s + "/role", String.class);
 
         List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
 

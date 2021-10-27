@@ -5,10 +5,7 @@ import com.example.n5_qlsv_admin.service.ChuyenNganhService;
 import com.example.n5_qlsv_admin.service.KhoaService;
 import com.example.n5_qlsv_admin.service.LopHocService;
 import com.example.n5_qlsv_admin.service.SinhVienService;
-import com.example.n5_qlsv_admin.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -81,7 +78,7 @@ public class SinhVienController {
 
     @ResponseBody
     @GetMapping("/findSV")
-    SinhVien findSV(long id){
+    SinhVien findSV(String id){
         return sinhVienService.findById(id);
     }
 
@@ -90,7 +87,7 @@ public class SinhVienController {
         String[] ma_svs = req.getParameterValues("idSV");
         if (ma_svs != null) {
             for (String ma_sv : ma_svs) {
-                sinhVienService.deleteSinhVien(Long.parseLong(ma_sv));
+                sinhVienService.deleteSinhVien(ma_sv);
             }
         }
         return "redirect:/sinhVien";

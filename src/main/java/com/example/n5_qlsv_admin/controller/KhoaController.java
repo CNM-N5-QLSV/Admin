@@ -2,13 +2,8 @@ package com.example.n5_qlsv_admin.controller;
 
 
 import com.example.n5_qlsv_admin.model.Khoa;
-import com.example.n5_qlsv_admin.model.SinhVien;
 import com.example.n5_qlsv_admin.service.KhoaService;
-import com.example.n5_qlsv_admin.service.SinhVienService;
-import com.example.n5_qlsv_admin.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +17,6 @@ public class KhoaController {
 
     @Autowired
     private KhoaService khoaService;
-
-    @Autowired
-    private SinhVienService sinhVienService;
 
     @GetMapping
     public String danhSachKhoa(Model model, @RequestParam(defaultValue = "0") int pageIndex, Principal principal){

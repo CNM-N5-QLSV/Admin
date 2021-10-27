@@ -25,7 +25,7 @@ public class LoginController {
     public String adminPage(Model model, Principal principal, HttpSession session) {
 
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
-        SinhVien sinhVien = sinhVienService.findById(Long.valueOf(loginedUser.getUsername()));
+        SinhVien sinhVien = sinhVienService.findById(loginedUser.getUsername());
         String userInfo = WebUtils.toString(loginedUser);
         model.addAttribute("userInfo", userInfo);
         session.setAttribute("tensinhvien", sinhVien.getTenSV());
@@ -65,13 +65,13 @@ public class LoginController {
     public String accessDenied(Model model, Principal principal) {
 
         if (principal != null) {
-            User loginedUser = (User) ((Authentication) principal).getPrincipal();
+//            User loginedUser = (User) ((Authentication) principal).getPrincipal();
 
-            String userInfo = WebUtils.toString(loginedUser);
+//            String userInfo = WebUtils.toString(loginedUser);
 
 //            model.addAttribute("userInfo", userInfo);
 
-            SinhVien sinhVien = sinhVienService.findById(Long.valueOf(principal.getName()));
+            SinhVien sinhVien = sinhVienService.findById(principal.getName());
 
                 String message = "<b style='font-size: 20px;'>Xin lỗi</b> <br><b style='color: red; font-size: 25px'>" + sinhVien.getTenSV()
                     + "</b><br> <p style='font-size: 20px;'>Bạn không có quyền truy cập vào trang này!</p>";

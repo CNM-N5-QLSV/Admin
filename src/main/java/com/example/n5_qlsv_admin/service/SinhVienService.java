@@ -13,7 +13,7 @@ public interface SinhVienService {
 
     void saveSinhVien(SinhVien sinhVien);
 
-    void deleteSinhVien(long ma_sv);
+    void deleteSinhVien(String ma_sv);
 
-    SinhVien findById(long ma_sv);
+    SinhVien findById(String ma_sv);
 }

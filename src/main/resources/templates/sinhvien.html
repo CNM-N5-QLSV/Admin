@@ -154,9 +154,12 @@
                                                 <td th:text="${#dates.format(sv.getNgayVaoTruong(), 'dd/MM/yyyy')}"></td>
                                                 <td th:text="${sv.getSoCMND()}"></td>
                                                 <td th:text="${sv.getSoDienThoai()}"></td>
-                                                <td th:text="${sv.getKhoa().getTenKhoa()}"></td>
-                                                <td th:text="${sv.getLopHoc().getTenLop()}"></td>
-                                                <td th:text="${sv.getChuyenNganh().getTenChuyenNganh()}"></td>
+                                                <td th:if="${sv.getKhoa() != null}" th:text="${sv.getKhoa().getTenKhoa()}"></td>
+                                                <td th:if="${sv.getLopHoc() != null}" th:text="${sv.getLopHoc().getTenLop()}"></td>
+                                                <td th:if="${sv.getChuyenNganh() != null}" th:text="${sv.getChuyenNganh().getTenChuyenNganh()}"></td>
+                                                <td th:if="${sv.getKhoa() == null}"></td>
+                                                <td th:if="${sv.getLopHoc() == null}"></td>
+                                                <td th:if="${sv.getChuyenNganh() == null}"></td>
                                                 <td>
                                                     <a class="uBtn btn btn-warning"
                                                        th:href="@{/sinhVien/findSV(id=${sv.maSV})}">

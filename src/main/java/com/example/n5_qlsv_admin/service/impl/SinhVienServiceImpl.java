@@ -54,8 +54,8 @@ public class SinhVienServiceImpl implements SinhVienService {
 
     @Override
     public void saveSinhVien(SinhVien sinhVien) {
-        long ma_sv = sinhVien.getMaSV();
-        if (ma_sv == 0) {
+        String ma_sv = sinhVien.getMaSV();
+        if (ma_sv == "") {
 //            sinhVien.setNgayVaoTruong(new Date(System.currentTimeMillis()));
             sinhVien.setPassword(passwordEncoder.encode("1111"));
             sinhVien.setRoleName("ROLE_USER");
@@ -66,12 +66,12 @@ public class SinhVienServiceImpl implements SinhVienService {
     }
 
     @Override
-    public void deleteSinhVien(long ma_sv) {
+    public void deleteSinhVien(String ma_sv) {
         restTemplate.delete(url + "/" + ma_sv);
     }
 
     @Override
-    public SinhVien findById(long ma_sv) {
+    public SinhVien findById(String ma_sv) {
         SinhVien sinhVien = restTemplate.getForObject(url + "/" + ma_sv, SinhVien.class);
         return sinhVien;
     }
