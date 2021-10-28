@@ -23,29 +23,16 @@ $(document).ready(function () {
             $('.myForm #myEmail').val(sv.email);
             $('.myForm #address').val(sv.diaChi);
 
-            if($('.myForm #birthDate').val(sv.ngaySinh) != null){
+            if(sv.ngaySinh != null){
                 $('.myForm #birthDate').val(sv.ngaySinh.split('T')[0]);
             }else{
                 $('.myForm #birthDate').val("");
             }
 
-            if($('.myForm #chuyenN').val(sv.chuyenNganh.maChuyenNganh) != null){
-                $('.myForm #chuyenN').val(sv.chuyenNganh.maChuyenNganh);
-            }else {
-                $('.myForm #chuyenN').val("");
-            }
+            $('.myForm #chuyenN').val(sv.chuyenNganh.maChuyenNganh);
+            $('.myForm #classRoom').val(sv.lopHoc.maLop);
+            $('.myForm #department').val(sv.khoa.maKhoa);
 
-            if($('.myForm #classRoom').val(sv.lopHoc.maLop) != null){
-                $('.myForm #classRoom').val(sv.lopHoc.maLop);
-            }else {
-                $('.myForm #classRoom').val("");
-            }
-
-            if($('.myForm #department').val(sv.khoa.maKhoa) != null){
-                $('.myForm #department').val(sv.khoa.maKhoa);
-            }else{
-                $('.myForm #department').val("");
-            }
         });
 
         $('.myForm #myModal').modal();
@@ -66,9 +53,9 @@ $(document).ready(function () {
 
         $('.myForm #bdt').val('');
         $('.myForm #phone').val('');
-        $('.myForm #chuyenN').val('');
-        $('.myForm #classRoom').val('');
-        $('.myForm #department').val('');
+        $('.myForm #chuyenN').val(0);
+        $('.myForm #classRoom').val(0);
+        $('.myForm #department').val(0);
         $('.myForm #myEmail').val('');
         $('.myForm #address').val('');
         $('.myForm #birthDate').val('');
