@@ -1,7 +1,7 @@
 package com.example.n5_qlsv_admin.controller;
 
 import com.example.n5_qlsv_admin.model.SinhVien;
-import com.example.n5_qlsv_admin.service.SinhVienService;
+import com.example.n5_qlsv_admin.service.*;
 import com.example.n5_qlsv_admin.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -21,6 +21,24 @@ public class LoginController {
     @Autowired
     private SinhVienService sinhVienService;
 
+    @Autowired
+    private HocKyService hocKyService;
+
+    @Autowired
+    private HocPhanService hocPhanService;
+
+    @Autowired
+    private LopHocPhanService lopHocPhanService;
+
+    @Autowired
+    private MonHocService monHocService;
+
+    @Autowired
+    private KhoaService khoaService;
+
+    @Autowired
+    private ChuyenNganhService chuyenNganhService;
+
     @GetMapping
     public String adminPage(Model model, Principal principal, HttpSession session) {
 
@@ -28,6 +46,16 @@ public class LoginController {
         SinhVien sinhVien = sinhVienService.findById(loginedUser.getUsername());
         String userInfo = WebUtils.toString(loginedUser);
         model.addAttribute("userInfo", userInfo);
+
+        //Thống kê
+        model.addAttribute("slSinhVien", sinhVienService.getAllSinhViens().size());
+        model.addAttribute("slHocKy", hocKyService.getAllHocKys().size());
+        model.addAttribute("slHocPhan", hocPhanService.getAllHocPhans().size());
+        model.addAttribute("slLHP", lopHocPhanService.getAllLopHocPhans().size());
+        model.addAttribute("slMonHoc", monHocService.getAllMonHoc().size());
+        model.addAttribute("slKhoa", khoaService.getAllKhoas().size());
+        model.addAttribute("slChuyenN", chuyenNganhService.getAllChuyenNganhs().size());
+
         session.setAttribute("tensinhvien", sinhVien.getTenSV());
 
         return "index";

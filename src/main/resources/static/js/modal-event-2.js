@@ -58,12 +58,12 @@ $(document).ready(function () {
     $('#createHocPhanBtn').on('click', function (event) {
         event.preventDefault();
 
-        $('.myForm #maHocPhan').val('0');
-        $('.myForm #monHoc').val('');
+        $('.myForm #maHocPhan').val('');
+        $('.myForm #monHoc').val(0);
         $('.myForm #soTCLT').val('');
         $('.myForm #soTCTH').val('');
         $('.myForm #hocPhanBatBuoc').prop("checked", false);
-        $('.myForm #tenChuyenNganh').val('');
+        $('.myForm #tenChuyenNganh').val(0);
 
         $('.myForm #myModal').modal();
     });
@@ -76,7 +76,6 @@ $(document).ready(function () {
 
         $.get(href, function (hocphan, status) {
             $('.myFormUpdate #maHocPhanUpdate').val(hocphan.maHocPhan);
-            $('.myFormUpdate #monHocUpdate').val(hocphan.monHoc.maMonHoc);
             $('.myFormUpdate #soTCLTUpdate').val(hocphan.soTCLT);
             $('.myFormUpdate #soTCTHUpdate').val(hocphan.soTCTH);
 
@@ -86,7 +85,18 @@ $(document).ready(function () {
             }else {
                 $('#hocPhanBatBuocUpdate').prop("checked", false);
             }
-            $('.myFormUpdate #tenChuyenNganhUpdate').val(hocphan.chuyenNganh.maChuyenNganh);
+
+            if(hocphan.monHoc === null){
+                $('.myFormUpdate #monHocUpdate').val(0);
+            }else {
+                $('.myFormUpdate #monHocUpdate').val(hocphan.monHoc.maMonHoc);
+            }
+
+            if(hocphan.chuyenNganh === null){
+                $('.myFormUpdate #tenChuyenNganhUpdate').val(0);
+            }else {
+                $('.myFormUpdate #tenChuyenNganhUpdate').val(hocphan.chuyenNganh.maChuyenNganh);
+            }
         });
 
         $('.myFormUpdate #myModalUpdate').modal();

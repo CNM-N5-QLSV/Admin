@@ -16,4 +16,6 @@ public interface SinhVienService {
     void deleteSinhVien(String ma_sv);
 
     SinhVien findById(String ma_sv);
+
+    List<SinhVien> search(String keyword);
 }

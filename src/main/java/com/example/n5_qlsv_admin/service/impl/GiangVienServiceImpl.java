@@ -46,9 +46,15 @@ public class GiangVienServiceImpl implements GiangVienService {
     public void saveGiangVien(GiangVien giangVien) {
         long maGiangVien = giangVien.getMaGV();
         if(maGiangVien == 0){
+            if(giangVien.getKhoa().getMaKhoa() == 0){
+                giangVien.setKhoa(null);
+            }
             restTemplate.postForEntity(url, giangVien, String.class);
         }else
         {
+            if(giangVien.getKhoa().getMaKhoa() == 0){
+                giangVien.setKhoa(null);
+            }
             restTemplate.put(url + "/" + maGiangVien, giangVien);
         }
     }

@@ -111,12 +111,10 @@
 
                                 <div class="sparkline13-graph">
                                     <div class="datatable-dashv1-list custom-datatable-overright">
-                                        <table id="table" data-toggle="table" data-search="true"
-                                               data-show-columns="true" data-show-pagination-switch="true"
-                                               data-show-refresh="true" data-key-events="true" data-show-toggle="true"
-                                               data-resizable="true" data-cookie="true" data-cookie-id-table="saveId"
-                                               data-show-export="true" data-click-to-select="true"
-                                               data-toolbar="#toolbar">
+                                        <table id="table" data-toggle="table"
+                                               data-key-events="true" data-resizable="true" data-cookie="true"
+                                               data-cookie-id-table="saveId" data-show-export="true"
+                                               data-click-to-select="true" data-toolbar="#toolbar" class="tbl">
                                             <thead>
                                             <tr>
                                                 <th>
@@ -124,6 +122,7 @@
                                                         <i class="fa fa-check"></i>
                                                     </div>
                                                 </th>
+                                                <th>STT</th>
                                                 <th>Mã chuyên ngành</th>
                                                 <th>Tên chuyên ngành</th>
                                                 <th>Khoa</th>
@@ -134,12 +133,13 @@
                                             <tr th:each="cn, stt: ${chuyenNganhs}">
                                                 <td><input type="checkbox" class="checkbox" th:name="idCN"
                                                            th:value="${cn.getMaChuyenNganh()}"></td>
+                                                <td th:text="${stt.index + 1}"></td>
                                                 <td th:text="${cn.getMaChuyenNganh()}"></td>
                                                 <td th:text="${cn.getTenChuyenNganh()}"></td>
                                                 <td th:text="${cn.getKhoa().getTenKhoa()}"></td>
                                                 <td>
                                                     <a class="btnUpdateChuyenNganh btn btn-warning"
-                                                       th:href="@{/chuyenNganh/findCN/(id=${cn.maChuyenNganh})}">
+                                                       th:href="@{/chuyenNganh/findCN(id=${cn.maChuyenNganh})}">
                                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                     </a>
                                                 </td>

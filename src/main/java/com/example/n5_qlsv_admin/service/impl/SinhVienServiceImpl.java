@@ -59,8 +59,26 @@ public class SinhVienServiceImpl implements SinhVienService {
 //            sinhVien.setNgayVaoTruong(new Date(System.currentTimeMillis()));
             sinhVien.setPassword(passwordEncoder.encode("1111"));
             sinhVien.setRoleName("ROLE_USER");
+            if(sinhVien.getChuyenNganh().getMaChuyenNganh() == 0){
+                sinhVien.setChuyenNganh(null);
+            }
+            if(sinhVien.getLopHoc().getMaLop() == 0){
+                sinhVien.setLopHoc(null);
+            }
+            if(sinhVien.getKhoa().getMaKhoa() == 0){
+                sinhVien.setKhoa(null);
+            }
             restTemplate.postForEntity(url, sinhVien, String.class);
         } else {
+            if(sinhVien.getChuyenNganh().getMaChuyenNganh() == 0){
+                sinhVien.setChuyenNganh(null);
+            }
+            if(sinhVien.getLopHoc().getMaLop() == 0){
+                sinhVien.setLopHoc(null);
+            }
+            if(sinhVien.getKhoa().getMaKhoa() == 0){
+                sinhVien.setKhoa(null);
+            }
             restTemplate.put(url + "/" + ma_sv, sinhVien);
         }
     }
@@ -74,5 +92,15 @@ public class SinhVienServiceImpl implements SinhVienService {
     public SinhVien findById(String ma_sv) {
         SinhVien sinhVien = restTemplate.getForObject(url + "/" + ma_sv, SinhVien.class);
         return sinhVien;
+    }
+
+    @Override
+    public List<SinhVien> search(String keyword) {
+        ResponseEntity<List<SinhVien>> responseEntity
+                = restTemplate.exchange(url + "/keyword=" + keyword, HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<SinhVien>>() {
+                });
+        List<SinhVien> sinhVienList = responseEntity.getBody();
+        return sinhVienList;
     }
 }

@@ -11,8 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.security.Principal;
 
 @Controller
 @RequestMapping("/sinhVien")
@@ -31,8 +29,7 @@ public class SinhVienController {
     private LopHocService lopHocService;
 
     @GetMapping
-    String danhSachSinhVien(Model theModel, @RequestParam(defaultValue = "0") int pageIndex,
-                            Principal principal, HttpSession session) {
+    String danhSachSinhVien(Model theModel, @RequestParam(defaultValue = "0") int pageIndex) {
 
         int pageSize = 5;
         int totalPage = 0;

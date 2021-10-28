@@ -71,7 +71,7 @@ public class HocPhanController {
 
     @ResponseBody
     @GetMapping("/findHocPhan")
-    public HocPhan findHocPhan(long maHocPhan){
+    public HocPhan findHocPhan(String maHocPhan){
         return hocPhanService.findById(maHocPhan);
     }
 
@@ -80,7 +80,7 @@ public class HocPhanController {
         String[] maHocPhans = request.getParameterValues("mahp");
         if(maHocPhans != null){
             for(String maHocPhan : maHocPhans){
-                hocPhanService.deleteHocPhans(Long.parseLong(maHocPhan));
+                hocPhanService.deleteHocPhans(maHocPhan);
             }
         }
         return "redirect:/hocphan";

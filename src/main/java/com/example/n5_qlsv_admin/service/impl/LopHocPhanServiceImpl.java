@@ -47,8 +47,20 @@ public class LopHocPhanServiceImpl implements LopHocPhanService {
     public void saveLopHocPhan(LopHocPhan lopHocPhan) {
         long maLopHocPhan = lopHocPhan.getMaLHP();
         if(maLopHocPhan == 0){
+            if(lopHocPhan.getHocKy().getMaHK() == 0){
+                lopHocPhan.setHocKy(null);
+            }
+            if(lopHocPhan.getHocPhan().getMaHocPhan() == ""){
+                lopHocPhan.setHocPhan(null);
+            }
             restTemplate.postForEntity(url, lopHocPhan, String.class);
         }else {
+            if(lopHocPhan.getHocKy().getMaHK() == 0){
+                lopHocPhan.setHocKy(null);
+            }
+            if(lopHocPhan.getHocPhan().getMaHocPhan() == ""){
+                lopHocPhan.setHocPhan(null);
+            }
             restTemplate.put(url + "/" + maLopHocPhan, lopHocPhan);
         }
     }
