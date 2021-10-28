@@ -236,18 +236,11 @@
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-3">
-                                        <label>Ngày vào trường</label>
-                                        <div>
-                                            <input type="date" id="nvt" value="" th:field="*{{ngayVaoTruong}}"
-                                                   class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-sm-3">
                                         <label>Bậc đào tạo</label>
                                         <div>
-<!--                                            <input type="text" id="bdt" value="" th:field="*{bacDaoTao}"-->
-<!--                                                   placeholder="Cao Đẳng, Đại Học, ..."-->
-<!--                                                   class="form-control">-->
+                                            <!--                                            <input type="text" id="bdt" value="" th:field="*{bacDaoTao}"-->
+                                            <!--                                                   placeholder="Cao Đẳng, Đại Học, ..."-->
+                                            <!--                                                   class="form-control">-->
                                             <select value="" id="bdt" th:field="*{bacDaoTao}" class="form-control">
                                                 <tr>
                                                     <option value="Đại học">Đại học</option>
@@ -257,6 +250,13 @@
                                                     <option value="Tiến sĩ">Tiến sĩ</option>
                                                 </tr>
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-3">
+                                        <label>Ngày vào trường</label>
+                                        <div>
+                                            <input type="date" id="nvt" value="" th:field="*{{ngayVaoTruong}}"
+                                                   class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-3">
