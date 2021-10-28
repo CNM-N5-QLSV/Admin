@@ -14,7 +14,7 @@ public interface HocPhanService {
 
     void saveHocPhan(HocPhan hocPhan);
 
-    void deleteHocPhans(long maHocPhan);
+    void deleteHocPhans(String maHocPhan);
 
-    HocPhan findById(long maHocPhan);
+    HocPhan findById(String maHocPhan);
 }

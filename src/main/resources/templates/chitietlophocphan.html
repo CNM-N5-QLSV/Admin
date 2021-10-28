@@ -113,12 +113,10 @@
 
                                 <div class="sparkline13-graph">
                                     <div class="datatable-dashv1-list custom-datatable-overright">
-                                        <table id="table" data-toggle="table" data-search="true"
-                                               data-show-columns="true" data-show-pagination-switch="true"
-                                               data-show-refresh="true" data-key-events="true" data-show-toggle="true"
-                                               data-resizable="true" data-cookie="true" data-cookie-id-table="saveId"
-                                               data-show-export="true" data-click-to-select="true"
-                                               data-toolbar="#toolbar" class="tbl">
+                                        <table id="table" data-toggle="table"
+                                               data-key-events="true" data-resizable="true" data-cookie="true"
+                                               data-cookie-id-table="saveId" data-show-export="true"
+                                               data-click-to-select="true" data-toolbar="#toolbar" class="tbl">
                                             <thead>
                                             <tr>
                                                 <th>
@@ -126,6 +124,7 @@
                                                         <i class="fa fa-check"></i>
                                                     </div>
                                                 </th>
+                                                <th>STT</th>
                                                 <th>Mã chi tiết lớp học phần</th>
                                                 <th>Tiết học</th>
                                                 <th>Cơ sở</th>
@@ -142,6 +141,7 @@
                                             <tr th:each="ctlhp, stt: ${CTLHPs}">
                                                 <td><input type="checkbox" class="checkbox" th:name="idCTLHP"
                                                            th:value="${ctlhp.getMaCTLHP()}"></td>
+                                                <td th:text="${stt.index + 1}"></td>
                                                 <td th:text="${ctlhp.getMaCTLHP()}"></td>
                                                 <td th:text="${ctlhp.getTietHoc()}"></td>
                                                 <td th:text="'Cơ sở '+ ${ctlhp.getCoSo()}"></td>
@@ -149,7 +149,12 @@
                                                 <td th:text="${ctlhp.getPhong()}"></td>
                                                 <td th:text="${#dates.format(ctlhp.getNgayBatDau(), 'dd/MM/yyyy')}"></td>
                                                 <td th:text="${#dates.format(ctlhp.getNgayKetThuc(), 'dd/MM/yyyy')}"></td>
-                                                <td th:text="${ctlhp.getGiangVien().getTenGV()}"></td>
+
+                                                <td th:if="${ctlhp.getGiangVien() != null}"
+                                                    th:text="${ctlhp.getGiangVien().getTenGV()}"></td>
+
+                                                <td th:if="${ctlhp.getGiangVien() == null}"></td>
+
                                                 <td th:text="${ctlhp.getMoTa()}"></td>
                                                 <td>
                                                     <a class="uBtnCTLHP btn btn-warning"
@@ -234,10 +239,10 @@
                                         <div>
                                             <select value="" id="gv" th:field="*{giangVien.maGV}"
                                                     class="form-control">
-                                                <tr th:each="gv, stt: ${giangViens}">
-                                                    <option th:value="${gv.getMaGV()}"
-                                                            th:text="${gv.getTenGV()}"></option>
-                                                </tr>
+                                                <option value="0">Chọn giảng viên</option>
+                                                <option th:each="gv, stt: ${giangViens}"
+                                                        th:value="${gv.getMaGV()}"
+                                                        th:text="${gv.getTenGV()}"></option>
                                             </select>
                                         </div>
                                     </div>

@@ -107,12 +107,10 @@
                                 </div>
                                 <div class="sparkline13-graph">
                                     <div class="datatable-dashv1-list custom-datatable-overright">
-                                        <table id="table" data-toggle="table" data-pagination="true" data-search="true"
-                                               data-show-columns="true" data-show-pagination-switch="true"
-                                               data-show-refresh="true" data-key-events="true" data-show-toggle="true"
-                                               data-resizable="true" data-cookie="true" data-cookie-id-table="saveId"
-                                               data-show-export="true" data-click-to-select="true"
-                                               data-toolbar="#toolbar">
+                                        <table id="table" data-toggle="table"
+                                               data-key-events="true" data-resizable="true" data-cookie="true"
+                                               data-cookie-id-table="saveId" data-show-export="true"
+                                               data-click-to-select="true" data-toolbar="#toolbar" class="tbl">
                                             <thead>
                                             <tr>
                                                 <th>
@@ -120,6 +118,7 @@
                                                         <i class="fa fa-check"></i>
                                                     </div>
                                                 </th>
+                                                <th>STT</th>
                                                 <th>Mã khoa</th>
                                                 <th>Tên khoa</th>
                                                 <th>Mô tả</th>
@@ -130,11 +129,12 @@
                                             <tr th:each="khoa, status: ${khoas}">
                                                 <td><input type="checkbox" class="checkbox" th:name="maKhoa"
                                                            th:value="${khoa.getMaKhoa()}"></td>
+                                                <td th:text="${status.index + 1}"></td>
                                                 <td th:text="${khoa.getMaKhoa()}"></td>
                                                 <td th:text="${khoa.getTenKhoa()}"></td>
                                                 <td th:text="${khoa.getMoTa()}"></td>
                                                 <td><a class="btnUpdateKhoa btn btn-warning"
-                                                       th:href="@{khoa/findKhoa/(maKhoa=${khoa.maKhoa})}">
+                                                       th:href="@{khoa/findKhoa(maKhoa=${khoa.maKhoa})}">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                                 </td>
                                             </tr>

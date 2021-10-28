@@ -1,16 +1,22 @@
 package com.example.n5_qlsv_admin.controller;
 
 import com.example.n5_qlsv_admin.model.HocPhan;
+import com.example.n5_qlsv_admin.model.SinhVien;
 import com.example.n5_qlsv_admin.service.ChuyenNganhService;
 import com.example.n5_qlsv_admin.service.HocPhanService;
 import com.example.n5_qlsv_admin.service.MonHocService;
+import com.example.n5_qlsv_admin.service.SinhVienService;
+import com.example.n5_qlsv_admin.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/hocphan")
@@ -25,8 +31,11 @@ public class HocPhanController {
     @Autowired
     private MonHocService monHocService;
 
+    @Autowired
+    private SinhVienService sinhVienService;
+
     @GetMapping
-    public String danhSachHocPhan(Model model, @RequestParam(defaultValue = "0") int pageIndex){
+    public String danhSachHocPhan(Model model, @RequestParam(defaultValue = "0") int pageIndex, Principal principal){
         int pageSize = 5;
         int totalPage = 0;
         int count = hocPhanService.getAllHocPhans().size();
@@ -50,6 +59,7 @@ public class HocPhanController {
         model.addAttribute("chuyenNganhs", chuyenNganhService.getAllChuyenNganhs());
         model.addAttribute("hocphans", hocPhanService.getAllHocPhansByPageAndSize(pageIndex, pageSize));
         model.addAttribute("hocPhan", new HocPhan());
+
         return "hocphan";
     }
 
@@ -61,7 +71,7 @@ public class HocPhanController {
 
     @ResponseBody
     @GetMapping("/findHocPhan")
-    public HocPhan findHocPhan(long maHocPhan){
+    public HocPhan findHocPhan(String maHocPhan){
         return hocPhanService.findById(maHocPhan);
     }
 
@@ -70,7 +80,7 @@ public class HocPhanController {
         String[] maHocPhans = request.getParameterValues("mahp");
         if(maHocPhans != null){
             for(String maHocPhan : maHocPhans){
-                hocPhanService.deleteHocPhans(Long.parseLong(maHocPhan));
+                hocPhanService.deleteHocPhans(maHocPhan);
             }
         }
         return "redirect:/hocphan";

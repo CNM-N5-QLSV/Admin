@@ -1,3 +1,4 @@
+//Cap nhat sinh vien
 $(document).ready(function () {
     $('.tbl .uBtn').on('click', function (event) {
         event.preventDefault();
@@ -7,6 +8,9 @@ $(document).ready(function () {
             $('.myForm #myId').val(sv.maSV);
             $('.myForm #tensv').val(sv.tenSV);
             $('.myForm #cmnd').val(sv.soCMND);
+            $('.myForm #nvt').val(sv.ngayVaoTruong.split('T')[0]);
+            $('.myForm #myPass').val(sv.password);
+            $('.myForm #myRole').val(sv.roleName);
 
             var gt = sv.gioiTinh;
             if (gt === true) {
@@ -17,27 +21,44 @@ $(document).ready(function () {
 
             $('.myForm #bdt').val(sv.bacDaoTao);
             $('.myForm #phone').val(sv.soDienThoai);
-            $('.myForm #chuyenN').val(sv.chuyenNganh.maChuyenNganh);
-            $('.myForm #classRoom').val(sv.lopHoc.maLop);
-            $('.myForm #department').val(sv.khoa.maKhoa);
             $('.myForm #myEmail').val(sv.email);
             $('.myForm #address').val(sv.diaChi);
-            $('.myForm #birthDate').val(sv.ngaySinh.split('T')[0]);
 
-            $('.myForm #nvt').val(sv.ngayVaoTruong.split('T')[0]);
-            $('.myForm #myPass').val(sv.password);
-            $('.myForm #myRole').val(sv.roleName);
+            if(sv.ngaySinh != null){
+                $('.myForm #birthDate').val(sv.ngaySinh.split('T')[0]);
+            }else{
+                $('.myForm #birthDate').val("");
+            }
+
+            if(sv.chuyenNganh === null){
+                $('.myForm #chuyenN').val(0);
+            }else {
+                $('.myForm #chuyenN').val(sv.chuyenNganh.maChuyenNganh);
+            }
+
+            if(sv.lopHoc === null){
+                $('.myForm #classRoom').val(0);
+            }else {
+                $('.myForm #classRoom').val(sv.lopHoc.maLop);
+            }
+
+            if(sv.khoa === null){
+                $('.myForm #myKhoa').val(0);
+            }else {
+                $('.myForm #myKhoa').val(sv.khoa.maKhoa);
+            }
         });
 
         $('.myForm #myModal').modal();
     });
 });
 
+//Them sinh vien
 $(document).ready(function () {
     $('.createBtn').on('click', function (event) {
         event.preventDefault();
 
-        $('.myForm #myId').val('0');
+        $('.myForm #myId').val('');
         $('.myForm #tensv').val('');
         $('.myForm #cmnd').val('');
 
@@ -47,9 +68,9 @@ $(document).ready(function () {
 
         $('.myForm #bdt').val('');
         $('.myForm #phone').val('');
-        $('.myForm #chuyenN').val('');
-        $('.myForm #classRoom').val('');
-        $('.myForm #department').val('');
+        $('.myForm #chuyenN').val(0);
+        $('.myForm #classRoom').val(0);
+        $('.myForm #myKhoa').val(0);
         $('.myForm #myEmail').val('');
         $('.myForm #address').val('');
         $('.myForm #birthDate').val('');
@@ -98,7 +119,7 @@ $(document).ready(function () {
     });
 });
 
-//Giảng viên
+//Thêm Giảng viên
 $(document).ready(function () {
     $('.createBtn').on('click', function (event) {
         event.preventDefault();
@@ -112,7 +133,7 @@ $(document).ready(function () {
 
         $('.myForm #ns').val('');
         $('.myForm #email').val('');
-        $('.myForm #department').val('');
+        $('.myForm #khoaGiangVien').val(0);
 
         var d = new Date();
 
@@ -127,6 +148,7 @@ $(document).ready(function () {
     });
 });
 
+//Cập nhật giảng viên
 $(document).ready(function () {
     $('.uBtnGV').on('click', function (event) {
         event.preventDefault();
@@ -145,7 +167,12 @@ $(document).ready(function () {
 
             $('.myForm #ns').val(gv.ngaySinh.split('T')[0]);
             $('.myForm #email').val(gv.email);
-            $('.myForm #department').val(gv.khoa.maKhoa);
+
+            if(gv.khoa === null){
+                $('.myForm #khoaGiangVien').val(0);
+            }else {
+                $('.myForm #khoaGiangVien').val(gv.khoa.maKhoa);
+            }
 
         });
 
@@ -215,7 +242,7 @@ $(document).ready(function () {
     });
 });
 
-//Lớp học phần
+//Thêm Lớp học phần
 $(document).ready(function () {
     $('.createBtnLHP').on('click', function (event) {
         event.preventDefault();
@@ -226,14 +253,15 @@ $(document).ready(function () {
         $('.myForm #soluongdangkyhientai').val('');
         $('.myForm #soluongdangkytoida').val('');
         $('.myForm #trangthai').val('');
-        $('.myForm #hocky').val('');
-        $('.myForm #hocphan').val('');
+        $('.myForm #hocky').val(0);
+        $('.myForm #hocphan').val("");
         $('.myForm #mota').val('');
 
         $('.myForm #myModal').modal();
     });
 });
 
+//Cập nhật lớp học phần
 $(document).ready(function () {
     $('.uBtnLHP').on('click', function (event) {
         event.preventDefault();
@@ -246,9 +274,19 @@ $(document).ready(function () {
             $('.myForm #soluongdangkyhientai').val(lhp.soLuongDangKyHienTai);
             $('.myForm #soluongdangkytoida').val(lhp.soLuongDangKyToiDa);
             $('.myForm #trangthai').val(lhp.trangThai);
-            $('.myForm #hocky').val(lhp.hocKy.maHK);
-            $('.myForm #hocphan').val(lhp.hocPhan.maHocPhan);
             $('.myForm #mota').val(lhp.moTa);
+
+            if(lhp.hocKy === null){
+                $('.myForm #hocky').val(0);
+            }else {
+                $('.myForm #hocky').val(lhp.hocKy.maHK);
+            }
+
+            if(lhp.hocPhan === null){
+                $('.myForm #hocphan').val("");
+            }else {
+                $('.myForm #hocphan').val(lhp.hocPhan.maHocPhan);
+            }
 
         });
 
@@ -269,7 +307,7 @@ $(document).ready(function () {
         $('.myForm #phong').val('');
         $('.myForm #ngaybatdau').val('');
         $('.myForm #ngayketthuc').val('');
-        $('.myForm #gv').val('');
+        $('.myForm #gv').val(0);
         $('.myForm #mt').val('');
 
         $('.myForm #myModal').modal();
@@ -291,9 +329,13 @@ $(document).ready(function () {
             $('.myForm #phong').val(ctlhp.phong);
             $('.myForm #ngaybatdau').val(ctlhp.ngayBatDau.split('T')[0]);
             $('.myForm #ngayketthuc').val(ctlhp.ngayKetThuc.split('T')[0]);
-            $('.myForm #gv').val(ctlhp.giangVien.maGV);
             $('.myForm #mt').val(ctlhp.moTa);
 
+            if(ctlhp.giangVien === null){
+                $('.myForm #gv').val(0);
+            }else {
+                $('.myForm #gv').val(ctlhp.giangVien.maGV);
+            }
         });
 
         $('.myForm #myModal').modal();

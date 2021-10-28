@@ -110,12 +110,10 @@
 
                                 <div class="sparkline13-graph">
                                     <div class="datatable-dashv1-list custom-datatable-overright">
-                                        <table id="table" data-toggle="table" data-search="true"
-                                               data-show-columns="true" data-show-pagination-switch="true"
-                                               data-show-refresh="true" data-key-events="true" data-show-toggle="true"
-                                               data-resizable="true" data-cookie="true" data-cookie-id-table="saveId"
-                                               data-show-export="true" data-click-to-select="true"
-                                               data-toolbar="#toolbar" class="tbl">
+                                        <table id="table" data-toggle="table"
+                                               data-key-events="true" data-resizable="true" data-cookie="true"
+                                               data-cookie-id-table="saveId" data-show-export="true"
+                                               data-click-to-select="true" data-toolbar="#toolbar" class="tbl">
                                             <thead>
                                             <tr>
                                                 <th>
@@ -123,6 +121,7 @@
                                                         <i class="fa fa-check"></i>
                                                     </div>
                                                 </th>
+                                                <th>STT</th>
                                                 <th>Mã môn học</th>
                                                 <th>Tên môn học</th>
                                                 <th>Mô tả</th>
@@ -133,6 +132,7 @@
                                             <tr th:each="mh, stt: ${monHocs}">
                                                 <td><input type="checkbox" class="checkbox" th:name="idMH"
                                                            th:value="${mh.getMaMonHoc()}"></td>
+                                                <td th:text="${stt.index + 1}"></td>
                                                 <td th:text="${mh.getMaMonHoc()}"></td>
                                                 <td th:text="${mh.getTenMonHoc()}"></td>
                                                 <td th:text="${mh.getMoTa()}"></td>

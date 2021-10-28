@@ -1,6 +1,7 @@
 package com.example.n5_qlsv_admin.service;
 
 import com.example.n5_qlsv_admin.model.SinhVien;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 
@@ -12,7 +13,9 @@ public interface SinhVienService {
 
     void saveSinhVien(SinhVien sinhVien);
 
-    void deleteSinhVien(long ma_sv);
+    void deleteSinhVien(String ma_sv);
 
-    SinhVien findById(long ma_sv);
+    SinhVien findById(String ma_sv);
+
+    List<SinhVien> search(String keyword);
 }

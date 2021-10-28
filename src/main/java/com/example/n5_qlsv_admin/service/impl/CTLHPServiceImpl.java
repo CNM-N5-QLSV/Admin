@@ -39,8 +39,14 @@ public class CTLHPServiceImpl implements CTLHPService {
     public void saveCTLHP(ChiTietLopHocPhan chiTietLopHocPhan, Long maLHP) {
         long maCTLHP = chiTietLopHocPhan.getMaCTLHP();
         if(maCTLHP == 0){
+            if(chiTietLopHocPhan.getGiangVien().getMaGV() == 0){
+                chiTietLopHocPhan.setGiangVien(null);
+            }
             restTemplate.postForEntity(urlLHP + "/" + maLHP + "/CTLHP", chiTietLopHocPhan, String.class);
         }else {
+            if(chiTietLopHocPhan.getGiangVien().getMaGV() == 0){
+                chiTietLopHocPhan.setGiangVien(null);
+            }
             restTemplate.put(urlCTLHP + "/" + maCTLHP, chiTietLopHocPhan);
         }
     }

@@ -111,12 +111,10 @@
 
                                 <div class="sparkline13-graph">
                                     <div class="datatable-dashv1-list custom-datatable-overright">
-                                        <table id="table" data-toggle="table" data-search="true"
-                                               data-show-columns="true" data-show-pagination-switch="true"
-                                               data-show-refresh="true" data-key-events="true" data-show-toggle="true"
-                                               data-resizable="true" data-cookie="true" data-cookie-id-table="saveId"
-                                               data-show-export="true" data-click-to-select="true"
-                                               data-toolbar="#toolbar" class="tbl">
+                                        <table id="table" data-toggle="table"
+                                               data-key-events="true" data-resizable="true" data-cookie="true"
+                                               data-cookie-id-table="saveId" data-show-export="true"
+                                               data-click-to-select="true" data-toolbar="#toolbar" class="tbl">
                                             <thead>
                                             <tr>
                                                 <th>
@@ -124,6 +122,7 @@
                                                         <i class="fa fa-check"></i>
                                                     </div>
                                                 </th>
+                                                <th>STT</th>
                                                 <th>Mã giảng viên</th>
                                                 <th>Tên giảng viên</th>
                                                 <th>Giới tính</th>
@@ -137,12 +136,16 @@
                                             <tr th:each="gv, stt: ${giangViens}">
                                                 <td><input type="checkbox" class="checkbox" th:name="idGV"
                                                            th:value="${gv.getMaGV()}"></td>
+                                                <td th:text="${stt.index + 1}"></td>
                                                 <td th:text="${gv.getMaGV()}"></td>
                                                 <td th:text="${gv.getTenGV()}"></td>
                                                 <td th:text="${gv.isGioiTinh() == true ? 'Nam' : 'Nữ'}"></td>
                                                 <td th:text="${#dates.format(gv.getNgaySinh(), 'dd/MM/yyyy')}"></td>
                                                 <td th:text="${gv.getEmail()}"></td>
-                                                <td th:text="${gv.getKhoa().getTenKhoa()}"></td>
+
+                                                <td th:if="${gv.getKhoa() != null}"
+                                                    th:text="${gv.getKhoa().getTenKhoa()}"></td>
+                                                <td th:if="${gv.getKhoa() == null}"></td>
 
                                                 <td>
                                                     <a class="uBtnGV btn btn-warning"
@@ -230,12 +233,12 @@
                                     <div class="form-group col-sm-6">
                                         <label>Khoa</label>
                                         <div>
-                                            <select id="department" value="" th:field="*{khoa.maKhoa}"
+                                            <select id="khoaGiangVien" value="" th:field="*{khoa.maKhoa}"
                                                     class="form-control">
-                                                <tr th:each="k, stt: ${khoas}">
-                                                    <option th:value="${k.getMaKhoa()}"
-                                                            th:text="${k.getTenKhoa()}"></option>
-                                                </tr>
+                                                <option value="0">Chọn khoa</option>
+                                                <option th:each="k, stt: ${khoas}"
+                                                        th:value="${k.getMaKhoa()}"
+                                                        th:text="${k.getTenKhoa()}"></option>
                                             </select>
                                         </div>
                                     </div>

@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/khoa")
@@ -18,7 +19,7 @@ public class KhoaController {
     private KhoaService khoaService;
 
     @GetMapping
-    public String danhSachKhoa(Model model, @RequestParam(defaultValue = "0") int pageIndex){
+    public String danhSachKhoa(Model model, @RequestParam(defaultValue = "0") int pageIndex, Principal principal){
         int pageSize = 5;
         int totalPage = 0;
         int count = khoaService.getAllKhoas().size();
@@ -40,6 +41,7 @@ public class KhoaController {
 
         model.addAttribute("khoas", khoaService.getAllKhoasByPageAndSize(pageIndex, pageSize));
         model.addAttribute("khoa", new Khoa());
+
         return "khoa";
     }
 

@@ -7,9 +7,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,6 +24,9 @@ public class SinhVienServiceImpl implements SinhVienService {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Value("${app.url.sinhvien}")
     private String url;
@@ -44,25 +54,53 @@ public class SinhVienServiceImpl implements SinhVienService {
 
     @Override
     public void saveSinhVien(SinhVien sinhVien) {
-        long ma_sv = sinhVien.getMaSV();
-        if(ma_sv == 0){
+        String ma_sv = sinhVien.getMaSV();
+        if (ma_sv == "") {
 //            sinhVien.setNgayVaoTruong(new Date(System.currentTimeMillis()));
-            sinhVien.setPassword("1111");
-            sinhVien.setRoleName("USER");
+            sinhVien.setPassword(passwordEncoder.encode("1111"));
+            sinhVien.setRoleName("ROLE_USER");
+            if(sinhVien.getChuyenNganh().getMaChuyenNganh() == 0){
+                sinhVien.setChuyenNganh(null);
+            }
+            if(sinhVien.getLopHoc().getMaLop() == 0){
+                sinhVien.setLopHoc(null);
+            }
+            if(sinhVien.getKhoa().getMaKhoa() == 0){
+                sinhVien.setKhoa(null);
+            }
             restTemplate.postForEntity(url, sinhVien, String.class);
-        }else {
+        } else {
+            if(sinhVien.getChuyenNganh().getMaChuyenNganh() == 0){
+                sinhVien.setChuyenNganh(null);
+            }
+            if(sinhVien.getLopHoc().getMaLop() == 0){
+                sinhVien.setLopHoc(null);
+            }
+            if(sinhVien.getKhoa().getMaKhoa() == 0){
+                sinhVien.setKhoa(null);
+            }
             restTemplate.put(url + "/" + ma_sv, sinhVien);
         }
     }
 
     @Override
-    public void deleteSinhVien(long ma_sv) {
+    public void deleteSinhVien(String ma_sv) {
         restTemplate.delete(url + "/" + ma_sv);
     }
 
     @Override
-    public SinhVien findById(long ma_sv) {
+    public SinhVien findById(String ma_sv) {
         SinhVien sinhVien = restTemplate.getForObject(url + "/" + ma_sv, SinhVien.class);
         return sinhVien;
+    }
+
+    @Override
+    public List<SinhVien> search(String keyword) {
+        ResponseEntity<List<SinhVien>> responseEntity
+                = restTemplate.exchange(url + "/keyword=" + keyword, HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<SinhVien>>() {
+                });
+        List<SinhVien> sinhVienList = responseEntity.getBody();
+        return sinhVienList;
     }
 }

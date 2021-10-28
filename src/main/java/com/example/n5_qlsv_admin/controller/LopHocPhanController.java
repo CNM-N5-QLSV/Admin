@@ -2,13 +2,18 @@ package com.example.n5_qlsv_admin.controller;
 
 import com.example.n5_qlsv_admin.model.ChiTietLopHocPhan;
 import com.example.n5_qlsv_admin.model.LopHocPhan;
+import com.example.n5_qlsv_admin.model.SinhVien;
 import com.example.n5_qlsv_admin.service.*;
+import com.example.n5_qlsv_admin.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/lophocphan")
@@ -29,8 +34,11 @@ public class LopHocPhanController {
     @Autowired
     private GiangVienService giangVienService;
 
+    @Autowired
+    private SinhVienService sinhVienService;
+
     @GetMapping
-    String danhSachLopHocPhan(Model theModel, @RequestParam(defaultValue = "0") int pageIndex) {
+    String danhSachLopHocPhan(Model theModel, @RequestParam(defaultValue = "0") int pageIndex, Principal principal) {
 
         int pageSize = 5;
         int totalPage = 0;
@@ -56,6 +64,7 @@ public class LopHocPhanController {
         theModel.addAttribute("hocPhans", hocPhanService.getAllHocPhans());
 
         theModel.addAttribute("lopHocPhan", new LopHocPhan());
+
         return "lophocphan";
 
     }

@@ -55,6 +55,7 @@ public class SinhVienController {
         theModel.addAttribute("khoas", khoaService.getAllKhoas());
         theModel.addAttribute("lopHocs", lopHocService.getAllLopHocs());
         theModel.addAttribute("sinhVien", new SinhVien());
+
         return "sinhvien";
     }
 
@@ -69,12 +70,12 @@ public class SinhVienController {
     @PostMapping
     String luuThongTinSV(SinhVien sinhVien) {
         sinhVienService.saveSinhVien(sinhVien);
-        return "redirect:/";
+        return "redirect:/sinhVien";
     }
 
     @ResponseBody
     @GetMapping("/findSV")
-    SinhVien findSV(long id){
+    SinhVien findSV(String id){
         return sinhVienService.findById(id);
     }
 
@@ -83,9 +84,9 @@ public class SinhVienController {
         String[] ma_svs = req.getParameterValues("idSV");
         if (ma_svs != null) {
             for (String ma_sv : ma_svs) {
-                sinhVienService.deleteSinhVien(Long.parseLong(ma_sv));
+                sinhVienService.deleteSinhVien(ma_sv);
             }
         }
-        return "redirect:/";
+        return "redirect:/sinhVien";
     }
 }

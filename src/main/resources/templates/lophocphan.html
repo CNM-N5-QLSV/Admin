@@ -111,12 +111,10 @@
 
                                 <div class="sparkline13-graph">
                                     <div class="datatable-dashv1-list custom-datatable-overright">
-                                        <table id="table" data-toggle="table" data-search="true"
-                                               data-show-columns="true" data-show-pagination-switch="true"
-                                               data-show-refresh="true" data-key-events="true" data-show-toggle="true"
-                                               data-resizable="true" data-cookie="true" data-cookie-id-table="saveId"
-                                               data-show-export="true" data-click-to-select="true"
-                                               data-toolbar="#toolbar" class="tbl">
+                                        <table id="table" data-toggle="table"
+                                               data-key-events="true" data-resizable="true" data-cookie="true"
+                                               data-cookie-id-table="saveId" data-show-export="true"
+                                               data-click-to-select="true" data-toolbar="#toolbar" class="tbl">
                                             <thead>
                                             <tr>
                                                 <th>
@@ -124,6 +122,7 @@
                                                         <i class="fa fa-check"></i>
                                                     </div>
                                                 </th>
+                                                <th>STT</th>
                                                 <th>Mã lớp học phần</th>
                                                 <th>Tên viết tắt</th>
                                                 <th>Tên lớp học phần</th>
@@ -140,14 +139,22 @@
                                             <tr th:each="lhp, stt: ${lopHocPhans}">
                                                 <td><input type="checkbox" class="checkbox" th:name="idLHP"
                                                            th:value="${lhp.getMaLHP()}"></td>
+                                                <td th:text="${stt.index + 1}"></td>
                                                 <td th:text="${lhp.getMaLHP()}"></td>
                                                 <td th:text="${lhp.getTenVietTat()}"></td>
                                                 <td th:text="${lhp.getTenLHP()}"></td>
                                                 <td th:text="${lhp.getSoLuongDangKyHienTai()}"></td>
                                                 <td th:text="${lhp.getSoLuongDangKyToiDa()}"></td>
                                                 <td th:text="${lhp.getTrangThai()}"></td>
-                                                <td th:text="'Học kỳ ' + ${lhp.getHocKy().getThuTuHocKy()} + ' (' + ${lhp.getHocKy().getNamBatDau()} + ' - ' + ${lhp.getHocKy().getNamKetThuc()} + ')'"></td>
-                                                <td th:text="${lhp.getHocPhan().getMonHoc().getTenMonHoc()} + ' - ' + ${lhp.getHocPhan().getSoTCLT()} + 'TC' + ' - ' + ${lhp.getHocPhan().getSoTCTH()} + 'TC' "></td>
+
+                                                <td th:if="${lhp.getHocKy() != null}"
+                                                    th:text="'Học kỳ ' + ${lhp.getHocKy().getThuTuHocKy()} + ' (' + ${lhp.getHocKy().getNamBatDau()} + ' - ' + ${lhp.getHocKy().getNamKetThuc()} + ')'"></td>
+                                                <td th:if="${lhp.getHocPhan() != null}"
+                                                    th:text="${lhp.getHocPhan().getMonHoc().getTenMonHoc()} + ' - ' + ${lhp.getHocPhan().getSoTCLT()} + 'TC' + ' - ' + ${lhp.getHocPhan().getSoTCTH()} + 'TC' "></td>
+
+                                                <td th:if="${lhp.getHocKy() == null}"></td>
+                                                <td th:if="${lhp.getHocPhan() == null}"></td>
+
                                                 <td th:text="${lhp.getMoTa()}"></td>
                                                 <td>
                                                     <a class="uBtnLHP btn btn-warning"
@@ -220,14 +227,16 @@
                                     <div class="form-group col-sm-3">
                                         <label>Số lượng đăng ký hiện tại</label>
                                         <div>
-                                            <input type="number" id="soluongdangkyhientai" value="" th:field="*{soLuongDangKyHienTai}"
+                                            <input type="number" min="0" id="soluongdangkyhientai" value=""
+                                                   th:field="*{soLuongDangKyHienTai}"
                                                    class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-3">
                                         <label>Số lượng đăng ký tối đa</label>
                                         <div>
-                                            <input type="number" id="soluongdangkytoida" value="" th:field="*{{soLuongDangKyToiDa}}"
+                                            <input type="number" min="0" id="soluongdangkytoida" value=""
+                                                   th:field="*{{soLuongDangKyToiDa}}"
                                                    class="form-control">
                                         </div>
                                     </div>
@@ -245,21 +254,22 @@
                                         <div>
                                             <select value="" id="hocky" th:field="*{hocKy.maHK}"
                                                     class="form-control">
-                                                <tr th:each="hk, stt: ${hocKys}">
-                                                    <option th:value="${hk.getMaHK()}"
-                                                            th:text="'Học kỳ ' + ${hk.getThuTuHocKy()} + ' (' + ${hk.getNamBatDau()} + ' - ' + ${hk.getNamKetThuc()} + ')'"></option>
-                                                </tr>
+                                                <option value="0">Chọn học kỳ</option>
+                                                <option th:each="hk, stt: ${hocKys}"
+                                                        th:value="${hk.getMaHK()}"
+                                                        th:text="'Học kỳ ' + ${hk.getThuTuHocKy()} + ' (' + ${hk.getNamBatDau()} + ' - ' + ${hk.getNamKetThuc()} + ')'"></option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-6">
                                         <label>Học phần</label>
                                         <div>
-                                            <select id="hocphan" value="" th:field="*{hocPhan.maHocPhan}" class="form-control">
-                                                <tr th:each="hp, stt: ${hocPhans}">
-                                                    <option th:value="${hp.getMaHocPhan()}"
-                                                            th:text="${hp.getMonHoc().getTenMonHoc()} + ' - ' + ${hp.getSoTCLT()} + 'TC' + ' - ' + ${hp.getSoTCTH()} + 'TC' "></option>
-                                                </tr>
+                                            <select id="hocphan" value="" th:field="*{hocPhan.maHocPhan}"
+                                                    class="form-control">
+                                                <option value="">Chọn học phần</option>
+                                                <option th:each="hp, stt: ${hocPhans}"
+                                                        th:value="${hp.getMaHocPhan()}"
+                                                        th:text="${hp.getMonHoc().getTenMonHoc()} + ' - ' + ${hp.getSoTCLT()} + 'TC' + ' - ' + ${hp.getSoTCTH()} + 'TC' "></option>
                                             </select>
                                         </div>
                                     </div>
