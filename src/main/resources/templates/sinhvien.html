@@ -132,6 +132,8 @@
                                         <button type="submit" class="btn btn-danger btn-custon-rounded-four">
                                             <span>Xóa</span>
                                         </button>
+                                        <li class="alert alert-success fa fa-check" style="text-align: center" role="alert" th:text="${success}" th:if="${success}"></li>
+                                        <li class="alert alert-danger fa fa-exclamation-circle" style="text-align: center" role="alert" th:text="${error}" th:if="${error}"></li>
                                     </div>
                                 </div>
 
@@ -423,10 +425,6 @@
 <script th:src="@{/js/editable/bootstrap-datetimepicker.js}"></script>
 <script th:src="@{/js/editable/bootstrap-editable.js}"></script>
 <script th:src="@{/js/editable/xediable-active.js}"></script>
-<!-- Chart JS
-============================================ -->
-<script th:src="@{/js/chart/jquery.peity.min.js}"></script>
-<script th:src="@{/js/peity/peity-active.js}"></script>
 <!-- tab JS
 ============================================ -->
 <script th:src="@{/js/tab.js}"></script>
