@@ -250,8 +250,8 @@ $(document).ready(function () {
         $('.myForm #myIdLHP').val(0);
         $('.myForm #tenviettat').val('');
         $('.myForm #tenlophocphan').val('');
-        $('.myForm #soluongdangkyhientai').val('');
-        $('.myForm #soluongdangkytoida').val('');
+        $('.myForm #soluongdangkyhientai').val(0);
+        $('.myForm #soluongdangkytoida').val(40);
         $('.myForm #trangthai').val('');
         $('.myForm #hocky').val(0);
         $('.myForm #hocphan').val("");

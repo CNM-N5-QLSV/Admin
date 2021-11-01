@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -64,13 +65,19 @@ public class LopHocController {
     }
 
     @GetMapping("/deleteLopHocs")
-    public String deleteLopHoc(HttpServletRequest request){
-        String[] maLopHocs = request.getParameterValues("maLop");
-        if (maLopHocs != null){
-            for (String maLopHoc : maLopHocs){
-                lopHocService.deleteLopHocs(Long.parseLong(maLopHoc));
+    public String deleteLopHoc(HttpServletRequest request, RedirectAttributes redirectAttributes){
+        try{
+            String[] maLopHocs = request.getParameterValues("maLop");
+            if (maLopHocs != null){
+                for (String maLopHoc : maLopHocs){
+                    lopHocService.deleteLopHocs(Long.parseLong(maLopHoc));
+                }
             }
+            redirectAttributes.addFlashAttribute("success", "Xóa lớp học thành công");
+        }catch (Exception e){
+            redirectAttributes.addFlashAttribute("error", "Lớp học đã có trong sinh viên, không thể xóa");
         }
+
         return "redirect:/lophoc";
     }
 

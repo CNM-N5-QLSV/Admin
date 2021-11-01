@@ -228,7 +228,7 @@
                                         <label>Số lượng đăng ký hiện tại</label>
                                         <div>
                                             <input type="number" min="0" id="soluongdangkyhientai" value=""
-                                                   th:field="*{soLuongDangKyHienTai}"
+                                                   th:field="*{soLuongDangKyHienTai}" disabled
                                                    class="form-control">
                                         </div>
                                     </div>
@@ -243,8 +243,15 @@
                                     <div class="form-group col-sm-6">
                                         <label>Trạng thái</label>
                                         <div>
-                                            <input type="text" id="trangthai" value="" th:field="*{trangThai}"
-                                                   class="form-control">
+<!--                                            <input type="text" id="trangthai" value="" th:field="*{trangThai}"-->
+<!--                                                   class="form-control">-->
+                                            <select value="" id="trangthai" th:field="*{trangThai}" class="form-control">
+                                                <option value="">Chọn trạng thái</option>
+                                                <option value="Chờ sinh viên đăng ký">Chờ sinh viên đăng ký</option>
+                                                <option value="Đang lên kế hoạch">Đang lên kế hoạch</option>
+                                                <option value="Khóa">Khóa</option>
+                                                <option value="Chờ hủy lớp">Chờ hủy lớp</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -345,10 +352,6 @@
 <script th:src="@{/js/editable/bootstrap-datetimepicker.js}"></script>
 <script th:src="@{/js/editable/bootstrap-editable.js}"></script>
 <script th:src="@{/js/editable/xediable-active.js}"></script>
-<!-- Chart JS
-============================================ -->
-<script th:src="@{/js/chart/jquery.peity.min.js}"></script>
-<script th:src="@{/js/peity/peity-active.js}"></script>
 <!-- tab JS
 ============================================ -->
 <script th:src="@{/js/tab.js}"></script>

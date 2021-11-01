@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -68,8 +69,14 @@ public class SinhVienController {
 //    }
 
     @PostMapping
-    String luuThongTinSV(SinhVien sinhVien) {
-        sinhVienService.saveSinhVien(sinhVien);
+    String luuThongTinSV(SinhVien sinhVien, RedirectAttributes redirectAttributes) {
+        try{
+            sinhVienService.saveSinhVien(sinhVien);
+            redirectAttributes.addFlashAttribute("success", "Dữ liệu đã thay đổi");
+        }catch (Exception e){
+            redirectAttributes.addFlashAttribute("error", "Có lỗi xảy ra");
+        }
+
         return "redirect:/sinhVien";
     }
 
