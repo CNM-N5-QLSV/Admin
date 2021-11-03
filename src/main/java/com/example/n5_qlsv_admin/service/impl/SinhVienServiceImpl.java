@@ -104,4 +104,15 @@ public class SinhVienServiceImpl implements SinhVienService {
         List<SinhVien> sinhVienList = responseEntity.getBody();
         return sinhVienList;
     }
+
+    @Override
+    public List<SinhVien> findAllSinhViensByKhoa(Long maKhoa, int pageIndex, int pageSize) {
+        ResponseEntity<List<SinhVien>> responseEntity
+                = restTemplate.exchange(url + "/khoa=" + maKhoa + "?page=" + pageIndex + "&size=" + pageSize,
+                HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<SinhVien>>() {
+                });
+        List<SinhVien> sinhVienList = responseEntity.getBody();
+        return sinhVienList;
+    }
 }
