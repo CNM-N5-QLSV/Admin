@@ -39,14 +39,9 @@ public class SinhVienController {
 
         if(keyword != null){
             count = sinhVienService.search(keyword, 0, 0).size();
-        }else {
-            count = sinhVienService.getAllSinhViens().size();
-        }
-
-        if (mk != null){
+        }else if (mk != null){
             count =  sinhVienService.findAllSinhViensByKhoa(mk, 0, 0).size();
         }else{
-//            count = sinhVienService.getAllSinhViens().size();
             count = 10;
         }
 
@@ -64,8 +59,10 @@ public class SinhVienController {
 
         if (mk != null){
             theModel.addAttribute("sinhViens", sinhVienService.findAllSinhViensByKhoa(mk, pageIndex, pageSize));
-
-        }else{
+        }else if(keyword != null){
+            theModel.addAttribute("sinhViens", sinhVienService.search(keyword, pageIndex, pageSize));
+        }
+        else{
             theModel.addAttribute("sinhViens", sinhVienService.getAllSinhViensByPageAndSize(pageIndex, pageSize));
         }
 
@@ -74,7 +71,6 @@ public class SinhVienController {
         theModel.addAttribute("totalPage", totalPage);
         theModel.addAttribute("currentPage", pageIndex);
 
-        theModel.addAttribute("sinhViens", sinhVienService.getAllSinhViensByPageAndSize(pageIndex, pageSize));
         theModel.addAttribute("chuyenNganhs", chuyenNganhService.getAllChuyenNganhs());
         theModel.addAttribute("khoas", khoaService.getAllKhoas());
         theModel.addAttribute("lopHocs", lopHocService.getAllLopHocs());
@@ -82,14 +78,6 @@ public class SinhVienController {
 
         return "sinhvien";
     }
-
-//    @GetMapping("/search")
-//    String searchSinhVien(Model theModel, @RequestParam("mssv") long mssv) {
-//        SinhVien sinhVien = sinhVienService.findById(mssv);
-//        theModel.addAttribute("sinhViens", sinhVien);
-//        theModel.addAttribute("mssv", mssv);
-//        return "sinhvien";
-//    }
 
     @PostMapping
     String luuThongTinSV(SinhVien sinhVien, RedirectAttributes redirectAttributes) {
