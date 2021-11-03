@@ -95,10 +95,11 @@ public class SinhVienServiceImpl implements SinhVienService {
     }
 
     @Override
-    public List<SinhVien> search(String keyword) {
+    public List<SinhVien> search(String keyword, int pageIndex, int pageSize) {
         ResponseEntity<List<SinhVien>> responseEntity
-                = restTemplate.exchange(url + "/keyword=" + keyword, HttpMethod.GET, null,
-                new ParameterizedTypeReference<List<SinhVien>>() {
+                = restTemplate.exchange(url + "/keyword=" + keyword + "?page=" + pageIndex + "&size=" + pageSize
+                , HttpMethod.GET, null
+                , new ParameterizedTypeReference<List<SinhVien>>() {
                 });
         List<SinhVien> sinhVienList = responseEntity.getBody();
         return sinhVienList;

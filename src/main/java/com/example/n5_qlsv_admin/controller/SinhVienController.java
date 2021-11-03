@@ -30,11 +30,18 @@ public class SinhVienController {
     private LopHocService lopHocService;
 
     @GetMapping
-    String danhSachSinhVien(Model theModel, @RequestParam(defaultValue = "0") int pageIndex) {
+    String danhSachSinhVien(Model theModel, @RequestParam(defaultValue = "0") int pageIndex,
+                            String keyword) {
 
         int pageSize = 5;
         int totalPage = 0;
-        int count = sinhVienService.getAllSinhViens().size();
+        int count = 0;
+
+        if(keyword != null){
+            count = sinhVienService.search(keyword, 0, 0).size();
+        }else {
+            count = sinhVienService.getAllSinhViens().size();
+        }
 
         if (count % pageSize == 0) {
             totalPage = count / pageSize;
@@ -51,7 +58,12 @@ public class SinhVienController {
         theModel.addAttribute("totalPage", totalPage);
         theModel.addAttribute("currentPage", pageIndex);
 
-        theModel.addAttribute("sinhViens", sinhVienService.getAllSinhViensByPageAndSize(pageIndex, pageSize));
+        if(keyword != null){
+            theModel.addAttribute("sinhViens", sinhVienService.search(keyword, pageIndex, pageSize));
+        }else {
+            theModel.addAttribute("sinhViens", sinhVienService.getAllSinhViensByPageAndSize(pageIndex, pageSize));
+        }
+
         theModel.addAttribute("chuyenNganhs", chuyenNganhService.getAllChuyenNganhs());
         theModel.addAttribute("khoas", khoaService.getAllKhoas());
         theModel.addAttribute("lopHocs", lopHocService.getAllLopHocs());
