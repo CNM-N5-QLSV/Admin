@@ -17,7 +17,7 @@ public interface SinhVienService {
 
     SinhVien findById(String ma_sv);
 
-    List<SinhVien> search(String keyword);
+    List<SinhVien> search(String keyword, int pageIndex, int pageSize);
 
     List<SinhVien> findAllSinhViensByKhoa(Long maKhoa, int pageIndex, int pageSize);
 }

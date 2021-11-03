@@ -31,16 +31,17 @@ public class SinhVienController {
 
     @GetMapping
     String danhSachSinhVien(Model theModel, @RequestParam(defaultValue = "0") int pageIndex,
-                           Long mk) {
+                            String keyword, Long mk) {
 
         int pageSize = 5;
         int totalPage = 0;
-//        int count = sinhVienService.getAllSinhViens().size();
         int count = 0;
-        if (mk != null){
+
+        if(keyword != null){
+            count = sinhVienService.search(keyword, 0, 0).size();
+        }else if (mk != null){
             count =  sinhVienService.findAllSinhViensByKhoa(mk, 0, 0).size();
         }else{
-//            count = sinhVienService.getAllSinhViens().size();
             count = 10;
         }
 
@@ -56,20 +57,19 @@ public class SinhVienController {
             pageIndex = totalPage - 1;
         }
 
-        theModel.addAttribute("totalPage", totalPage);
-        theModel.addAttribute("currentPage", pageIndex);
-
-//        theModel.addAttribute("sinhViens", sinhVienService.getAllSinhViensByPageAndSize(pageIndex, pageSize));
-
-
         if (mk != null){
             theModel.addAttribute("sinhViens", sinhVienService.findAllSinhViensByKhoa(mk, pageIndex, pageSize));
-
-        }else{
+        }else if(keyword != null){
+            theModel.addAttribute("sinhViens", sinhVienService.search(keyword, pageIndex, pageSize));
+        }
+        else{
             theModel.addAttribute("sinhViens", sinhVienService.getAllSinhViensByPageAndSize(pageIndex, pageSize));
         }
 
         theModel.addAttribute("mk", mk);
+
+        theModel.addAttribute("totalPage", totalPage);
+        theModel.addAttribute("currentPage", pageIndex);
 
         theModel.addAttribute("chuyenNganhs", chuyenNganhService.getAllChuyenNganhs());
         theModel.addAttribute("khoas", khoaService.getAllKhoas());
@@ -78,14 +78,6 @@ public class SinhVienController {
 
         return "sinhvien";
     }
-
-//    @GetMapping("/search")
-//    String searchSinhVien(Model theModel, @RequestParam("mssv") long mssv) {
-//        SinhVien sinhVien = sinhVienService.findById(mssv);
-//        theModel.addAttribute("sinhViens", sinhVien);
-//        theModel.addAttribute("mssv", mssv);
-//        return "sinhvien";
-//    }
 
     @PostMapping
     String luuThongTinSV(SinhVien sinhVien, RedirectAttributes redirectAttributes) {
