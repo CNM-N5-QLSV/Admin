@@ -71,6 +71,9 @@
     <!-- responsive CSS
 		============================================ -->
     <link th:rel="stylesheet" th:href="@{/css/responsive.css}">
+    <!-- toast CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/toast_notification.css}">
     <!-- modernizr JS
 		============================================ -->
     <script th:src="@{/js/vendor/modernizr-2.8.3.min.js}"></script>
@@ -79,7 +82,7 @@
     <script type="text/javascript" th:src="@{/js/modalevent.js}" src="../static/js/modalevent.js"></script>
 </head>
 
-<body>
+<body onload="showToast()">
 
 <!-- Start Left menu area -->
 <div th:replace="/common/leftmenu :: left_menu"></div>
@@ -92,18 +95,29 @@
         <div th:replace="/common/header :: header"></div>
         <!-- End Welcome area -->
 
+        <!-- Start Toast area -->
+        <div id="toast">
+
+        </div>
+        <li id="mes" hidden th:text="${mess}"></li>
+        <li id="suc_err" hidden th:text="${suc_err}"></li>
+        <!-- End Toast area -->
+
         <!-- Static Table Start -->
         <div class="data-table-area mg-b-15">
             <div class="container-fluid">
                 <div class="row">
 
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <form th:action="@{/hocKy/upload}" method="post" enctype="multipart/form-data" style="margin-top: 20px">
-                            <div>
-                                <input type="file" th:name="fileUpload" class="glyphicon glyphicon-open">
-                                <button type="submit">Tải lên</button>
-                            </div>
-                        </form>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 40px; margin-bottom: 10px">
+                            <form th:action="@{/hocKy/upload}" method="post" enctype="multipart/form-data">
+                                <div style="width: 25%; border-radius: 10%">
+                                    <input type="file" th:name="fileUpload"
+                                           class="form-control">
+                                    <button type="submit" class="form-control btn btn-primary">Tải lên</button>
+                                </div>
+                            </form>
+                        </div>
                         <form th:action="@{/hocKy/deleteHocKys}" method="get">
                             <div class="sparkline13-list">
                                 <div class="sparkline13-hd">
@@ -237,6 +251,76 @@
     </div>
 </div>
 
+<!-- toast
+============================================ -->
+<script>
+    function toast({
+                       title = '',
+                       message = '',
+                       type = 'info',
+                       duration = 3000
+                   }) {
+        const main = document.getElementById('toast');
+        if (main) {
+            const toast = document.createElement('div');
+            // Auto remove toast
+            const autoRemoveId = setTimeout(function () {
+                main.removeChild(toast);
+            }, duration + 1000);
+
+            // Remove toast when clickes
+            toast.onclick = function (e) {
+                if (e.target.closest('.toast__close')) {
+                    main.removeChild(toast);
+                    clearTimeout(autoRemoveId);
+                }
+            }
+
+
+            const icons = {
+                success: 'fa fa-check-circle',
+                info: 'fa fa-info-circle',
+                warning: 'fa fa-exclamation-circle',
+                error: 'fa fa-exclamation-circle',
+
+            };
+            const icon = icons[type];
+            const delay = (duration / 1000).toFixed(2);
+
+            toast.classList.add('toast', `toast--${type}`);
+            toast.style.animation = `slideInLeft ease .3s, fadeOut linear 1s ${delay}s forwards`;
+
+            toast.innerHTML = `
+                <div class="toast__icon">
+                    <i class="${icon}"></i>
+                </div>
+                <div class="toast__body">
+                    <h3 class="toast__title">${title}</h3>
+                    <p class="toast__msg">${message}</p>
+                </div>
+                <div class="toast__close">
+                    <i class="fa fa-times"></i>
+                </div>
+                `;
+            main.appendChild(toast);
+
+
+        }
+    }
+
+    var mess = document.getElementById("mes");
+    var suc_err = document.getElementById("suc_err");
+
+    function showToast() {
+        toast({
+            title: 'Thông báo!',
+            message: mess.textContent + '',
+            type: suc_err.textContent + '',
+            duration: 3500
+        });
+    }
+</script>
+
 <!-- jquery
 ============================================ -->
 <script th:src="@{/js/vendor/jquery-1.12.4.min.js}"></script>
@@ -265,10 +349,6 @@
 ============================================ -->
 <script th:src="@{/js/scrollbar/jquery.mCustomScrollbar.concat.min.js}"></script>
 <script th:src="@{/js/scrollbar/mCustomScrollbar-active.js}"></script>
-<!-- metisMenu JS
-============================================ -->
-<script th:src="@{/js/metisMenu/metisMenu.min.js}"></script>
-<script th:src="@{/js/metisMenu/metisMenu-active.js}"></script>
 <!-- data table JS
 ============================================ -->
 <script th:src="@{/js/data-table/bootstrap-table.js}"></script>

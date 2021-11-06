@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -31,7 +32,7 @@ public class HocKyController {
     @GetMapping
     String danhSachHocKy(Model theModel, @RequestParam(defaultValue = "0") int pageIndex, Principal principal) {
 
-        int pageSize = 10;
+        int pageSize = 5;
         int totalPage = 0;
         int count = hocKyService.getAllHocKys().size();
 
@@ -57,8 +58,10 @@ public class HocKyController {
     }
 
     @PostMapping
-    String luuThongTinHK(HocKy hocKy) {
+    String luuThongTinHK(HocKy hocKy, RedirectAttributes redirectAttributes) {
         hocKyService.saveHocKy(hocKy);
+        redirectAttributes.addFlashAttribute("mess", "Thêm học kỳ thành công");
+        redirectAttributes.addFlashAttribute("suc_err", "success");
         return "redirect:/hocKy";
     }
 
@@ -69,18 +72,36 @@ public class HocKyController {
     }
 
     @GetMapping(value = "/deleteHocKys")
-    String deleteHocKys(HttpServletRequest req) {
-        String[] ids = req.getParameterValues("idHK");
-        if (ids != null) {
-            for (String id : ids) {
-                hocKyService.deleteHocKy(Long.parseLong(id));
+    String deleteHocKys(HttpServletRequest req, RedirectAttributes redirectAttributes) {
+        try{
+            String[] ids = req.getParameterValues("idHK");
+            if (ids != null) {
+                for (String id : ids) {
+                    hocKyService.deleteHocKy(Long.parseLong(id));
+                }
+                redirectAttributes.addFlashAttribute("mess", "Xóa học kỳ thành công");
+                redirectAttributes.addFlashAttribute("suc_err", "success");
+            }else {
+                redirectAttributes.addFlashAttribute("mess", "Bạn chưa chọn dòng để xóa");
+                redirectAttributes.addFlashAttribute("suc_err", "warning");
             }
+        }catch (Exception e){
+            redirectAttributes.addFlashAttribute("mess", "Học kỳ đã có trong lớp học phần, không thể xóa");
+            redirectAttributes.addFlashAttribute("suc_err", "error");
         }
+
         return "redirect:/hocKy";
     }
     @PostMapping("/upload")
-    String saveHocKys(MultipartFile fileUpload){
-        hocKyService.uploadFile(fileUpload);
+    String saveHocKys(MultipartFile fileUpload, RedirectAttributes redirectAttributes){
+        try {
+            hocKyService.uploadFile(fileUpload);
+            redirectAttributes.addFlashAttribute("mess", "Tải file lên thành công");
+            redirectAttributes.addFlashAttribute("suc_err", "success");
+        }catch (Exception e){
+            redirectAttributes.addFlashAttribute("mess", "Sai định dạng file (.xlsx) hoặc lớn hơn 5MB");
+            redirectAttributes.addFlashAttribute("suc_err", "error");
+        }
         return "redirect:/hocKy";
 
     }

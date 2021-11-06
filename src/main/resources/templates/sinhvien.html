@@ -71,6 +71,11 @@
     <!-- responsive CSS
 		============================================ -->
     <link th:rel="stylesheet" th:href="@{/css/responsive.css}">
+
+    <!-- toast CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/toast_notification.css}">
+
     <!-- modernizr JS
 		============================================ -->
     <script th:src="@{/js/vendor/modernizr-2.8.3.min.js}"></script>
@@ -79,7 +84,7 @@
     <script type="text/javascript" th:src="@{/js/modalevent.js}" src="../static/js/modalevent.js"></script>
 </head>
 
-<body>
+<body onload="showToast()">
 
 <!-- Start Left menu area -->
 <div th:replace="/common/leftmenu :: left_menu"></div>
@@ -91,6 +96,11 @@
         <!-- Start Welcome area -->
         <div th:replace="/common/header :: header"></div>
         <!-- End Welcome area -->
+
+        <div id="toast">
+
+
+        </div>
 
         <!-- Start Search-->
         <br>
@@ -141,11 +151,9 @@
                                     <button type="submit" class="btn btn-danger btn-custon-rounded-four">
                                         <span>Xóa</span>
                                     </button>
-                                    <li class="alert alert-success fa fa-check" style="text-align: center"
-                                        role="alert" th:text="${success}" th:if="${success}"></li>
-                                    <li class="alert alert-danger fa fa-exclamation-circle"
-                                        style="text-align: center" role="alert" th:text="${error}"
-                                        th:if="${error}"></li>
+
+                                    <li id="mes" hidden th:text="${mess}"></li>
+                                    <li id="suc_err" hidden th:text="${suc_err}"></li>
                                 </div>
 
                                 <div class="sparkline13-graph">
@@ -374,7 +382,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <input type="submit" value="Lưu thông tin" class="btn btn-success"
+                                <input type="submit" onclick="showToast();" value="Lưu thông tin" class="btn btn-success"
                                        style="margin-left: 30px;">
                             </div>
                         </div>
@@ -384,6 +392,76 @@
         </div>
     </div>
 </div>
+
+<!-- toast
+============================================ -->
+<script>
+    function toast({
+                       title = '',
+                       message = '',
+                       type = 'info',
+                       duration = 3000
+                   }) {
+        const main = document.getElementById('toast');
+        if (main) {
+            const toast = document.createElement('div');
+            // Auto remove toast
+            const autoRemoveId = setTimeout(function () {
+                main.removeChild(toast);
+            }, duration + 1000);
+
+            // Remove toast when clickes
+            toast.onclick = function (e) {
+                if (e.target.closest('.toast__close')) {
+                    main.removeChild(toast);
+                    clearTimeout(autoRemoveId);
+                }
+            }
+
+
+            const icons = {
+                success: 'fa fa-check-circle',
+                info: 'fa fa-info-circle',
+                warning: 'fa fa-exclamation-circle',
+                error: 'fa fa-exclamation-circle',
+
+            };
+            const icon = icons[type];
+            const delay = (duration / 1000).toFixed(2);
+
+            toast.classList.add('toast', `toast--${type}`);
+            toast.style.animation = `slideInLeft ease .3s, fadeOut linear 1s ${delay}s forwards`;
+
+            toast.innerHTML = `
+                <div class="toast__icon">
+                    <i class="${icon}"></i>
+                </div>
+                <div class="toast__body">
+                    <h3 class="toast__title">${title}</h3>
+                    <p class="toast__msg">${message}</p>
+                </div>
+                <div class="toast__close">
+                    <i class="fa fa-times"></i>
+                </div>
+                `;
+            main.appendChild(toast);
+
+
+        }
+    }
+
+    var mess = document.getElementById("mes");
+    var suc_err = document.getElementById("suc_err");
+
+    function showToast() {
+        toast({
+            title: 'Thông báo!',
+            message: mess.textContent + '',
+            type: suc_err.textContent + '',
+            duration: 3500
+        });
+    }
+</script>
 
 <!-- jquery
 ============================================ -->
@@ -413,10 +491,6 @@
 ============================================ -->
 <script th:src="@{/js/scrollbar/jquery.mCustomScrollbar.concat.min.js}"></script>
 <script th:src="@{/js/scrollbar/mCustomScrollbar-active.js}"></script>
-<!-- metisMenu JS
-============================================ -->
-<script th:src="@{/js/metisMenu/metisMenu.min.js}"></script>
-<script th:src="@{/js/metisMenu/metisMenu-active.js}"></script>
 <!-- data table JS
 ============================================ -->
 <script th:src="@{/js/data-table/bootstrap-table.js}"></script>
