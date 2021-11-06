@@ -1,16 +1,19 @@
 package com.example.n5_qlsv_admin.controller;
 
+import com.example.n5_qlsv_admin.message.ResponseMessage;
 import com.example.n5_qlsv_admin.model.HocKy;
 import com.example.n5_qlsv_admin.model.SinhVien;
 import com.example.n5_qlsv_admin.service.HocKyService;
 import com.example.n5_qlsv_admin.service.SinhVienService;
 import com.example.n5_qlsv_admin.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -75,5 +78,10 @@ public class HocKyController {
         }
         return "redirect:/hocKy";
     }
+    @PostMapping("/upload")
+    String saveHocKys(MultipartFile fileUpload){
+        hocKyService.uploadFile(fileUpload);
+        return "redirect:/hocKy";
 
+    }
 }
