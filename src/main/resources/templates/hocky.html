@@ -96,12 +96,19 @@
         <div class="data-table-area mg-b-15">
             <div class="container-fluid">
                 <div class="row">
+
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <form th:action="@{/hocKy/upload}" method="post" enctype="multipart/form-data" style="margin-top: 20px">
+                            <div>
+                                <input type="file" th:name="fileUpload" class="glyphicon glyphicon-open">
+                                <button type="submit">Tải lên</button>
+                            </div>
+                        </form>
                         <form th:action="@{/hocKy/deleteHocKys}" method="get">
                             <div class="sparkline13-list">
                                 <div class="sparkline13-hd">
                                     <div class="main-sparkline13-hd">
-                                       <h1></h1>
+                                        <h1></h1>
                                         <a class="btn btn-info btnCreateHocKy">Thêm học kỳ</a>
                                         <button type="submit" class="btn btn-danger btn-custon-rounded-four">
                                             <span>Xóa</span>
