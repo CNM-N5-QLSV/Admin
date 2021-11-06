@@ -1,13 +1,9 @@
 package com.example.n5_qlsv_admin.controller;
 
 import com.example.n5_qlsv_admin.model.LopHoc;
-import com.example.n5_qlsv_admin.model.SinhVien;
 import com.example.n5_qlsv_admin.service.LopHocService;
 import com.example.n5_qlsv_admin.service.SinhVienService;
-import com.example.n5_qlsv_admin.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -53,8 +49,10 @@ public class LopHocController {
     }
 
     @PostMapping
-    public String luuThongTinLopHoc(LopHoc lopHoc){
+    public String luuThongTinLopHoc(LopHoc lopHoc, RedirectAttributes redirectAttributes){
         lopHocService.saveLopHoc(lopHoc);
+        redirectAttributes.addFlashAttribute("mess", "Thêm lớp học thành công");
+        redirectAttributes.addFlashAttribute("suc_err", "success");
         return "redirect:/lophoc";
     }
 
@@ -72,12 +70,16 @@ public class LopHocController {
                 for (String maLopHoc : maLopHocs){
                     lopHocService.deleteLopHocs(Long.parseLong(maLopHoc));
                 }
+                redirectAttributes.addFlashAttribute("mess", "Xóa lớp học thành công");
+                redirectAttributes.addFlashAttribute("suc_err", "success");
+            }else {
+                redirectAttributes.addFlashAttribute("mess", "Bạn chưa chọn dòng để xóa");
+                redirectAttributes.addFlashAttribute("suc_err", "warning");
             }
-            redirectAttributes.addFlashAttribute("success", "Xóa lớp học thành công");
         }catch (Exception e){
-            redirectAttributes.addFlashAttribute("error", "Lớp học đã có trong sinh viên, không thể xóa");
+            redirectAttributes.addFlashAttribute("mess", "Lớp học đã có trong sinh viên, không thể xóa");
+            redirectAttributes.addFlashAttribute("suc_err", "error");
         }
-
         return "redirect:/lophoc";
     }
 
