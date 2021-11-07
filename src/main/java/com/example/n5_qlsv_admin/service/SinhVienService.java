@@ -2,6 +2,7 @@ package com.example.n5_qlsv_admin.service;
 
 import com.example.n5_qlsv_admin.model.SinhVien;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -20,4 +21,6 @@ public interface SinhVienService {
     List<SinhVien> search(String keyword, int pageIndex, int pageSize);
 
     List<SinhVien> findAllSinhViensByKhoa(Long maKhoa, int pageIndex, int pageSize);
+
+    void uploadFile(MultipartFile file);
 }

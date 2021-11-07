@@ -1,15 +1,9 @@
 package com.example.n5_qlsv_admin.controller;
 
-import com.example.n5_qlsv_admin.message.ResponseMessage;
 import com.example.n5_qlsv_admin.model.HocKy;
-import com.example.n5_qlsv_admin.model.SinhVien;
 import com.example.n5_qlsv_admin.service.HocKyService;
 import com.example.n5_qlsv_admin.service.SinhVienService;
-import com.example.n5_qlsv_admin.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -59,9 +53,14 @@ public class HocKyController {
 
     @PostMapping
     String luuThongTinHK(HocKy hocKy, RedirectAttributes redirectAttributes) {
-        hocKyService.saveHocKy(hocKy);
-        redirectAttributes.addFlashAttribute("mess", "Thêm học kỳ thành công");
-        redirectAttributes.addFlashAttribute("suc_err", "success");
+        try{
+            hocKyService.saveHocKy(hocKy);
+            redirectAttributes.addFlashAttribute("mess", "Thêm thành công");
+            redirectAttributes.addFlashAttribute("suc_err", "success");
+        }catch (Exception e){
+            redirectAttributes.addFlashAttribute("mess", "Đã có lỗi xảy ra");
+            redirectAttributes.addFlashAttribute("suc_err", "error");
+        }
         return "redirect:/hocKy";
     }
 
@@ -92,8 +91,9 @@ public class HocKyController {
 
         return "redirect:/hocKy";
     }
+
     @PostMapping("/upload")
-    String saveHocKys(MultipartFile fileUpload, RedirectAttributes redirectAttributes){
+    String saveObjectsByFile(MultipartFile fileUpload, RedirectAttributes redirectAttributes){
         try {
             hocKyService.uploadFile(fileUpload);
             redirectAttributes.addFlashAttribute("mess", "Tải file lên thành công");

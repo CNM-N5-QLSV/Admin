@@ -341,3 +341,11 @@ $(document).ready(function () {
         $('.myForm #myModal').modal();
     });
 });
+
+// Import File
+$(document).ready(function () {
+    $('.btnImportFile').on('click', function (event) {
+        event.preventDefault();
+        $('.myForm1 #myModalImportFile').modal();
+    });
+});

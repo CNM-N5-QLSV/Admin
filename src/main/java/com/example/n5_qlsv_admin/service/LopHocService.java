@@ -1,6 +1,7 @@
 package com.example.n5_qlsv_admin.service;
 
 import com.example.n5_qlsv_admin.model.LopHoc;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -15,4 +16,6 @@ public interface LopHocService {
     void deleteLopHocs(long maLopHoc);
 
     LopHoc findById(long maLopHoc);
+
+    void uploadFile(MultipartFile file);
 }

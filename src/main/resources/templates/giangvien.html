@@ -79,7 +79,7 @@
     <script type="text/javascript" th:src="@{/js/modalevent.js}" src="../static/js/modalevent.js"></script>
 </head>
 
-<body>
+<body onload="showToast()">
 
 <!-- Start Left menu area -->
 <div th:replace="/common/leftmenu :: left_menu"></div>
@@ -92,6 +92,14 @@
         <div th:replace="/common/header :: header"></div>
         <!-- End Welcome area -->
 
+        <!-- Start Toast area -->
+        <div id="toast">
+
+        </div>
+        <li id="mes" hidden th:text="${mess}"></li>
+        <li id="suc_err" hidden th:text="${suc_err}"></li>
+        <!-- End Toast area -->
+
         <!-- Static Table Start -->
         <div class="data-table-area mg-b-15">
             <div class="container-fluid">
@@ -103,6 +111,8 @@
                                     <div class="main-sparkline13-hd">
                                         <h1></h1>
                                         <a class="btn btn-info createBtn">Thêm giảng viên</a>
+                                        <a style="margin-top: -3px"
+                                           class="btn btn-primary glyphicon glyphicon-import btnImportFile"></a>
                                         <button type="submit" class="btn btn-danger btn-custon-rounded-four">
                                             <span>Xóa</span>
                                         </button>
@@ -251,9 +261,40 @@
                 </div>
             </form>
         </div>
+
+        <!-- Start Modal Import area -->
+        <div class="myForm1">
+            <form th:action="@{/giangvien/upload}" method="post" enctype="multipart/form-data">
+                <div class="modal fade" id="myModalImportFile" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color: rgb(130, 216, 130);">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <div class="text-center" style="color: white;">
+                                    <h3>UPLOAD FILE</h3>
+                                </div>
+                            </div>
+                            <div class="modal-body">
+                                <div style="border-radius: 10%">
+                                    <input type="file" th:name="fileUpload"
+                                           class="form-control">
+                                    <br>
+                                    <button type="submit" class="form-control btn btn-primary">Tải lên</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- End Modal Import area -->
+
     </div>
 </div>
 
+<!-- toast
+============================================ -->
+<script th:src="@{/js/toast_notification.js}"></script>
 <!-- jquery
 ============================================ -->
 <script th:src="@{/js/vendor/jquery-1.12.4.min.js}"></script>
