@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -56,26 +58,58 @@ public class MonHocController {
     }
 
     @PostMapping
-    String luuThongTinMH(MonHoc monHoc){
-        monHocService.saveMonHoc(monHoc);
+    String luuThongTinMH(MonHoc monHoc, RedirectAttributes redirectAttributes){
+        try{
+            monHocService.saveMonHoc(monHoc);
+            redirectAttributes.addFlashAttribute("mess", "Thêm thành công");
+            redirectAttributes.addFlashAttribute("suc_err", "success");
+        }catch (Exception e){
+            redirectAttributes.addFlashAttribute("mess", "Đã có lỗi xảy ra");
+            redirectAttributes.addFlashAttribute("suc_err", "error");
+        }
+
         return "redirect:/monhoc";
     }
 
     @ResponseBody
     @GetMapping("/findMH")
     MonHoc findMonHoc(long ma_mh){
-        System.out.println(ma_mh);
         return monHocService.findById(ma_mh);
     };
 
     @GetMapping(value = "/deleteMonHocs")
-    String deleteMonHocs(HttpServletRequest req) {
-        String[] ma_mhs = req.getParameterValues("idMH");
-        if (ma_mhs != null) {
-            for (String ma_mh : ma_mhs) {
-                monHocService.deleteMonHocs(Long.parseLong(ma_mh));
+    String deleteMonHocs(HttpServletRequest req, RedirectAttributes redirectAttributes) {
+        try{
+            String[] ma_mhs = req.getParameterValues("idMH");
+            if (ma_mhs != null) {
+                for (String ma_mh : ma_mhs) {
+                    monHocService.deleteMonHocs(Long.parseLong(ma_mh));
+                }
+                redirectAttributes.addFlashAttribute("mess", "Xóa môn học thành công");
+                redirectAttributes.addFlashAttribute("suc_err", "success");
+            }else {
+                redirectAttributes.addFlashAttribute("mess", "Bạn chưa chọn dòng để xóa");
+                redirectAttributes.addFlashAttribute("suc_err", "warning");
             }
+        }catch (Exception e){
+            redirectAttributes.addFlashAttribute("mess", "Đã có lỗi xảy ra");
+            redirectAttributes.addFlashAttribute("suc_err", "error");
+        }
+
+        return "redirect:/monhoc";
+    }
+
+    @PostMapping("/upload")
+    String saveObjectsByFile(MultipartFile fileUpload, RedirectAttributes redirectAttributes){
+        try {
+            monHocService.uploadFile(fileUpload);
+            redirectAttributes.addFlashAttribute("mess", "Tải file lên thành công");
+            redirectAttributes.addFlashAttribute("suc_err", "success");
+        }catch (Exception e){
+            redirectAttributes.addFlashAttribute("mess", "Sai định dạng file (.xlsx) hoặc lớn hơn 5MB");
+            redirectAttributes.addFlashAttribute("suc_err", "error");
         }
         return "redirect:/monhoc";
+
     }
 }

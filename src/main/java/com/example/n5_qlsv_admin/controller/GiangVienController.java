@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -61,8 +63,16 @@ public class GiangVienController {
     }
 
     @PostMapping
-    String luuThongTinGV(GiangVien giangVien){
-        giangVienService.saveGiangVien(giangVien);
+    String luuThongTinGV(GiangVien giangVien, RedirectAttributes redirectAttributes){
+        try{
+            giangVienService.saveGiangVien(giangVien);
+            redirectAttributes.addFlashAttribute("mess", "Thêm thành công");
+            redirectAttributes.addFlashAttribute("suc_err", "success");
+        }catch (Exception e){
+            redirectAttributes.addFlashAttribute("mess", "Đã có lỗi xảy ra");
+            redirectAttributes.addFlashAttribute("suc_err", "error");
+        }
+
         return "redirect:/giangvien";
     }
 
@@ -74,13 +84,38 @@ public class GiangVienController {
     };
 
     @GetMapping(value = "/deleteGiangViens")
-    String deleteGiangViens(HttpServletRequest req) {
-        String[] ma_gvs = req.getParameterValues("idGV");
-        if (ma_gvs != null) {
-            for (String ma_gv : ma_gvs) {
-                giangVienService.deleteGiangViens(Long.parseLong(ma_gv));
+    String deleteGiangViens(HttpServletRequest req, RedirectAttributes redirectAttributes) {
+        try{
+            String[] ma_gvs = req.getParameterValues("idGV");
+            if (ma_gvs != null) {
+                for (String ma_gv : ma_gvs) {
+                    giangVienService.deleteGiangViens(Long.parseLong(ma_gv));
+                }
+                redirectAttributes.addFlashAttribute("mess", "Xóa giảng viên thành công");
+                redirectAttributes.addFlashAttribute("suc_err", "success");
+            }else {
+                redirectAttributes.addFlashAttribute("mess", "Bạn chưa chọn dòng để xóa");
+                redirectAttributes.addFlashAttribute("suc_err", "warning");
             }
+        }catch (Exception e){
+            redirectAttributes.addFlashAttribute("mess", "Giảng viên này đã được phân công trong lớp học phần, không thể xóa");
+            redirectAttributes.addFlashAttribute("suc_err", "error");
+        }
+
+        return "redirect:/giangvien";
+    }
+
+    @PostMapping("/upload")
+    String saveObjectsByFile(MultipartFile fileUpload, RedirectAttributes redirectAttributes){
+        try {
+            giangVienService.uploadFile(fileUpload);
+            redirectAttributes.addFlashAttribute("mess", "Tải file lên thành công");
+            redirectAttributes.addFlashAttribute("suc_err", "success");
+        }catch (Exception e){
+            redirectAttributes.addFlashAttribute("mess", "Sai định dạng file (.xlsx) hoặc lớn hơn 5MB");
+            redirectAttributes.addFlashAttribute("suc_err", "error");
         }
         return "redirect:/giangvien";
+
     }
 }

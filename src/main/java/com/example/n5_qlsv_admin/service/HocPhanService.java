@@ -3,6 +3,7 @@ package com.example.n5_qlsv_admin.service;
 
 
 import com.example.n5_qlsv_admin.model.HocPhan;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface HocPhanService {
     void deleteHocPhans(String maHocPhan);
 
     HocPhan findById(String maHocPhan);
+
+    void uploadFile(MultipartFile file);
 }

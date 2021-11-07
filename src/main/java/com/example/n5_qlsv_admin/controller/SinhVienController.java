@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -100,13 +101,38 @@ public class SinhVienController {
     }
 
     @GetMapping(value = "/deleteSinhViens")
-    String deleteSinhViens(HttpServletRequest req) {
-        String[] ma_svs = req.getParameterValues("idSV");
-        if (ma_svs != null) {
-            for (String ma_sv : ma_svs) {
-                sinhVienService.deleteSinhVien(ma_sv);
+    String deleteSinhViens(HttpServletRequest req, RedirectAttributes redirectAttributes) {
+        try{
+            String[] ma_svs = req.getParameterValues("idSV");
+            if (ma_svs != null) {
+                for (String ma_sv : ma_svs) {
+                    sinhVienService.deleteSinhVien(ma_sv);
+                }
+                redirectAttributes.addFlashAttribute("mess", "Xóa sinh viên thành công");
+                redirectAttributes.addFlashAttribute("suc_err", "success");
+            }else {
+                redirectAttributes.addFlashAttribute("mess", "Bạn chưa chọn dòng để xóa");
+                redirectAttributes.addFlashAttribute("suc_err", "warning");
             }
+        }catch (Exception e){
+            redirectAttributes.addFlashAttribute("mess", "Sinh viên này đã đăng ký lớp học phần, không thể xóa");
+            redirectAttributes.addFlashAttribute("suc_err", "error");
+        }
+
+        return "redirect:/sinhVien";
+    }
+
+    @PostMapping("/upload")
+    String saveObjectsByFile(MultipartFile fileUpload, RedirectAttributes redirectAttributes){
+        try {
+            sinhVienService.uploadFile(fileUpload);
+            redirectAttributes.addFlashAttribute("mess", "Tải file lên thành công");
+            redirectAttributes.addFlashAttribute("suc_err", "success");
+        }catch (Exception e){
+            redirectAttributes.addFlashAttribute("mess", "Sai định dạng file (.xlsx) hoặc lớn hơn 5MB");
+            redirectAttributes.addFlashAttribute("suc_err", "error");
         }
         return "redirect:/sinhVien";
+
     }
 }

@@ -78,7 +78,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" th:src="@{/js/modalevent.js}" src="../static/js/modalevent.js"></script>
 </head>
-<body>
+<body onload="showToast()">
 
 <!-- Start Left menu area -->
 <div th:replace="/common/leftmenu :: left_menu"></div>
@@ -90,6 +90,14 @@
         <!-- Start Welcome area -->
         <div th:replace="/common/header :: header"></div>
         <!-- End Welcome area -->
+
+        <!-- Start Toast area -->
+        <div id="toast">
+
+        </div>
+        <li id="mes" hidden th:text="${mess}"></li>
+        <li id="suc_err" hidden th:text="${suc_err}"></li>
+        <!-- End Toast area -->
 
         <!-- Static Table Start -->
         <div class="data-table-area mg-b-15">
@@ -267,6 +275,9 @@
     </div>
 </div>
 
+<!-- toast
+============================================ -->
+<script th:src="@{/js/toast_notification.js}"></script>
 <!-- jquery
 ============================================ -->
 <script th:src="@{/js/vendor/jquery-1.12.4.min.js}"></script>

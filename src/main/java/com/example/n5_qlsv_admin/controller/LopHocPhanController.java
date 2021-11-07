@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -69,8 +71,15 @@ public class LopHocPhanController {
 
     }
     @PostMapping
-    String luuThongTinLHP(LopHocPhan lopHocPhan) {
-        lopHocPhanService.saveLopHocPhan(lopHocPhan);
+    String luuThongTinLHP(LopHocPhan lopHocPhan, RedirectAttributes redirectAttributes) {
+        try{
+            lopHocPhanService.saveLopHocPhan(lopHocPhan);
+            redirectAttributes.addFlashAttribute("mess", "Thêm thành công");
+            redirectAttributes.addFlashAttribute("suc_err", "success");
+        }catch (Exception e){
+            redirectAttributes.addFlashAttribute("mess", "Đã có lỗi xảy ra");
+            redirectAttributes.addFlashAttribute("suc_err", "error");
+        }
         return "redirect:/lophocphan";
     }
 
@@ -81,13 +90,24 @@ public class LopHocPhanController {
     }
 
     @GetMapping(value = "/deleteLopHocPhans")
-    String deleteLopHocPhans(HttpServletRequest req) {
-        String[] ma_lhps = req.getParameterValues("idLHP");
-        if (ma_lhps != null) {
-            for (String ma_lhp : ma_lhps) {
-                lopHocPhanService.deleteLopHocPhan(Long.parseLong(ma_lhp));
+    String deleteLopHocPhans(HttpServletRequest req, RedirectAttributes redirectAttributes) {
+        try{
+            String[] ma_lhps = req.getParameterValues("idLHP");
+            if (ma_lhps != null) {
+                for (String ma_lhp : ma_lhps) {
+                    lopHocPhanService.deleteLopHocPhan(Long.parseLong(ma_lhp));
+                }
+                redirectAttributes.addFlashAttribute("mess", "Xóa lớp học phần thành công");
+                redirectAttributes.addFlashAttribute("suc_err", "success");
+            }else {
+                redirectAttributes.addFlashAttribute("mess", "Bạn chưa chọn dòng để xóa");
+                redirectAttributes.addFlashAttribute("suc_err", "warning");
             }
+        }catch (Exception e){
+            redirectAttributes.addFlashAttribute("mess", "Lớp học phần này đã có sinh viên đăng ký, không thể xóa");
+            redirectAttributes.addFlashAttribute("suc_err", "error");
         }
+
         return "redirect:/lophocphan";
     }
 
@@ -101,19 +121,38 @@ public class LopHocPhanController {
     }
 
     @PostMapping("/CTLHP")
-    String themCTLHP(ChiTietLopHocPhan chiTietLopHocPhan, long idLHP){
-        ctlhpService.saveCTLHP(chiTietLopHocPhan, idLHP);
+    String themCTLHP(ChiTietLopHocPhan chiTietLopHocPhan, long idLHP, RedirectAttributes redirectAttributes){
+        try{
+            ctlhpService.saveCTLHP(chiTietLopHocPhan, idLHP);
+            redirectAttributes.addFlashAttribute("mess", "Thêm thành công");
+            redirectAttributes.addFlashAttribute("suc_err", "success");
+        }catch (Exception e){
+            redirectAttributes.addFlashAttribute("mess", "Đã có lỗi xảy ra");
+            redirectAttributes.addFlashAttribute("suc_err", "error");
+        }
+
         return "redirect:/lophocphan/CTLHP?idLHP=" + idLHP;
     }
 
     @GetMapping(value = "/delCTLHPs")
-    String deleteCTLHPs(HttpServletRequest req, @RequestParam long idLHP) {
-        String[] ma_ctlhps = req.getParameterValues("idCTLHP");
-        if (ma_ctlhps != null) {
-            for (String ma_ctlhp : ma_ctlhps) {
-                ctlhpService.deleteCTLHP(Long.parseLong(ma_ctlhp));
+    String deleteCTLHPs(HttpServletRequest req, @RequestParam long idLHP, RedirectAttributes redirectAttributes) {
+        try{
+            String[] ma_ctlhps = req.getParameterValues("idCTLHP");
+            if (ma_ctlhps != null) {
+                for (String ma_ctlhp : ma_ctlhps) {
+                    ctlhpService.deleteCTLHP(Long.parseLong(ma_ctlhp));
+                }
+                redirectAttributes.addFlashAttribute("mess", "Xóa chi tiết lớp học phần thành công");
+                redirectAttributes.addFlashAttribute("suc_err", "success");
+            }else {
+                redirectAttributes.addFlashAttribute("mess", "Bạn chưa chọn dòng để xóa");
+                redirectAttributes.addFlashAttribute("suc_err", "warning");
             }
+        }catch (Exception e){
+            redirectAttributes.addFlashAttribute("mess", "Lớp học phần này đã có sinh viên đăng ký, không thể xóa");
+            redirectAttributes.addFlashAttribute("suc_err", "error");
         }
+
         return "redirect:/lophocphan/CTLHP?idLHP=" + idLHP;
     }
 
@@ -121,6 +160,20 @@ public class LopHocPhanController {
     @GetMapping("/findCTLHP")
     ChiTietLopHocPhan findCTLHP(long ma_ctlhp){
         return ctlhpService.findById(ma_ctlhp);
+    }
+
+    @PostMapping("/upload")
+    String saveObjectsByFile(MultipartFile fileUpload, RedirectAttributes redirectAttributes){
+        try {
+            lopHocPhanService.uploadFile(fileUpload);
+            redirectAttributes.addFlashAttribute("mess", "Tải file lên thành công");
+            redirectAttributes.addFlashAttribute("suc_err", "success");
+        }catch (Exception e){
+            redirectAttributes.addFlashAttribute("mess", "Sai định dạng file (.xlsx) hoặc lớn hơn 5MB");
+            redirectAttributes.addFlashAttribute("suc_err", "error");
+        }
+        return "redirect:/lophocphan";
+
     }
 }
 
