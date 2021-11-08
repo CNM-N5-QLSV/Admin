@@ -100,12 +100,12 @@
         <!-- End Toast area -->
 
         <!-- Static Table Start -->
-        <div class="data-table-area mg-b-15">
+        <div class="product-status mg-b-15">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <form th:action="@{/lophocphan/delCTLHPs}" method="get">
-                            <div class="sparkline13-list">
+                            <div class="product-status-wrap drp-lst">
                                 <div class="sparkline13-hd">
                                     <div class="main-sparkline13-hd">
                                         <h1></h1>
@@ -135,6 +135,7 @@
                                                 <th>STT</th>
                                                 <th>Mã chi tiết lớp học phần</th>
                                                 <th>Tiết học</th>
+                                                <th>Nhóm</th>
                                                 <th>Cơ sở</th>
                                                 <th>Dãy nhà</th>
                                                 <th>Phòng</th>
@@ -152,6 +153,7 @@
                                                 <td th:text="${stt.index + 1}"></td>
                                                 <td th:text="${ctlhp.getMaCTLHP()}"></td>
                                                 <td th:text="${ctlhp.getTietHoc()}"></td>
+                                                <td th:text="${ctlhp.getNhomTH()}"></td>
                                                 <td th:text="'Cơ sở '+ ${ctlhp.getCoSo()}"></td>
                                                 <td th:text="${ctlhp.getDayNha()}"></td>
                                                 <td th:text="${ctlhp.getPhong()}"></td>
@@ -242,7 +244,7 @@
                                                    class="form-control">
                                         </div>
                                     </div>
-                                    <div class="form-group col-sm-6">
+                                    <div class="form-group col-sm-3">
                                         <label>Giảng viên</label>
                                         <div>
                                             <select value="" id="gv" th:field="*{giangVien.maGV}"
@@ -252,6 +254,13 @@
                                                         th:value="${gv.getMaGV()}"
                                                         th:text="${gv.getTenGV()}"></option>
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-3">
+                                        <label>Nhóm thực hành</label>
+                                        <div>
+                                            <input type="number" min="0" id="nhomthuchanh" value=""
+                                                   th:field="*{nhomTH}" class="form-control">
                                         </div>
                                     </div>
                                 </div>

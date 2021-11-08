@@ -309,6 +309,7 @@ $(document).ready(function () {
         $('.myForm #ngayketthuc').val('');
         $('.myForm #gv').val(0);
         $('.myForm #mt').val('');
+        $('.myForm #nhomthuchanh').val(0);
 
         $('.myForm #myModal').modal();
     });
@@ -330,6 +331,7 @@ $(document).ready(function () {
             $('.myForm #ngaybatdau').val(ctlhp.ngayBatDau.split('T')[0]);
             $('.myForm #ngayketthuc').val(ctlhp.ngayKetThuc.split('T')[0]);
             $('.myForm #mt').val(ctlhp.moTa);
+            $('.myForm #nhomthuchanh').val(ctlhp.nhomTH);
 
             if(ctlhp.giangVien === null){
                 $('.myForm #gv').val(0);

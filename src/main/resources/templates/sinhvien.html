@@ -146,12 +146,12 @@
         <!-- End Search-->
 
         <!-- Static Table Start -->
-        <div class="data-table-area mg-b-15">
+        <div class="product-status mg-b-15">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <form th:action="@{/sinhVien/deleteSinhViens}" method="get">
-                            <div class="sparkline13-list">
+                            <div class="product-status-wrap drp-lst">
                                 <div class="sparkline13-hd">
                                     <h1></h1>
                                     <a class="btn btn-info createBtn">Thêm sinh viên</a>
@@ -159,9 +159,6 @@
                                     <button type="submit" class="btn btn-danger btn-custon-rounded-four">
                                         <span>Xóa</span>
                                     </button>
-
-                                    <li id="mes" hidden th:text="${mess}"></li>
-                                    <li id="suc_err" hidden th:text="${suc_err}"></li>
                                 </div>
 
                                 <div class="sparkline13-graph">
@@ -178,8 +175,8 @@
                                                         <i class="fa fa-check"></i>
                                                     </div>
                                                 </th>
-                                                <th>STT</th>
-                                                <th>Mã sinh viên</th>
+                                                <th class="stt">STT</th>
+                                                <th class="masv">Mã sinh viên</th>
                                                 <th>Tên sinh viên</th>
                                                 <th>Bậc đào tạo</th>
                                                 <th>Địa chỉ</th>
@@ -199,8 +196,8 @@
                                             <tr th:each="sv, stt: ${sinhViens}">
                                                 <td><input type="checkbox" class="checkbox" th:name="idSV"
                                                            th:value="${sv.getMaSV()}"></td>
-                                                <td th:text="${stt.index + 1}"></td>
-                                                <td th:text="${sv.getMaSV()}"></td>
+                                                <td class="stt" th:text="${stt.index + 1}"></td>
+                                                <td class="masv" th:text="${sv.getMaSV()}"></td>
                                                 <td th:text="${sv.getTenSV()}"></td>
                                                 <td th:text="${sv.getBacDaoTao()}"></td>
                                                 <td th:text="${sv.getDiaChi()}"></td>
@@ -221,12 +218,14 @@
                                                 <td th:if="${sv.getKhoa() == null}"></td>
                                                 <td th:if="${sv.getLopHoc() == null}"></td>
                                                 <td th:if="${sv.getChuyenNganh() == null}"></td>
+
                                                 <td>
                                                     <a class="uBtn btn btn-warning"
                                                        th:href="@{/sinhVien/findSV(id=${sv.maSV})}">
                                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                     </a>
                                                 </td>
+
                                             </tr>
                                             </tbody>
                                         </table>
