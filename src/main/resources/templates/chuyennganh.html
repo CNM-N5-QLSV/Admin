@@ -71,6 +71,11 @@
     <!-- responsive CSS
 		============================================ -->
     <link th:rel="stylesheet" th:href="@{/css/responsive.css}">
+
+    <!-- toast CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/toast_notification.css}">
+
     <!-- modernizr JS
 		============================================ -->
     <script th:src="@{/js/vendor/modernizr-2.8.3.min.js}"></script>
@@ -131,12 +136,12 @@
         <!-- End Search-->
 
         <!-- Static Table Start -->
-        <div class="data-table-area mg-b-15">
+        <div class="product-status mg-b-15">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <form th:action="@{/chuyenNganh/deleteChuyenNganhs}" method="get">
-                            <div class="sparkline13-list">
+                            <div class="product-status-wrap drp-lst">
                                 <div class="sparkline13-hd">
                                     <div class="main-sparkline13-hd">
                                         <h1></h1>
