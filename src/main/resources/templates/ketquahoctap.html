@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Admin | Kết quả học tập</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- favicon
+		============================================ -->
+    <!--    <link th:rel="shortcut icon" type="image/x-icon" th:href="@{/asset/img/favicon.ico}">-->
+    <!-- Google Fonts
+		============================================ -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
+    <!-- Bootstrap CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <!-- Bootstrap CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
+    <!-- owl.carousel CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/owl.carousel.css}">
+    <link th:rel="stylesheet" th:href="@{/css/owl.theme.css}">
+    <link th:rel="stylesheet" th:href="@{/css/owl.transitions.css}">
+    <!-- animate CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/animate.css}">
+    <!-- normalize CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/normalize.css}">
+    <!-- meanmenu icon CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/meanmenu.min.css}">
+    <!-- main CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/main.css}">
+    <!-- educate icon CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/educate-custon-icon.css}">
+    <!-- morrisjs CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/morrisjs/morris.css}">
+    <!-- mCustomScrollbar CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/scrollbar/jquery.mCustomScrollbar.min.css}">
+    <!-- metisMenu CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/metisMenu/metisMenu.min.css}">
+    <link th:rel="stylesheet" th:href="@{/css/metisMenu/metisMenu-vertical.css}">
+    <!-- calendar CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/calendar/fullcalendar.min.css}">
+    <link th:rel="stylesheet" th:href="@{/css/calendar/fullcalendar.print.min.css}">
+    <!-- x-editor CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/editor/select2.css}">
+    <link th:rel="stylesheet" th:href="@{/css/editor/datetimepicker.css}">
+    <link th:rel="stylesheet" th:href="@{/css/editor/bootstrap-editable.css}">
+    <link th:rel="stylesheet" th:href="@{/css/editor/x-editor-style.css}">
+    <!-- normalize CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/data-table/bootstrap-table.css}">
+    <link th:rel="stylesheet" th:href="@{/css/data-table/bootstrap-editable.css}">
+    <!-- style CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/style.css}">
+    <!-- modal CSS
+        ============================================ -->
+    <link th:rel="stylesheet" th:href="@{/modal.css}">
+    <!-- responsive CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/responsive.css}">
+    <!-- modernizr JS
+		============================================ -->
+    <script th:src="@{/js/vendor/modernizr-2.8.3.min.js}"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/modal-event-2.js}" src="../static/js/modal-event-2.js"></script>
+    <script type="text/javascript" th:src="@{/js/modalevent.js}" src="../static/js/modalevent.js"></script>
+</head>
+<body onload="showToast()">
+
+<!-- Start Left menu area -->
+<div th:replace="/common/leftmenu :: left_menu"></div>
+<!-- End Left menu area -->
+
+<div class="all-content-wrapper">
+    <div class="header-advance-area">
+
+        <!-- Start Welcome area -->
+        <div th:replace="/common/header :: header"></div>
+        <!-- End Welcome area -->
+
+        <!-- Start Toast area -->
+        <div id="toast">
+
+        </div>
+        <li id="mes" hidden th:text="${mess}"></li>
+        <li id="suc_err" hidden th:text="${suc_err}"></li>
+        <!-- End Toast area -->
+
+        <!-- Static Table Start -->
+        <div class="data-table-area mg-b-15">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                            <div class="sparkline13-list">
+                                <div class="sparkline13-hd">
+                                    <div class="main-sparkline13-hd">
+                                        <h1></h1>
+                                        <a id="#" class="btn btn-info">Thêm kết quả học tập</a>
+                                        <a style="margin-top: -3px"
+                                           class="btn btn-primary glyphicon glyphicon-import btnImportFile"></a>
+                                        <button type="submit" class="btn btn-danger btn-custon-rounded-four">
+                                            <span>Xóa</span>
+                                        </button>
+                                    </div>
+                                </div>
+<!--                                <div class="sparkline13-graph">-->
+<!--                                    <div class="datatable-dashv1-list custom-datatable-overright">-->
+<!--                                        <table id="table" data-toggle="table"-->
+<!--                                               data-key-events="true" data-resizable="true" data-cookie="true"-->
+<!--                                               data-cookie-id-table="saveId" data-show-export="true"-->
+<!--                                               data-click-to-select="true" data-toolbar="#toolbar" class="tbl">-->
+<!--                                            <thead>-->
+<!--                                            <tr>-->
+<!--                                                <th>-->
+<!--                                                    <div align="center">-->
+<!--                                                        <i class="fa fa-check"></i>-->
+<!--                                                    </div>-->
+<!--                                                </th>-->
+<!--                                                <th>STT</th>-->
+<!--                                                <th>Mã học phần</th>-->
+<!--                                                <th>Môn học</th>-->
+<!--                                                <th>Số tín chỉ lý thuyết</th>-->
+<!--                                                <th>Số tín chỉ thực hành</th>-->
+<!--                                                <th>Học phần bắt buộc</th>-->
+<!--                                                <th>Chuyên ngành</th>-->
+<!--                                                <th>Thao tác</th>-->
+<!--                                            </tr>-->
+<!--                                            </thead>-->
+<!--                                            <tbody>-->
+<!--                                            <tr th:each="hocphan, status: ${hocphans}">-->
+<!--                                                <td><input type="checkbox" class="checkbox" th:name="mahp"-->
+<!--                                                           th:value="${hocphan.getMaHocPhan()}"></td>-->
+<!--                                                <td th:text="${status.index + 1}"></td>-->
+<!--                                                <td th:text="${hocphan.getMaHocPhan()}"></td>-->
+
+<!--                                                <td th:if="${hocphan.getMonHoc() != null}"-->
+<!--                                                    th:text="${hocphan.getMonHoc().getTenMonHoc()}"></td>-->
+<!--                                                <td th:if="${hocphan.getMonHoc() == null}"></td>-->
+
+<!--                                                <td th:text="${hocphan.getSoTCLT()}"></td>-->
+<!--                                                <td th:text="${hocphan.getSoTCTH()}"></td>-->
+<!--                                                <td>-->
+<!--                                                    <input type="checkbox" disabled-->
+<!--                                                           th:checked="${hocphan.isHocPhanBatBuoc()}">-->
+<!--                                                </td>-->
+<!--                                                <td th:text="${hocphan.getChuyenNganh().getTenChuyenNganh()}"></td>-->
+<!--                                                <td>-->
+<!--                                                    <a class="btnUpdateHocPhan btn btn-warning"-->
+<!--                                                       th:href="@{hocphan/findHocPhan(maHocPhan=${hocphan.maHocPhan})}">-->
+<!--                                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>-->
+<!--                                                    </a>-->
+<!--                                                </td>-->
+<!--                                            </tr>-->
+<!--                                            </tbody>-->
+<!--                                        </table>-->
+<!--                                        <div class="pull-right pagination">-->
+<!--                                            <ul class="pagination">-->
+<!--                                                <li class="page-pre">-->
+<!--                                                    <a th:href="@{hocphan(pageIndex=${currentPage - 1})}">‹</a>-->
+<!--                                                </li>-->
+<!--                                                <li class="page-number"-->
+<!--                                                    th:each="i : ${#numbers.sequence(0, totalPage - 1)}"-->
+<!--                                                    th:classappend="${currentPage}==${i}?'active':''">-->
+<!--                                                    <a th:href="@{hocphan(pageIndex=${i})}" th:text="${i + 1}"></a>-->
+<!--                                                </li>-->
+<!--                                                <li class="page-next">-->
+<!--                                                    <a th:href="@{hocphan(pageIndex=${currentPage + 1})}">›</a>-->
+<!--                                                </li>-->
+<!--                                            </ul>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Start Modal Import area -->
+        <div class="myForm1">
+            <form th:action="@{/ketquahoctap/upload}" method="post" enctype="multipart/form-data">
+                <div class="modal fade" id="myModalImportFile" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color: rgb(130, 216, 130);">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <div class="text-center" style="color: white;">
+                                    <h3>UPLOAD FILE</h3>
+                                </div>
+                            </div>
+                            <div class="modal-body">
+                                <div style="border-radius: 10%">
+                                    <input type="file" th:name="fileUpload"
+                                           class="form-control">
+                                    <br>
+                                    <button type="submit" class="form-control btn btn-primary">Tải lên</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- End Modal Import area -->
+
+    </div>
+</div>
+
+<!-- toast
+============================================ -->
+<script th:src="@{/js/toast_notification.js}"></script>
+<!-- jquery
+============================================ -->
+<script th:src="@{/js/vendor/jquery-1.12.4.min.js}"></script>
+<!-- bootstrap JS
+============================================ -->
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<!-- wow JS
+============================================ -->
+<script th:src="@{/js/wow.min.js}"></script>
+<!-- price-slider JS
+============================================ -->
+<script th:src="@{/js/jquery-price-slider.js}"></script>
+<!-- meanmenu JS
+============================================ -->
+<script th:src="@{/js/jquery.meanmenu.js}"></script>
+<!-- owl.carousel JS
+============================================ -->
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<!-- sticky JS
+============================================ -->
+<script th:src="@{/js/jquery.sticky.js}"></script>
+<!-- scrollUp JS
+============================================ -->
+<script th:src="@{/js/jquery.scrollUp.min.js}"></script>
+<!-- mCustomScrollbar JS
+============================================ -->
+<script th:src="@{/js/scrollbar/jquery.mCustomScrollbar.concat.min.js}"></script>
+<script th:src="@{/js/scrollbar/mCustomScrollbar-active.js}"></script>
+<!-- data table JS
+============================================ -->
+<script th:src="@{/js/data-table/bootstrap-table.js}"></script>
+<script th:src="@{/js/data-table/tableExport.js}"></script>
+<script th:src="@{/js/data-table/data-table-active.js}"></script>
+<script th:src="@{/js/data-table/bootstrap-table-editable.js}"></script>
+<script th:src="@{/js/data-table/bootstrap-editable.js}"></script>
+<script th:src="@{/js/data-table/bootstrap-table-resizable.js}"></script>
+<script th:src="@{/js/data-table/colResizable-1.5.source.js}"></script>
+<script th:src="@{/js/data-table/bootstrap-table-export.js}"></script>
+<!--  editable JS
+============================================ -->
+<script th:src="@{/js/editable/jquery.mockjax.js}"></script>
+<script th:src="@{/js/editable/mock-active.js}"></script>
+<script th:src="@{/js/editable/select2.js}"></script>
+<script th:src="@{/js/editable/moment.min.js}"></script>
+<script th:src="@{/js/editable/bootstrap-datetimepicker.js}"></script>
+<script th:src="@{/js/editable/bootstrap-editable.js}"></script>
+<script th:src="@{/js/editable/xediable-active.js}"></script>
+<!-- Chart JS
+============================================ -->
+<script th:src="@{/js/chart/jquery.peity.min.js}"></script>
+<script th:src="@{/js/peity/peity-active.js}"></script>
+<!-- tab JS
+============================================ -->
+<script th:src="@{/js/tab.js}"></script>
+<!-- plugins JS
+============================================ -->
+<script th:src="@{/js/plugins.js}"></script>
+<!-- main JS
+============================================ -->
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>
