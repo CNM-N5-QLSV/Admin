@@ -71,6 +71,11 @@
     <!-- responsive CSS
 		============================================ -->
     <link th:rel="stylesheet" th:href="@{/css/responsive.css}">
+
+    <!-- toast CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/toast_notification.css}">
+
     <!-- modernizr JS
 		============================================ -->
     <script th:src="@{/js/vendor/modernizr-2.8.3.min.js}"></script>
@@ -100,123 +105,261 @@
         <li id="suc_err" hidden th:text="${suc_err}"></li>
         <!-- End Toast area -->
 
-        <!-- Static Table Start -->
-        <div class="data-table-area mg-b-15">
+        <!-- Start Search-->
+        <br>
+        <div class="breadcome-area">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-
-                            <div class="sparkline13-list">
-                                <div class="sparkline13-hd">
-                                    <div class="main-sparkline13-hd">
-                                        <h1></h1>
-                                        <a id="#" class="btn btn-info">Thêm kết quả học tập</a>
-                                        <a style="margin-top: -3px"
-                                           class="btn btn-primary glyphicon glyphicon-import btnImportFile"></a>
-                                        <button type="submit" class="btn btn-danger btn-custon-rounded-four">
-                                            <span>Xóa</span>
-                                        </button>
+                        <div class="breadcome-list">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="breadcome-heading">
+                                        <form th:action="@{/ketquahoctap}" method="get" role="search"
+                                              class="sr-input-func">
+                                            <input type="text" th:name="maSV_KQHT"
+                                                   placeholder="Tìm kiếm..."
+                                                   th:value="${maSVKQHT}"
+                                                   class="search-int form-control">
+                                        </form>
                                     </div>
-                                </div>
-<!--                                <div class="sparkline13-graph">-->
-<!--                                    <div class="datatable-dashv1-list custom-datatable-overright">-->
-<!--                                        <table id="table" data-toggle="table"-->
-<!--                                               data-key-events="true" data-resizable="true" data-cookie="true"-->
-<!--                                               data-cookie-id-table="saveId" data-show-export="true"-->
-<!--                                               data-click-to-select="true" data-toolbar="#toolbar" class="tbl">-->
-<!--                                            <thead>-->
-<!--                                            <tr>-->
-<!--                                                <th>-->
-<!--                                                    <div align="center">-->
-<!--                                                        <i class="fa fa-check"></i>-->
-<!--                                                    </div>-->
-<!--                                                </th>-->
-<!--                                                <th>STT</th>-->
-<!--                                                <th>Mã học phần</th>-->
-<!--                                                <th>Môn học</th>-->
-<!--                                                <th>Số tín chỉ lý thuyết</th>-->
-<!--                                                <th>Số tín chỉ thực hành</th>-->
-<!--                                                <th>Học phần bắt buộc</th>-->
-<!--                                                <th>Chuyên ngành</th>-->
-<!--                                                <th>Thao tác</th>-->
-<!--                                            </tr>-->
-<!--                                            </thead>-->
-<!--                                            <tbody>-->
-<!--                                            <tr th:each="hocphan, status: ${hocphans}">-->
-<!--                                                <td><input type="checkbox" class="checkbox" th:name="mahp"-->
-<!--                                                           th:value="${hocphan.getMaHocPhan()}"></td>-->
-<!--                                                <td th:text="${status.index + 1}"></td>-->
-<!--                                                <td th:text="${hocphan.getMaHocPhan()}"></td>-->
-
-<!--                                                <td th:if="${hocphan.getMonHoc() != null}"-->
-<!--                                                    th:text="${hocphan.getMonHoc().getTenMonHoc()}"></td>-->
-<!--                                                <td th:if="${hocphan.getMonHoc() == null}"></td>-->
-
-<!--                                                <td th:text="${hocphan.getSoTCLT()}"></td>-->
-<!--                                                <td th:text="${hocphan.getSoTCTH()}"></td>-->
-<!--                                                <td>-->
-<!--                                                    <input type="checkbox" disabled-->
-<!--                                                           th:checked="${hocphan.isHocPhanBatBuoc()}">-->
-<!--                                                </td>-->
-<!--                                                <td th:text="${hocphan.getChuyenNganh().getTenChuyenNganh()}"></td>-->
-<!--                                                <td>-->
-<!--                                                    <a class="btnUpdateHocPhan btn btn-warning"-->
-<!--                                                       th:href="@{hocphan/findHocPhan(maHocPhan=${hocphan.maHocPhan})}">-->
-<!--                                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>-->
-<!--                                                    </a>-->
-<!--                                                </td>-->
-<!--                                            </tr>-->
-<!--                                            </tbody>-->
-<!--                                        </table>-->
-<!--                                        <div class="pull-right pagination">-->
-<!--                                            <ul class="pagination">-->
-<!--                                                <li class="page-pre">-->
-<!--                                                    <a th:href="@{hocphan(pageIndex=${currentPage - 1})}">‹</a>-->
-<!--                                                </li>-->
-<!--                                                <li class="page-number"-->
-<!--                                                    th:each="i : ${#numbers.sequence(0, totalPage - 1)}"-->
-<!--                                                    th:classappend="${currentPage}==${i}?'active':''">-->
-<!--                                                    <a th:href="@{hocphan(pageIndex=${i})}" th:text="${i + 1}"></a>-->
-<!--                                                </li>-->
-<!--                                                <li class="page-next">-->
-<!--                                                    <a th:href="@{hocphan(pageIndex=${currentPage + 1})}">›</a>-->
-<!--                                                </li>-->
-<!--                                            </ul>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-                            </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Start Modal Import area -->
-        <div class="myForm1">
-            <form th:action="@{/ketquahoctap/upload}" method="post" enctype="multipart/form-data">
-                <div class="modal fade" id="myModalImportFile" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header" style="background-color: rgb(130, 216, 130);">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <div class="text-center" style="color: white;">
-                                    <h3>UPLOAD FILE</h3>
-                                </div>
-                            </div>
-                            <div class="modal-body">
-                                <div style="border-radius: 10%">
-                                    <input type="file" th:name="fileUpload"
-                                           class="form-control">
-                                    <br>
-                                    <button type="submit" class="form-control btn btn-primary">Tải lên</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
-        <!-- End Modal Import area -->
+        <!-- End Search-->
 
+        <!-- Static Table Start -->
+        <div class="product-status mg-b-15">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <!--                        <form th:action="@{khoa/deleteKhoas}" method="get">-->
+                        <div class="product-status-wrap drp-lst">
+                            <div class="sparkline13-hd">
+                                <div class="main-sparkline13-hd">
+                                    <h1></h1>
+                                    <!--                                        <a id="createKhoaBtn" class="btn btn-info">Thêm kết quả học tập</a>-->
+                                    <a style="margin-top: -3px"
+                                       class="btn btn-primary glyphicon glyphicon-import btnImportFile"></a>
+                                    <!--                                        <button type="submit" class="btn btn-danger btn-custon-rounded-four">-->
+                                    <!--                                            <span>Xóa</span>-->
+                                    <!--                                        </button>-->
+                                </div>
+                            </div>
+                            <div class="sparkline13-graph">
+                                <div class="datatable-dashv1-list custom-datatable-overright">
+                                    <table id="table" data-toggle="table"
+                                           data-key-events="true" data-resizable="true" data-cookie="true"
+                                           data-cookie-id-table="saveId" data-show-export="true"
+                                           data-click-to-select="true" data-toolbar="#toolbar" class="tbl">
+                                        <thead>
+                                        <tr>
+                                            <!--                                                <th>-->
+                                            <!--                                                    <div align="center">-->
+                                            <!--                                                        <i class="fa fa-check"></i>-->
+                                            <!--                                                    </div>-->
+                                            <!--                                                </th>-->
+                                            <th>STT</th>
+                                            <th>Mã kết quả học tập</th>
+                                            <th>Mã sinh viên</th>
+                                            <th>Mã lớp học phần</th>
+                                            <th>TK1</th>
+                                            <th>TK2</th>
+                                            <th>TK3</th>
+                                            <th>Giữa kỳ</th>
+                                            <th>TH1</th>
+                                            <th>TH2</th>
+                                            <th>Cuối kỳ</th>
+                                            <th>Điểm hệ 4</th>
+                                            <th>Điểm hệ 10</th>
+                                            <th>Điểm chữ</th>
+                                            <th>Xếp loại</th>
+                                            <th>Chú ý</th>
+                                            <th>Thao tác</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="kqht, status: ${kqhts}">
+                                            <!--                                                <td><input type="checkbox" class="checkbox" th:name="maKhoa"-->
+                                            <!--                                                           th:value="${khoa.getMaKhoa()}"></td>-->
+                                            <td th:text="${status.index + 1}"></td>
+                                            <td th:text="${kqht.getMaKQHT()}"></td>
+                                            <td th:text="${kqht.getSinhVien().getMaSV()}"></td>
+                                            <td th:text="${kqht.getLopHocPhan().getMaLHP()}"></td>
+                                            <td th:text="${kqht.getDiemTK1()}"></td>
+                                            <td th:text="${kqht.getDiemTK2()}"></td>
+                                            <td th:text="${kqht.getDiemTK3()}"></td>
+                                            <td th:text="${kqht.getDiemGK()}"></td>
+                                            <td th:text="${kqht.getDiemTH1()}"></td>
+                                            <td th:text="${kqht.getDiemTH2()}"></td>
+                                            <td th:text="${kqht.getDiemCK()}"></td>
+                                            <td th:text="${kqht.getDiemHe4()}"></td>
+                                            <td th:text="${kqht.getDiemHe10()}"></td>
+                                            <td th:text="${kqht.getDiemChu()}"></td>
+                                            <td th:text="${kqht.getXepLoai()}"></td>
+                                            <td th:text="${kqht.getMoTa()}"></td>
+                                            <td><a class="btnUpdateKQHT btn btn-warning"
+                                                   th:href="@{ketquahoctap/findKQHT(maKQHT=${kqht.getMaKQHT()})}">
+                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                        <div class="pull-right pagination">
+                                            <ul class="pagination">
+                                                <li class="page-pre">
+                                                    <a th:if="${maSVKQHT == null || maSVKQHT == ''}"
+                                                       th:href="@{ketquahoctap(pageIndex=${currentPage - 1})}">‹</a>
+                                                    <a th:if="${maSVKQHT != null && maSVKQHT != ''}"
+                                                       th:href="@{ketquahoctap(maSV_KQHT=${maSVKQHT},pageIndex=${currentPage - 1})}">‹</a>
+                                                </li>
+                                                <li class="page-number"
+                                                    th:each="i : ${#numbers.sequence(0, totalPage - 1)}"
+                                                    th:classappend="${currentPage}==${i}?'active':''">
+                                                    <a th:if="${maSVKQHT != null && maSVKQHT != ''}"
+                                                       th:href="@{ketquahoctap(maSV_KQHT=${maSVKQHT},pageIndex=${i})}"
+                                                       th:text="${i + 1}"></a>
+                                                    <a th:if="${maSVKQHT == null || maSVKQHT == ''}"
+                                                       th:href="@{ketquahoctap(pageIndex=${i})}" th:text="${i + 1}"></a>
+                                                </li>
+                                                <li class="page-next">
+                                                    <a th:if="${maSVKQHT == null || maSVKQHT == ''}"
+                                                       th:href="@{ketquahoctap(pageIndex=${currentPage + 1})}">›</a>
+                                                    <a th:if="${maSVKQHT != null && maSVKQHT != ''}"
+                                                       th:href="@{ketquahoctap(maSV_KQHT=${maSVKQHT},pageIndex=${currentPage + 1})}">›</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--                        </form>-->
+                    </div>
+
+                    <div class="myForm">
+                        <form th:action="@{/ketquahoctap}" method="post" th:object="${kqht}">
+                            <div class="modal fade" id="myModal" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header" style="background-color: rgb(130, 216, 130);">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <div class="text-center" style="color: white;">
+                                                <h3>KẾT QUẢ HỌC TẬP</h3>
+                                            </div>
+                                        </div>
+                                        <div class="modal-body">
+                                            <input type="text" id="maKQHT" value="" th:field="*{maKQHT}">
+                                            <input type="text" id="maKQHT_LHP" value="" th:field="*{lopHocPhan.maLHP}">
+                                            <input type="text" id="maKQHT_SV" value="" th:field="*{sinhVien.maSV}">
+
+                                            <div class="col-sm-12">
+                                                <div class="form-group col-sm-4">
+                                                    <label>Thường kì 1</label>
+                                                    <div>
+                                                        <input type="number" min="0" id="dtk1" value=""
+                                                               th:field="*{diemTK1}"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-4">
+                                                    <label>Thường kì 2</label>
+                                                    <div>
+                                                        <input type="number" min="0" id="dtk2" value=""
+                                                               th:field="*{diemTK2}"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-4">
+                                                    <label>Thường kì 3</label>
+                                                    <div>
+                                                        <input type="number" min="0" id="dtk3" value=""
+                                                               th:field="*{diemTK3}"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12">
+                                                <div class="form-group col-sm-3">
+                                                    <label>Thực hành 1</label>
+                                                    <div>
+                                                        <input type="number" min="0" id="dth1" value=""
+                                                               th:field="*{diemTH1}"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-3">
+                                                    <label>Thực hành 2</label>
+                                                    <div>
+                                                        <input type="number" min="0" id="dth2" value=""
+                                                               th:field="*{diemTH2}"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-3">
+                                                    <label>Giữa kỳ</label>
+                                                    <div>
+                                                        <input type="number" min="0" id="dgk" value=""
+                                                               th:field="*{diemGK}"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-3">
+                                                    <label>Cuối kỳ</label>
+                                                    <div>
+                                                        <input type="number" min="0" id="dck" value=""
+                                                               th:field="*{diemCK}"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <input type="submit" value="Lưu thông tin" class="btn btn-success"
+                                                       style="width: 100%" id="btnLuu">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Start Modal Import area -->
+                    <div class="myForm1">
+                        <form th:action="@{/ketquahoctap/upload}" method="post" enctype="multipart/form-data">
+                            <div class="modal fade" id="myModalImportFile" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header" style="background-color: rgb(130, 216, 130);">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <div class="text-center" style="color: white;">
+                                                <h3>UPLOAD FILE</h3>
+                                            </div>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div style="border-radius: 10%">
+                                                <input type="file" th:name="fileUpload"
+                                                       class="form-control">
+                                                <br>
+                                                <button type="submit" class="form-control btn btn-primary">Tải lên
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- End Modal Import area -->
+
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

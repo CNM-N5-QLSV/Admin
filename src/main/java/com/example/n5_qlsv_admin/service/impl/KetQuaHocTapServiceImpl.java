@@ -1,7 +1,7 @@
 package com.example.n5_qlsv_admin.service.impl;
 
-import com.example.n5_qlsv_admin.model.HocPhan;
 import com.example.n5_qlsv_admin.model.KetQuaHocTap;
+import com.example.n5_qlsv_admin.model.Khoa;
 import com.example.n5_qlsv_admin.service.KetQuaHocTapService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,13 +24,20 @@ import java.util.Set;
 public class KetQuaHocTapServiceImpl implements KetQuaHocTapService {
 
     @Autowired
-   private RestTemplate restTemplate;
+    private RestTemplate restTemplate;
 
     @Value("${app.url.ketquahoctap}")
     private String url;
+
     @Override
-    public List<KetQuaHocTap> findKQHTByMaSV(String maSV) {
-        return null;
+    public List<KetQuaHocTap> findKQHTByMaSV(String maSV, int pageIndex, int pageSize) {
+        ResponseEntity<List<KetQuaHocTap>> responseEntity
+                = restTemplate.exchange(url + "/maSV=" + maSV + "?page=" + pageIndex + "&size=" + pageSize,
+                HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<KetQuaHocTap>>() {
+                });
+        List<KetQuaHocTap> body = responseEntity.getBody();
+        return body;
     }
 
     @Override
@@ -41,22 +48,26 @@ public class KetQuaHocTapServiceImpl implements KetQuaHocTapService {
     @Override
     public void saveKetQuaHT(KetQuaHocTap ketQuaHocTap) {
         long kqht = ketQuaHocTap.getMaKQHT();
-        if(kqht == 0){
+        if (kqht == 0) {
             restTemplate.postForEntity(url, ketQuaHocTap, String.class);
-        }else {
-            restTemplate.put(url + "/" + ketQuaHocTap, ketQuaHocTap);
+        } else {
+            restTemplate.put(url + "/" + kqht, ketQuaHocTap);
         }
     }
 
     @Override
     public void deleteKQHT(Long maKQHT) {
         restTemplate.delete(url + "/" + maKQHT);
-
     }
 
     @Override
     public KetQuaHocTap findKQHTByMaSVAndMaLHP(String maSV, Long maLHP) {
         return null;
+    }
+
+    @Override
+    public KetQuaHocTap findById(long ma_kqht) {
+        return restTemplate.getForObject(url + "/" + ma_kqht, KetQuaHocTap.class);
     }
 
     @Override
@@ -69,6 +80,7 @@ public class KetQuaHocTapServiceImpl implements KetQuaHocTapService {
         ResponseEntity<String> response = restTemplate.exchange(url + "/upload",
                 HttpMethod.POST, requestEntity, String.class);
     }
+
     private File convert(MultipartFile file) {
         File convFile = new File(file.getOriginalFilename());
         try {

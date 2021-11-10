@@ -118,6 +118,7 @@
                                         <form th:action="@{/sinhVien}" method="get" role="search"
                                               class="sr-input-func">
                                             <input type="text" name="keyword"
+                                                   th:value="${keyword}"
                                                    placeholder="Tìm kiếm..."
                                                    class="search-int form-control">
                                         </form>
@@ -232,15 +233,32 @@
                                         <div class="pull-right pagination">
                                             <ul class="pagination">
                                                 <li class="page-pre">
-                                                    <a th:href="@{/sinhVien(pageIndex=${currentPage - 1})}">‹</a>
+                                                    <a th:if="${mk != null}"
+                                                       th:href="@{sinhVien(mk=${mk},pageIndex=${currentPage - 1})}">‹</a>
+                                                    <a th:if="${keyword == null && mk == null || keyword == ''}"
+                                                       th:href="@{sinhVien(pageIndex=${currentPage - 1})}">‹</a>
+                                                    <a th:if="${keyword != null && keyword != ''}"
+                                                       th:href="@{sinhVien(keyword=${keyword},pageIndex=${currentPage - 1})}">‹</a>
                                                 </li>
                                                 <li class="page-number"
                                                     th:each="i : ${#numbers.sequence(0, totalPage - 1)}"
                                                     th:classappend="${currentPage}==${i}?'active':''">
-                                                    <a th:href="@{/sinhVien(pageIndex=${i})}" th:text="${i + 1}"></a>
+                                                    <a th:if="${keyword != null && keyword != ''}"
+                                                       th:href="@{sinhVien(keyword=${keyword},pageIndex=${i})}"
+                                                       th:text="${i + 1}"></a>
+                                                    <a th:if="${mk != null}"
+                                                       th:href="@{sinhVien(mk=${mk},pageIndex=${i})}"
+                                                       th:text="${i + 1}"></a>
+                                                    <a th:if="${keyword == null && mk == null || keyword == ''}"
+                                                       th:href="@{sinhVien(pageIndex=${i})}" th:text="${i + 1}"></a>
                                                 </li>
                                                 <li class="page-next">
-                                                    <a th:href="@{/sinhVien(pageIndex=${currentPage + 1})}">›</a>
+                                                    <a th:if="${keyword == null && mk == null || keyword == ''}"
+                                                       th:href="@{sinhVien(pageIndex=${currentPage + 1})}">›</a>
+                                                    <a th:if="${keyword != null && keyword != ''}"
+                                                       th:href="@{sinhVien(keyword=${keyword},pageIndex=${currentPage + 1})}">›</a>
+                                                    <a th:if="${mk != null}"
+                                                       th:href="@{sinhVien(mk=${mk},pageIndex=${currentPage + 1})}">›</a>
                                                 </li>
                                             </ul>
                                         </div>

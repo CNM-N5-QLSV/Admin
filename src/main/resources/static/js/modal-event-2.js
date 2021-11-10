@@ -102,3 +102,29 @@ $(document).ready(function () {
         $('.myFormUpdate #myModalUpdate').modal();
     });
 });
+
+/*Sự kiện Update kết quả học tập*/
+$(document).ready(function () {
+    $('.btnUpdateKQHT').on('click', function (event) {
+        event.preventDefault();
+        var href = $(this).attr('href');
+
+        $.get(href, function (kqht, status) {
+            $('.myForm #maKQHT').val(kqht.maKQHT);
+            $('.myForm #maKQHT_LHP').val(kqht.lopHocPhan.maLHP);
+            $('.myForm #maKQHT_SV').val(kqht.sinhVien.maSV);
+
+            $('.myForm #dtk1').val(kqht.diemTK1);
+            $('.myForm #dtk2').val(kqht.diemTK2);
+            $('.myForm #dtk3').val(kqht.diemTK3);
+
+            $('.myForm #dth1').val(kqht.diemTH1);
+            $('.myForm #dth2').val(kqht.diemTH2);
+
+            $('.myForm #dgk').val(kqht.diemGK);
+            $('.myForm #dck').val(kqht.diemCK);
+        });
+
+        $('.myForm #myModal').modal();
+    });
+});
