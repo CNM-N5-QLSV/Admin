@@ -21,7 +21,7 @@ public class KhoaController {
     private KhoaService khoaService;
 
     @GetMapping
-    public String danhSachKhoa(Model model, @RequestParam(defaultValue = "0") int pageIndex, Principal principal){
+    public String danhSachKhoa(Model model, @RequestParam(defaultValue = "0") int pageIndex){
         int pageSize = 5;
         int totalPage = 0;
         int count = khoaService.getAllKhoas().size();
@@ -51,7 +51,7 @@ public class KhoaController {
     public String luuThongTinKhoa(Khoa khoa, RedirectAttributes redirectAttributes){
         try{
             khoaService.saveKhoa(khoa);
-            redirectAttributes.addFlashAttribute("mess", "Thêm thành công");
+            redirectAttributes.addFlashAttribute("mess", "Lưu thành công");
             redirectAttributes.addFlashAttribute("suc_err", "success");
         }catch (Exception e){
             redirectAttributes.addFlashAttribute("mess", "Đã có lỗi xảy ra");

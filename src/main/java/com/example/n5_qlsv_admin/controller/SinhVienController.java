@@ -38,11 +38,11 @@ public class SinhVienController {
         int totalPage = 0;
         int count = 0;
 
-        if(keyword != null){
+        if(keyword != null && keyword != ""){
             count = sinhVienService.search(keyword, 0, 0).size();
         }else if (mk != null){
             count =  sinhVienService.findAllSinhViensByKhoa(mk, 0, 0).size();
-        }else{
+        }else {
             count = 10;
         }
 
@@ -60,14 +60,14 @@ public class SinhVienController {
 
         if (mk != null){
             theModel.addAttribute("sinhViens", sinhVienService.findAllSinhViensByKhoa(mk, pageIndex, pageSize));
-        }else if(keyword != null){
+        }else if(keyword != null && keyword != ""){
             theModel.addAttribute("sinhViens", sinhVienService.search(keyword, pageIndex, pageSize));
-        }
-        else{
+        } else {
             theModel.addAttribute("sinhViens", sinhVienService.getAllSinhViensByPageAndSize(pageIndex, pageSize));
         }
 
         theModel.addAttribute("mk", mk);
+        theModel.addAttribute("keyword", keyword);
 
         theModel.addAttribute("totalPage", totalPage);
         theModel.addAttribute("currentPage", pageIndex);
