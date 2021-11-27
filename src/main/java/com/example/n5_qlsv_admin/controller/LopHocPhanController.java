@@ -117,6 +117,7 @@ public class LopHocPhanController {
         model.addAttribute("chiTietLopHocPhan", new ChiTietLopHocPhan());
         model.addAttribute("giangViens", giangVienService.getAllGiangVien());
         model.addAttribute("idLopHocPhan", idLHP);
+        model.addAttribute("lhp", lopHocPhanService.findById(idLHP));
         return "chitietlophocphan";
     }
 
