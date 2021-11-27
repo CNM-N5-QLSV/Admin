@@ -167,7 +167,7 @@
                                                         <i class="fa fa-check"></i>
                                                     </div>
                                                 </th>
-                                                <th>STT</th>
+<!--                                                <th>STT</th>-->
                                                 <th>Mã chuyên ngành</th>
                                                 <th>Tên chuyên ngành</th>
                                                 <th>Khoa</th>
@@ -178,7 +178,7 @@
                                             <tr th:each="cn, stt: ${chuyenNganhs}">
                                                 <td><input type="checkbox" class="checkbox" th:name="idCN"
                                                            th:value="${cn.getMaChuyenNganh()}"></td>
-                                                <td th:text="${stt.index + 1}"></td>
+<!--                                                <td th:text="${stt.index + 1}"></td>-->
                                                 <td th:text="${cn.getMaChuyenNganh()}"></td>
                                                 <td th:text="${cn.getTenChuyenNganh()}"></td>
                                                 <td th:text="${cn.getKhoa().getTenKhoa()}"></td>
