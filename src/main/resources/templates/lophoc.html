@@ -136,7 +136,7 @@
                                                         <i class="fa fa-check"></i>
                                                     </div>
                                                 </th>
-                                                <th>STT</th>
+<!--                                                <th>STT</th>-->
                                                 <th>Mã lớp</th>
                                                 <th>Tên lớp</th>
                                                 <th>Thao tác</th>
@@ -146,7 +146,7 @@
                                             <tr th:each="lophoc, status: ${lophocs}">
                                                 <td><input type="checkbox" class="checkbox" th:name="maLop"
                                                            th:value="${lophoc.getMaLop()}"></td>
-                                                <td th:text="${status.index + 1}"></td>
+<!--                                                <td th:text="${status.index + 1}"></td>-->
                                                 <td th:text="${lophoc.getMaLop()}"></td>
                                                 <td th:text="${lophoc.getTenLop()}"></td>
                                                 <td>

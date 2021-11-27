@@ -20,4 +20,6 @@ public interface MonHocService {
     List<MonHoc> getAllMonHocNotInHocPhan();
 
     void uploadFile(MultipartFile file);
+
+    List<MonHoc> findAllByKhoa(Long maKhoa, int pageIndex, int pageSize);
 }

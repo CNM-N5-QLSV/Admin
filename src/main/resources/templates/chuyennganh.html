@@ -194,15 +194,25 @@
                                         <div class="pull-right pagination">
                                             <ul class="pagination">
                                                 <li class="page-pre">
-                                                    <a th:href="@{/chuyenNganh(pageIndex=${currentPage - 1})}">‹</a>
+                                                    <a th:if="${mk != null}"
+                                                       th:href="@{chuyenNganh(mk=${mk},pageIndex=${currentPage - 1})}">‹</a>
+                                                    <a th:if="${mk == null}"
+                                                       th:href="@{chuyenNganh(pageIndex=${currentPage - 1})}">‹</a>
                                                 </li>
                                                 <li class="page-number"
                                                     th:each="i : ${#numbers.sequence(0, totalPage - 1)}"
                                                     th:classappend="${currentPage}==${i}?'active':''">
-                                                    <a th:href="@{/chuyenNganh(pageIndex=${i})}" th:text="${i + 1}"></a>
+                                                    <a th:if="${mk != null}"
+                                                       th:href="@{chuyenNganh(mk=${mk},pageIndex=${i})}"
+                                                       th:text="${i + 1}"></a>
+                                                    <a th:if="${mk == null}"
+                                                       th:href="@{chuyenNganh(pageIndex=${i})}" th:text="${i + 1}"></a>
                                                 </li>
                                                 <li class="page-next">
-                                                    <a th:href="@{/chuyenNganh(pageIndex=${currentPage + 1})}">›</a>
+                                                    <a th:if="${mk == null}"
+                                                       th:href="@{chuyenNganh(pageIndex=${currentPage + 1})}">›</a>
+                                                    <a th:if="${mk != null}"
+                                                       th:href="@{chuyenNganh(mk=${mk},pageIndex=${currentPage + 1})}">›</a>
                                                 </li>
                                             </ul>
                                         </div>

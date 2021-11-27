@@ -17,4 +17,5 @@ public class MonHoc {
 
     private String moTa;
 
+    private Khoa khoa;
 }

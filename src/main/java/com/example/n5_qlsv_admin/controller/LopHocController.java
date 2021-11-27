@@ -53,7 +53,7 @@ public class LopHocController {
     public String luuThongTinLopHoc(LopHoc lopHoc, RedirectAttributes redirectAttributes){
         try {
             lopHocService.saveLopHoc(lopHoc);
-            redirectAttributes.addFlashAttribute("mess", "Thêm lớp học thành công");
+            redirectAttributes.addFlashAttribute("mess", "Lưu thành công");
             redirectAttributes.addFlashAttribute("suc_err", "success");
         }catch (Exception e){
             redirectAttributes.addFlashAttribute("mess", "Đã có lỗi xảy ra");

@@ -137,7 +137,7 @@
                                                         <i class="fa fa-check"></i>
                                                     </div>
                                                 </th>
-                                                <th>STT</th>
+<!--                                                <th>STT</th>-->
                                                 <th>Mã giảng viên</th>
                                                 <th>Tên giảng viên</th>
                                                 <th>Giới tính</th>
@@ -151,7 +151,7 @@
                                             <tr th:each="gv, stt: ${giangViens}">
                                                 <td><input type="checkbox" class="checkbox" th:name="idGV"
                                                            th:value="${gv.getMaGV()}"></td>
-                                                <td th:text="${stt.index + 1}"></td>
+<!--                                                <td th:text="${stt.index + 1}"></td>-->
                                                 <td th:text="${gv.getMaGV()}"></td>
                                                 <td th:text="${gv.getTenGV()}"></td>
                                                 <td th:text="${gv.isGioiTinh() == true ? 'Nam' : 'Nữ'}"></td>

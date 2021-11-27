@@ -1,14 +1,9 @@
 package com.example.n5_qlsv_admin.controller;
 
-import com.example.n5_qlsv_admin.model.HocPhan;
 import com.example.n5_qlsv_admin.model.MonHoc;
-import com.example.n5_qlsv_admin.model.SinhVien;
+import com.example.n5_qlsv_admin.service.KhoaService;
 import com.example.n5_qlsv_admin.service.MonHocService;
-import com.example.n5_qlsv_admin.service.SinhVienService;
-import com.example.n5_qlsv_admin.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,14 +21,21 @@ public class MonHocController {
     private MonHocService monHocService;
 
     @Autowired
-    private SinhVienService sinhVienService;
+    private KhoaService khoaService;
 
     @GetMapping
-    String danhSachMonHoc(Model theModel, @RequestParam(defaultValue = "0") int pageIndex, Principal principal) {
+    String danhSachMonHoc(Model theModel, @RequestParam(defaultValue = "0") int pageIndex,
+                          Principal principal, Long mk) {
 
         int pageSize = 5;
         int totalPage = 0;
-        int count = monHocService.getAllMonHoc().size();
+        int count = 0;
+
+        if(mk != null){
+            count = count = monHocService.getAllMonHoc().size();
+        }else {
+            count = 10;
+        }
 
         if (count % pageSize == 0) {
             totalPage = count / pageSize;
@@ -47,11 +49,18 @@ public class MonHocController {
             pageIndex = totalPage - 1;
         }
 
+        if(mk != null){
+            theModel.addAttribute("monHocs",
+                    monHocService.findAllByKhoa(mk, pageIndex, pageSize));
+        }else {
+            theModel.addAttribute("monHocs",
+                    monHocService.getAllMonHocByPageAndSize(pageIndex, pageSize));
+        }
+
         theModel.addAttribute("totalPage", totalPage);
         theModel.addAttribute("currentPage", pageIndex);
-
-        theModel.addAttribute("monHocs", monHocService.getAllMonHocByPageAndSize(pageIndex, pageSize));
-
+        theModel.addAttribute("khoas", khoaService.getAllKhoas());
+        theModel.addAttribute("mk", mk);
         theModel.addAttribute("monHoc", new MonHoc());
 
         return "monhoc";
