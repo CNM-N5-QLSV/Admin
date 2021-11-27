@@ -34,7 +34,7 @@ public class MonHocController {
         if(mk != null){
             count = count = monHocService.getAllMonHoc().size();
         }else {
-            count = 10;
+            count = 20;
         }
 
         if (count % pageSize == 0) {

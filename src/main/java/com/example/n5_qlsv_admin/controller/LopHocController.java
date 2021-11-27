@@ -25,7 +25,7 @@ public class LopHocController {
 
     @GetMapping
     public String danhSachLopHoc(Model model, @RequestParam(defaultValue = "0") int pageIndex, Principal principal){
-        int pageSize = 5;
+        int pageSize = 8;
         int totalPage = 0;
         int count = lopHocService.getAllLopHocs().size();
 

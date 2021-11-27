@@ -22,7 +22,7 @@ public class KhoaController {
 
     @GetMapping
     public String danhSachKhoa(Model model, @RequestParam(defaultValue = "0") int pageIndex){
-        int pageSize = 5;
+        int pageSize = 8;
         int totalPage = 0;
         int count = khoaService.getAllKhoas().size();
 

@@ -42,7 +42,7 @@ public class LopHocPhanController {
     @GetMapping
     String danhSachLopHocPhan(Model theModel, @RequestParam(defaultValue = "0") int pageIndex, Principal principal) {
 
-        int pageSize = 5;
+        int pageSize = 8;
         int totalPage = 0;
         int count = lopHocPhanService.getAllLopHocPhans().size();
 

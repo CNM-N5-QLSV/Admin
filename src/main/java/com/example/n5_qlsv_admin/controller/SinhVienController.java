@@ -43,7 +43,7 @@ public class SinhVienController {
         }else if (mk != null){
             count =  sinhVienService.findAllSinhViensByKhoa(mk, 0, 0).size();
         }else {
-            count = 10;
+            count = 25;
         }
 
         if (count % pageSize == 0) {

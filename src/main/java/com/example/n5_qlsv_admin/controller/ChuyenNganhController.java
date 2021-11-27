@@ -39,7 +39,7 @@ public class ChuyenNganhController {
         if(mk != null){
             count = chuyenNganhService.findAllChuyenNganhsByKhoa(mk, 0, 0).size();
         }else {
-            count = 10;
+            count = chuyenNganhService.getAllChuyenNganhsByPageAndSize(pageIndex, pageSize).size();
         }
 
         if (count % pageSize == 0) {

@@ -19,7 +19,7 @@ public class KetQuaHocTapController {
     @GetMapping
     String danhSachMonHoc(Model model, @RequestParam(defaultValue = "0") int pageIndex,
                           String maSV_KQHT) {
-        int pageSize = 5;
+        int pageSize = 8;
         int totalPage = 0;
         int count = 0;
 
