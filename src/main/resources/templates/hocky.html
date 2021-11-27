@@ -136,7 +136,7 @@
                                                         <i class="fa fa-check"></i>
                                                     </div>
                                                 </th>
-                                                <th>STT</th>
+<!--                                                <th>STT</th>-->
                                                 <th>Mã học kỳ</th>
                                                 <th>Năm bắt đầu</th>
                                                 <th>Năm kết thúc</th>
@@ -149,7 +149,7 @@
                                             <tr th:each="hk, stt: ${hocKys}">
                                                 <td><input type="checkbox" class="checkbox" th:name="idHK"
                                                            th:value="${hk.getMaHK()}"></td>
-                                                <td th:text="${stt.index + 1}"></td>
+<!--                                                <td th:text="${stt.index + 1}"></td>-->
                                                 <td th:text="${hk.getMaHK()}"></td>
                                                 <td th:text="${hk.getNamBatDau()}"></td>
                                                 <td th:text="${hk.getNamKetThuc()}"></td>

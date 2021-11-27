@@ -98,6 +98,7 @@ $(document).ready(function () {
         $('.myForm #myIdMH').val('0');
         $('.myForm #tenmonhoc').val('');
         $('.myForm #mota').val('');
+        $('.myForm #myKhoa').val(0);
 
         $('.myForm #myModal').modal();
     });
@@ -112,6 +113,12 @@ $(document).ready(function () {
             $('.myForm #myIdMH').val(mh.maMonHoc);
             $('.myForm #tenmonhoc').val(mh.tenMonHoc);
             $('.myForm #mota').val(mh.moTa);
+
+            if(mh.khoa === null){
+                $('.myForm #myKhoa').val(0);
+            }else {
+                $('.myForm #myKhoa').val(mh.khoa.maKhoa);
+            }
 
         });
 

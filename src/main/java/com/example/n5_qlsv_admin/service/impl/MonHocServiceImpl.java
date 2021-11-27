@@ -90,6 +90,17 @@ public class MonHocServiceImpl implements MonHocService {
                 HttpMethod.POST, requestEntity, String.class);
     }
 
+    @Override
+    public List<MonHoc> findAllByKhoa(Long maKhoa, int pageIndex, int pageSize) {
+        ResponseEntity<List<MonHoc>> responseEntity
+                = restTemplate.exchange(url + "/khoa=" + maKhoa + "?page=" + pageIndex + "&size=" + pageSize,
+                HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<MonHoc>>() {
+                });
+        List<MonHoc> monHocList = responseEntity.getBody();
+        return monHocList;
+    }
+
     private File convert(MultipartFile file) {
         File convFile = new File(file.getOriginalFilename());
         try {

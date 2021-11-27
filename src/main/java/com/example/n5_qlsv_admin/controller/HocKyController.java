@@ -55,7 +55,7 @@ public class HocKyController {
     String luuThongTinHK(HocKy hocKy, RedirectAttributes redirectAttributes) {
         try{
             hocKyService.saveHocKy(hocKy);
-            redirectAttributes.addFlashAttribute("mess", "Thêm thành công");
+            redirectAttributes.addFlashAttribute("mess", "Lưu thành công");
             redirectAttributes.addFlashAttribute("suc_err", "success");
         }catch (Exception e){
             redirectAttributes.addFlashAttribute("mess", "Đã có lỗi xảy ra");

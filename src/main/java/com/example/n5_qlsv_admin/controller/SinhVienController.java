@@ -84,7 +84,7 @@ public class SinhVienController {
     String luuThongTinSV(SinhVien sinhVien, RedirectAttributes redirectAttributes) {
         try{
             sinhVienService.saveSinhVien(sinhVien);
-            redirectAttributes.addFlashAttribute("mess", "Thêm thành công");
+            redirectAttributes.addFlashAttribute("mess", "Lưu thành công");
             redirectAttributes.addFlashAttribute("suc_err", "success");
         }catch (Exception e){
             redirectAttributes.addFlashAttribute("mess", "Đã có lỗi xảy ra");

@@ -136,7 +136,7 @@
                                                         <i class="fa fa-check"></i>
                                                     </div>
                                                 </th>
-                                                <th>STT</th>
+<!--                                                <th>STT</th>-->
                                                 <th>Mã khoa</th>
                                                 <th>Tên khoa</th>
                                                 <th>Mô tả</th>
@@ -147,7 +147,7 @@
                                             <tr th:each="khoa, status: ${khoas}">
                                                 <td><input type="checkbox" class="checkbox" th:name="maKhoa"
                                                            th:value="${khoa.getMaKhoa()}"></td>
-                                                <td th:text="${status.index + 1}"></td>
+<!--                                                <td th:text="${status.index + 1}"></td>-->
                                                 <td th:text="${khoa.getMaKhoa()}"></td>
                                                 <td th:text="${khoa.getTenKhoa()}"></td>
                                                 <td th:text="${khoa.getMoTa()}"></td>
