@@ -2,6 +2,8 @@ package com.example.n5_qlsv_admin.model;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @ToString
@@ -18,4 +20,6 @@ public class MonHoc {
     private String moTa;
 
     private Khoa khoa;
+
+    private List<HocPhan> hocPhanList;
 }
