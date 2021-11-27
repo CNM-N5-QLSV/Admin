@@ -60,8 +60,8 @@ $(document).ready(function () {
 
         $('.myForm #maHocPhan').val('');
         $('.myForm #monHoc').val(0);
-        $('.myForm #soTCLT').val('');
-        $('.myForm #soTCTH').val('');
+        $('.myForm #soTCLT').val(0);
+        $('.myForm #soTCTH').val(0);
         $('.myForm #hocPhanBatBuoc').prop("checked", false);
         $('.myForm #tenChuyenNganh').val(0);
 
