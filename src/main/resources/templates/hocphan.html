@@ -210,7 +210,7 @@
                                     <div>
                                         <select value="" id="monHocUpdate" th:field="*{monHoc.maMonHoc}"
                                                 class="form-control">
-                                            <tr th:each="monhoc, status: ${monHocAll}">
+                                            <tr th:each="monhoc, status: ${monHocs}">
                                                 <option th:value="${monhoc.getMaMonHoc()}"
                                                         th:text="${monhoc.getTenMonHoc()}"></option>
                                             </tr>

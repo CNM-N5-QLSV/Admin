@@ -255,14 +255,14 @@ $(document).ready(function () {
         event.preventDefault();
 
         $('.myForm #myIdLHP').val(0);
-        $('.myForm #tenviettat').val('');
-        $('.myForm #tenlophocphan').val('');
+        // $('.myForm #tenviettat').val('');
+        // $('.myForm #tenlophocphan').val('');
         $('.myForm #soluongdangkyhientai').val(0);
         $('.myForm #soluongdangkytoida').val(40);
-        $('.myForm #trangthai').val('');
+        // $('.myForm #trangthai').val('');
         $('.myForm #hocky').val(0);
-        $('.myForm #hocphan').val("");
-        $('.myForm #mota').val('');
+        // $('.myForm #hocphan').val("");
+        // $('.myForm #mota').val('');
 
         $('.myForm #myModal').modal();
     });
@@ -307,15 +307,15 @@ $(document).ready(function () {
         event.preventDefault();
 
         $('.myForm #myIdCTLHP').val(0);
-        $('.myForm #idlhp').val(0);
-        $('.myForm #tiethoc').val('');
-        $('.myForm #coso').val('');
-        $('.myForm #daynha').val('');
-        $('.myForm #phong').val('');
-        $('.myForm #ngaybatdau').val('');
-        $('.myForm #ngayketthuc').val('');
-        $('.myForm #gv').val(0);
-        $('.myForm #mt').val('');
+        // $('.myForm #idlhp').val(0);
+        // $('.myForm #tiethoc').val('');
+        // $('.myForm #coso').val('');
+        // $('.myForm #daynha').val('');
+        // $('.myForm #phong').val('');
+        // $('.myForm #ngaybatdau').val('');
+        // $('.myForm #ngayketthuc').val('');
+        // $('.myForm #gv').val(0);
+        // $('.myForm #mt').val('');
         $('.myForm #nhomthuchanh').val(0);
 
         $('.myForm #myModal').modal();

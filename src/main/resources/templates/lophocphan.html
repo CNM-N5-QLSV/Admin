@@ -86,7 +86,7 @@
                                                 <td th:if="${lhp.getHocKy() != null}"
                                                     th:text="'Học kỳ ' + ${lhp.getHocKy().getThuTuHocKy()} + ' (' + ${lhp.getHocKy().getNamBatDau()} + ' - ' + ${lhp.getHocKy().getNamKetThuc()} + ')'"></td>
                                                 <td th:if="${lhp.getHocPhan() != null}"
-                                                    th:text="${lhp.getHocPhan().getMonHoc().getTenMonHoc()} + ' - ' + ${lhp.getHocPhan().getSoTCLT()} + 'TC' + ' - ' + ${lhp.getHocPhan().getSoTCTH()} + 'TC' "></td>
+                                                    th:text="${lhp.getHocPhan().getMonHoc().getTenMonHoc()} + ' - ' + (${lhp.getHocPhan().getSoTCLT()} + ${lhp.getHocPhan().getSoTCTH()}) + 'TC' "></td>
 
                                                 <td th:if="${lhp.getHocKy() == null}"></td>
                                                 <td th:if="${lhp.getHocPhan() == null}"></td>
@@ -148,14 +148,14 @@
                                         <label>Tên viết tắt</label>
                                         <div>
                                             <input type="text" id="tenviettat" value="" th:field="*{tenVietTat}"
-                                                   class="form-control">
+                                                   class="form-control" placeholder="Ví dụ: DHKTPM14A">
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-6">
                                         <label>Tên lớp học phần</label>
                                         <div>
                                             <input type="text" id="tenlophocphan" value="" th:field="*{tenLHP}"
-                                                   class="form-control">
+                                                   class="form-control" placeholder="Ví dụ: Toán cao cấp 1">
                                         </div>
                                     </div>
                                 </div>
@@ -205,14 +205,14 @@
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-6">
-                                        <label>Học phần</label>
+                                        <label>Học phần tương ứng</label>
                                         <div>
                                             <select id="hocphan" value="" th:field="*{hocPhan.maHocPhan}"
                                                     class="form-control">
-                                                <option value="">Chọn học phần</option>
+                                                <option value="">Chọn học phần tương ứng</option>
                                                 <option th:each="hp, stt: ${hocPhans}"
                                                         th:value="${hp.getMaHocPhan()}"
-                                                        th:text="${hp.getMonHoc().getTenMonHoc()} + ' - ' + ${hp.getSoTCLT()} + 'TC' + ' - ' + ${hp.getSoTCTH()} + 'TC' "></option>
+                                                        th:text="${hp.getMonHoc().getTenMonHoc()} + ' - ' + (${hp.getSoTCLT()} + ${hp.getSoTCTH()}) + 'TC' "></option>
                                             </select>
                                         </div>
                                     </div>

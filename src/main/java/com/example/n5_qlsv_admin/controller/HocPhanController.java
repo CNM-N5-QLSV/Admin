@@ -33,9 +33,6 @@ public class HocPhanController {
     @Autowired
     private MonHocService monHocService;
 
-    @Autowired
-    private SinhVienService sinhVienService;
-
     @GetMapping
     public String danhSachHocPhan(Model model, @RequestParam(defaultValue = "0") int pageIndex, Principal principal){
         int pageSize = 8;
@@ -56,8 +53,7 @@ public class HocPhanController {
         model.addAttribute("totalPage", totalPage);
         model.addAttribute("currentPage", pageIndex);
 
-        model.addAttribute("monHocs", monHocService.getAllMonHoc());
-        model.addAttribute("monHocAll", monHocService.getAllMonHoc());
+        model.addAttribute("monHocs", monHocService.getAllMonHocNotInHocPhan());
         model.addAttribute("chuyenNganhs", chuyenNganhService.getAllChuyenNganhs());
         model.addAttribute("hocphans", hocPhanService.getAllHocPhansByPageAndSize(pageIndex, pageSize));
         model.addAttribute("hocPhan", new HocPhan());
