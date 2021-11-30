@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/header :: h"/>
+<head>
+    <title>Admin | Chương trình khung</title>
+</head>
+
+<body onload="showToast()">
+
+<!-- Start Left menu area -->
+<div th:replace="/common/leftmenu :: left_menu"></div>
+<!-- End Left menu area -->
+
+<div class="all-content-wrapper">
+    <div class="header-advance-area">
+
+        <!-- Start Welcome area -->
+        <div th:replace="/common/header :: header"></div>
+        <!-- End Welcome area -->
+
+        <!-- Start Toast area -->
+        <div id="toast">
+
+        </div>
+        <li id="mes" hidden th:text="${mess}"></li>
+        <li id="suc_err" hidden th:text="${suc_err}"></li>
+        <!-- End Toast area -->
+
+        <!-- Static Table Start -->
+        <div class="product-status mg-b-15">
+            <div class="container-fluid">
+                <div class="row">
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <form th:action="@{/hoc-phan-khung/deleteHPKs}" method="get">
+                            <div class="product-status-wrap drp-lst">
+                                <div class="sparkline13-hd">
+                                    <div class="main-sparkline13-hd">
+                                        <h1></h1>
+                                        <a class="btn btn-info btnCreateHPK">Thêm học phần khung</a>
+                                        <a style="margin-top: -3px"
+                                           class="btn btn-primary glyphicon glyphicon-import btnImportFile"></a>
+                                        <button type="submit" class="btn btn-danger btn-custon-rounded-four">
+                                            <span>Xóa</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="sparkline13-graph">
+                                    <div class="datatable-dashv1-list custom-datatable-overright">
+                                        <table id="table" data-toggle="table"
+                                               data-key-events="true" data-resizable="true" data-cookie="true"
+                                               data-cookie-id-table="saveId" data-show-export="true"
+                                               data-click-to-select="true" data-toolbar="#toolbar" class="tbl">
+                                            <thead>
+                                            <tr>
+                                                <th>
+                                                    <div align="center">
+                                                        <i class="fa fa-check"></i>
+                                                    </div>
+                                                </th>
+                                                <th>STT</th>
+                                                <th>Tên môn học / Học phần</th>
+                                                <th>Mã học phần</th>
+                                                <th>Số TC</th>
+                                                <th>Sô tiết LT</th>
+                                                <th>Số tiết TH</th>
+                                                <th>Thứ tự học kì</th>
+                                                <th>Đạt</th>
+                                                <th>Thao tác</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="hpk, stt: ${hpks}">
+                                                <td><input type="checkbox" class="checkbox" th:name="idHPK"
+                                                           th:value="${hpk.getMaHPK()}"></td>
+                                                <td th:text="${stt.index + 1}"></td>
+                                                <td th:text="${hpk.getHocPhan().getMonHoc().getTenMonHoc()}"></td>
+                                                <td th:text="${hpk.getHocPhan().getMaHocPhan()}"></td>
+                                                <td th:text="${hpk.getHocPhan().getSoTCTH() + hpk.getHocPhan().getSoTCLT()}"></td>
+
+                                                <td th:text="${hpk.getSoTietLT()}"></td>
+                                                <td th:text="${hpk.getSoTietTH()}"></td>
+
+                                                <td th:text="${hpk.getThuTuHocKy()}"></td>
+
+                                                <td th:if="${hpk.getTrangThai() == ''}"></td>
+                                                <td th:if="${hpk.getTrangThai() == 'Đạt'}">
+                                                    <i style="color: #63f34e; font-size: 20px"
+                                                       class="fa fa-check-circle"></i>
+                                                </td>
+                                                <td th:if="${hpk.getTrangThai() == 'Không đạt'}">
+                                                    <i style="color: red; font-size: 20px"
+                                                       class="fa fa-times-circle"></i>
+                                                </td>
+                                                <td>
+                                                    <a class="btnHPK btn btn-warning"
+                                                       th:href="@{hoc-phan-khung/findHPK(maHPK=${hpk.getMaHPK()})}">
+                                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="pull-right pagination">
+                                            <ul class="pagination">
+                                                <li class="page-pre">
+                                                    <a th:href="@{/hoc-phan-khung(pageIndex=${currentPage - 1})}">‹</a>
+                                                </li>
+                                                <li class="page-number"
+                                                    th:each="i : ${#numbers.sequence(0, totalPage - 1)}"
+                                                    th:classappend="${currentPage}==${i}?'active':''">
+                                                    <a th:href="@{/hoc-phan-khung(pageIndex=${i})}"
+                                                       th:text="${i + 1}"></a>
+                                                </li>
+                                                <li class="page-next">
+                                                    <a th:href="@{/hoc-phan-khung(pageIndex=${currentPage + 1})}">›</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="myForm">
+            <form th:action="@{/hoc-phan-khung}" method="post" th:object="${hpk}">
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color: rgb(130, 216, 130);">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <div class="text-center" style="color: white;">
+                                    <h3>THÔNG TIN HỌC PHẦN KHUNG</h3>
+                                </div>
+                            </div>
+                            <div class="modal-body">
+                                <input type="hidden" id="hpkId" value="" th:field="*{maHPK}">
+                                <div class="col-sm-12" style="padding-top: 20px;">
+                                    <div class="form-group col-sm-8">
+                                        <label>Học phần</label>
+                                        <div>
+                                            <select id="hpk_hp" value="" th:field="*{hocPhan.maHocPhan}"
+                                                    class="form-control">
+                                                <option value="">Chọn học phần</option>
+                                                <option th:each="hp, stt: ${hocPhans}"
+                                                        th:value="${hp.getMaHocPhan()}"
+                                                        th:text="${hp.getMonHoc().getTenMonHoc()}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label>Thứ tự học kì</label>
+                                        <div>
+                                            <input type="number" min="1" id="hpk_tthk" value="" th:field="*{thuTuHocKy}"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label>Số tiết lý thuyết</label>
+                                        <div>
+                                            <input type="number" min="0" id="hpk_stlt" value="" th:field="*{soTietLT}"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label>Số tiết thực hành</label>
+                                        <div>
+                                            <input type="number" min="0" id="hpk_stth" value="" th:field="*{soTietTH}"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label>Trạng thái</label>
+                                        <select value="" id="hpk_trangthai" th:field="*{trangThai}"
+                                                class="form-control">
+                                            <option value="">Chọn trạng thái</option>
+                                            <option value="Đạt">Đạt</option>
+                                            <option value="Không đạt">Không đạt</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="submit" value="Lưu thông tin"
+                                   class="btn btn-success"
+                                   style="margin-left: 45px; margin-bottom: 15px; width: 85%">
+
+                        </div>
+                    </div>
+                </div>
+        </div>
+        </form>
+    </div>
+
+    <!-- Start Modal Import area -->
+    <div class="myForm1">
+        <form th:action="@{/hoc-phan-khung/upload}" method="post" enctype="multipart/form-data">
+            <div class="modal fade" id="myModalImportFile" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background-color: rgb(130, 216, 130);">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <div class="text-center" style="color: white;">
+                                <h3>UPLOAD FILE</h3>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            <div style="border-radius: 10%">
+                                <input type="file" th:name="fileUpload"
+                                       class="form-control">
+                                <br>
+                                <button type="submit" class="form-control btn btn-primary">Tải lên</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- End Modal Import area -->
+
+</div>
+</div>
+
+<div th:replace="/common/header :: script"></div>
+
+</body>
+</html>

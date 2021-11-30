@@ -68,6 +68,7 @@ $(document).ready(function () {
         $('.myForm #myModal').modal();
     });
 });
+
 /*Sự kiện Update học phần*/
 $(document).ready(function () {
     $('.btnUpdateHocPhan').on('click', function (event) {
@@ -123,6 +124,43 @@ $(document).ready(function () {
 
             $('.myForm #dgk').val(kqht.diemGK);
             $('.myForm #dck').val(kqht.diemCK);
+        });
+
+        $('.myForm #myModal').modal();
+    });
+});
+
+/*Sự kiện Create học phần khung*/
+$(document).ready(function () {
+    $('.btnCreateHPK').on('click', function (event) {
+        event.preventDefault();
+
+        $('.myForm #hpkId').val(0);
+        $('.myForm #hpk_tthk').val(1);
+        $('.myForm #hpk_stlt').val(0);
+        $('.myForm #hpk_stth').val(0);
+
+        $('.myForm #myModal').modal();
+    });
+});
+
+/*Sự kiện Update học phần khung*/
+$(document).ready(function () {
+    $('.btnHPK').on('click', function (event) {
+        event.preventDefault();
+        var href = $(this).attr('href');
+
+        $.get(href, function (hpk, status) {
+
+            $('.myForm #hpkId').val(hpk.maHPK);
+
+            $('.myForm #hpk_trangthai').val(hpk.trangThai);
+            $('.myForm #hpk_tthk').val(hpk.thuTuHocKy);
+
+            $('.myForm #hpk_hp').val(hpk.hocPhan.maHocPhan);
+
+            $('.myForm #hpk_stlt').val(hpk.soTietLT);
+            $('.myForm #hpk_stth').val(hpk.soTietTH);
         });
 
         $('.myForm #myModal').modal();
