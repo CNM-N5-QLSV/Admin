@@ -24,15 +24,14 @@ public class MonHocController {
     private KhoaService khoaService;
 
     @GetMapping
-    String danhSachMonHoc(Model theModel, @RequestParam(defaultValue = "0") int pageIndex,
-                          Principal principal, Long mk) {
+    String danhSachMonHoc(Model theModel, @RequestParam(defaultValue = "0") int pageIndex, Long mk) {
 
         int pageSize = 5;
         int totalPage = 0;
         int count = 0;
 
         if(mk != null){
-            count = count = monHocService.getAllMonHoc().size();
+            count = monHocService.findAllByKhoa(mk, 0, 0).size();
         }else {
             count = 20;
         }
