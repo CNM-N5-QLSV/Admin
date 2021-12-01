@@ -212,14 +212,16 @@
                                         <label>Tên sinh viên</label>
                                         <div>
                                             <input type="text" id="tensv" value="" th:field="*{tenSV}"
-                                                   class="form-control" placeholder="Ví dụ: Nguyễn Văn A">
+                                                   class="form-control" placeholder="Ví dụ: Nguyễn Văn A" onblur="kiemtraten()">
+                                            <span class="vl" id="s1"></span>
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-6">
                                         <label>Số CMND</label>
                                         <div>
                                             <input type="text" id="cmnd" value="" th:field="*{soCMND}"
-                                                   class="form-control" placeholder="Ví dụ: 123456789 (hoặc căn cước)">
+                                                   class="form-control" placeholder="Ví dụ: 123456789 (hoặc căn cước)" onblur="kiemtraCMND()">
+                                            <span class="vl" id="s2"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -269,7 +271,8 @@
                                     <div class="form-group col-sm-6">
                                         <label>Số điện thoại</label>
                                         <div><input type="text" id="phone" value="" th:field="*{soDienThoai}"
-                                                    class="form-control" placeholder="Ví dụ: XXXX XXX XXX">
+                                                    class="form-control" placeholder="Ví dụ: XXXX XXX XXX" onblur="kiemtrasodienthoai()">
+                                            <span class="vl" id="s3"></span>
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-6">
@@ -316,7 +319,8 @@
                                         <label>Email</label>
                                         <div>
                                             <input id="myEmail" type="text" value="" th:field="*{email}"
-                                                   class="form-control" placeholder="Ví dụ: abc@gmail.com">
+                                                   class="form-control" placeholder="Ví dụ: abc@gmail.com" onblur="kiemtraemail()">
+                                            <span class="vl" id="s4"></span>
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-6">
@@ -324,11 +328,12 @@
                                         <div>
                                             <input id="address" type="text" value="" th:field="*{diaChi}"
                                                    class="form-control"
-                                                   placeholder="Ví dụ: 123/45 tên đường, quận, phường, tỉnh ">
+                                                   placeholder="Ví dụ: 123/45 tên đường, quận, phường, tỉnh " onblur="kiemtradiachi()">
+                                            <span class="vl" id="s5"></span>
                                         </div>
                                     </div>
                                 </div>
-                                <input type="submit" onclick="showToast();" value="Lưu thông tin" class="btn btn-success"
+                                <input type="submit" onclick="showToast();" value="Lưu thông tin" class="btn btn-success" id="btnLuu"
                                        style="margin-left: 30px; width: 93%">
                             </div>
                         </div>
