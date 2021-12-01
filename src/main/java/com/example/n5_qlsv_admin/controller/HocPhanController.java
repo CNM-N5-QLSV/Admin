@@ -34,10 +34,19 @@ public class HocPhanController {
     private MonHocService monHocService;
 
     @GetMapping
-    public String danhSachHocPhan(Model model, @RequestParam(defaultValue = "0") int pageIndex, Principal principal){
-        int pageSize = 8;
+    public String danhSachHocPhan(Model model, @RequestParam(defaultValue = "0") int pageIndex,
+                                  String keyword, Long maCN){
+        int pageSize = 5;
         int totalPage = 0;
-        int count = hocPhanService.getAllHocPhans().size();
+        int count = 0;
+
+        if(keyword != null && keyword != ""){
+            count = hocPhanService.searchAllByKeyword(keyword, 0, 0).size();
+        }else if (maCN != null){
+            count =  hocPhanService.findAllByChuyenNganh(maCN, 0, 0).size();
+        }else {
+            count = 25;
+        }
 
         if (count % pageSize == 0){
             totalPage = count / pageSize;
@@ -50,12 +59,23 @@ public class HocPhanController {
         }else if (pageIndex > totalPage - 1){
             pageIndex = totalPage -1;
         }
+
+        if (maCN != null){
+            model.addAttribute("hocphans", hocPhanService.findAllByChuyenNganh(maCN, pageIndex, pageSize));
+        }else if(keyword != null && keyword != ""){
+            model.addAttribute("hocphans", hocPhanService.searchAllByKeyword(keyword, pageIndex, pageSize));
+        } else {
+            model.addAttribute("hocphans", hocPhanService.getAllHocPhansByPageAndSize(pageIndex, pageSize));
+        }
+
+        model.addAttribute("mcn", maCN);
+        model.addAttribute("keyword", keyword);
+
         model.addAttribute("totalPage", totalPage);
         model.addAttribute("currentPage", pageIndex);
 
         model.addAttribute("monHocs", monHocService.getAllMonHoc());
         model.addAttribute("chuyenNganhs", chuyenNganhService.getAllChuyenNganhs());
-        model.addAttribute("hocphans", hocPhanService.getAllHocPhansByPageAndSize(pageIndex, pageSize));
         model.addAttribute("hocPhan", new HocPhan());
 
         return "hocphan";
