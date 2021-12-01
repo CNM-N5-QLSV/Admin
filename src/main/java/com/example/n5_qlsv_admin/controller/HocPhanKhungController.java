@@ -26,7 +26,7 @@ public class HocPhanKhungController {
     public String danhSachHPK(Model model, @RequestParam(defaultValue = "0") int pageIndex){
         int pageSize = 8;
         int totalPage = 0;
-        int count = service.getAllHPKByPageAndSize(pageIndex, pageSize).size();
+        int count = service.getAllHPKByPageAndSize(pageIndex, 0).size();
 
         if (count % pageSize == 0){
             totalPage = count / pageSize;
@@ -44,7 +44,7 @@ public class HocPhanKhungController {
         model.addAttribute("currentPage", pageIndex);
 
         model.addAttribute("hpks", service.getAllHPKByPageAndSize(pageIndex, pageSize));
-        model.addAttribute("hocPhans", hocPhanService.getAllHocPhans());
+        model.addAttribute("hocPhans", hocPhanService.findHocPhanNotInHPK());
         model.addAttribute("hpk", new HocPhanKhung());
 
         return "hocphankhung";

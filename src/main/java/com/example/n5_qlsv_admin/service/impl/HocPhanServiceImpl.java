@@ -91,6 +91,17 @@ public class HocPhanServiceImpl implements HocPhanService {
                 HttpMethod.POST, requestEntity, String.class);
     }
 
+    @Override
+    public List<HocPhan> findHocPhanNotInHPK() {
+        ResponseEntity<List<HocPhan>> responseEntity
+                = restTemplate.exchange(url + "/notInHPK",
+                HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<HocPhan>>() {
+                });
+        List<HocPhan> hocPhanList = responseEntity.getBody();
+        return hocPhanList;
+    }
+
     private File convert(MultipartFile file) {
         File convFile = new File(file.getOriginalFilename());
         try {

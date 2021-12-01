@@ -20,4 +20,6 @@ public interface HocPhanService {
     HocPhan findById(String maHocPhan);
 
     void uploadFile(MultipartFile file);
+
+    List<HocPhan> findHocPhanNotInHPK();
 }

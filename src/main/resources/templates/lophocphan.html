@@ -212,7 +212,7 @@
                                                 <option value="">Chọn học phần tương ứng</option>
                                                 <option th:each="hp, stt: ${hocPhans}"
                                                         th:value="${hp.getMaHocPhan()}"
-                                                        th:text="${hp.getMonHoc().getTenMonHoc()} + ' - ' + (${hp.getSoTCLT()} + ${hp.getSoTCTH()}) + 'TC' "></option>
+                                                        th:text="${hp.getMonHoc().getTenMonHoc()} + ' - ' + (${hp.getSoTCLT()} + ${hp.getSoTCTH()}) + 'TC' + ' - ' + ${hp.getChuyenNganh().getTenChuyenNganh()} "></option>
                                             </select>
                                         </div>
                                     </div>
