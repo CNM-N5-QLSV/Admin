@@ -25,6 +25,47 @@
         <li id="suc_err" hidden th:text="${suc_err}"></li>
         <!-- End Toast area -->
 
+        <!-- Start Search-->
+        <br>
+        <div class="breadcome-area">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="breadcome-list">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="breadcome-heading">
+                                        <form th:action="@{/hocphan}" method="get" role="search"
+                                              class="sr-input-func">
+                                            <input type="text" name="keyword"
+                                                   th:value="${keyword}"
+                                                   placeholder="Tìm kiếm..."
+                                                   class="search-int form-control">
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="breadcome-heading" style="float: right">
+                                        <form th:action="@{hocphan}" method="get">
+                                            <select th:name="maCN" onchange="this.form.submit()" class="form-control"
+                                                    style="width: 300px;">
+                                                <option th:value="null" th:selected="${mcn == null}">Tất cả</option>
+                                                <option th:each="cn, stt: ${chuyenNganhs}"
+                                                        th:value="${cn.getMaChuyenNganh()}"
+                                                        th:text="${cn.getTenChuyenNganh()}"
+                                                        th:selected="${mcn == cn.getMaChuyenNganh()}"></option>
+                                            </select>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Search-->
+
         <!-- Static Table Start -->
         <div class="product-status mg-b-15">
             <div class="container-fluid">
@@ -96,15 +137,32 @@
                                         <div class="pull-right pagination">
                                             <ul class="pagination">
                                                 <li class="page-pre">
-                                                    <a th:href="@{hocphan(pageIndex=${currentPage - 1})}">‹</a>
+                                                    <a th:if="${mcn != null}"
+                                                       th:href="@{hocphan(maCN=${mcn},pageIndex=${currentPage - 1})}">‹</a>
+                                                    <a th:if="${keyword == null && mcn == null || keyword == ''}"
+                                                       th:href="@{hocphan(pageIndex=${currentPage - 1})}">‹</a>
+                                                    <a th:if="${keyword != null && keyword != ''}"
+                                                       th:href="@{hocphan(keyword=${keyword},pageIndex=${currentPage - 1})}">‹</a>
                                                 </li>
                                                 <li class="page-number"
                                                     th:each="i : ${#numbers.sequence(0, totalPage - 1)}"
                                                     th:classappend="${currentPage}==${i}?'active':''">
-                                                    <a th:href="@{hocphan(pageIndex=${i})}" th:text="${i + 1}"></a>
+                                                    <a th:if="${keyword != null && keyword != ''}"
+                                                       th:href="@{hocphan(keyword=${keyword},pageIndex=${i})}"
+                                                       th:text="${i + 1}"></a>
+                                                    <a th:if="${mcn != null}"
+                                                       th:href="@{hocphan(maCN=${mcn},pageIndex=${i})}"
+                                                       th:text="${i + 1}"></a>
+                                                    <a th:if="${keyword == null && mcn == null || keyword == ''}"
+                                                       th:href="@{hocphan(pageIndex=${i})}" th:text="${i + 1}"></a>
                                                 </li>
                                                 <li class="page-next">
-                                                    <a th:href="@{hocphan(pageIndex=${currentPage + 1})}">›</a>
+                                                    <a th:if="${keyword == null && mcn == null || keyword == ''}"
+                                                       th:href="@{hocphan(pageIndex=${currentPage + 1})}">›</a>
+                                                    <a th:if="${keyword != null && keyword != ''}"
+                                                       th:href="@{hocphan(keyword=${keyword},pageIndex=${currentPage + 1})}">›</a>
+                                                    <a th:if="${mcn != null}"
+                                                       th:href="@{hocphan(maCN=${mcn},pageIndex=${currentPage + 1})}">›</a>
                                                 </li>
                                             </ul>
                                         </div>

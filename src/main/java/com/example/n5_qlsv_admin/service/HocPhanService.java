@@ -9,17 +9,21 @@ import java.util.List;
 
 public interface HocPhanService {
 
-    List<HocPhan> getAllHocPhans();
-
-    List<HocPhan> getAllHocPhansByPageAndSize(int pageIndex, int pageSize);
-
     void saveHocPhan(HocPhan hocPhan);
 
     void deleteHocPhans(String maHocPhan);
 
-    HocPhan findById(String maHocPhan);
-
     void uploadFile(MultipartFile file);
 
+    HocPhan findById(String maHocPhan);
+
+    List<HocPhan> getAllHocPhans();
+
+    List<HocPhan> getAllHocPhansByPageAndSize(int pageIndex, int pageSize);
+
     List<HocPhan> findHocPhanNotInHPK();
+
+    List<HocPhan> searchAllByKeyword(String keyword, int pageIndex, int pageSize);
+
+    List<HocPhan> findAllByChuyenNganh(Long maCN, int pageIndex, int pageSize);
 }

@@ -102,6 +102,28 @@ public class HocPhanServiceImpl implements HocPhanService {
         return hocPhanList;
     }
 
+    @Override
+    public List<HocPhan> searchAllByKeyword(String keyword, int pageIndex, int pageSize) {
+        ResponseEntity<List<HocPhan>> responseEntity
+                = restTemplate.exchange(url + "/keyword=" + keyword + "?page=" + pageIndex + "&size=" + pageSize,
+                HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<HocPhan>>() {
+                });
+        List<HocPhan> hocPhanList = responseEntity.getBody();
+        return hocPhanList;
+    }
+
+    @Override
+    public List<HocPhan> findAllByChuyenNganh(Long maCN, int pageIndex, int pageSize) {
+        ResponseEntity<List<HocPhan>> responseEntity
+                = restTemplate.exchange(url + "/chuyenNganh=" + maCN + "?page=" + pageIndex + "&size=" + pageSize,
+                HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<HocPhan>>() {
+                });
+        List<HocPhan> hocPhanList = responseEntity.getBody();
+        return hocPhanList;
+    }
+
     private File convert(MultipartFile file) {
         File convFile = new File(file.getOriginalFilename());
         try {
