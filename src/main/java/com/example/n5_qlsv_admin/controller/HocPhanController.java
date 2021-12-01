@@ -53,7 +53,7 @@ public class HocPhanController {
         model.addAttribute("totalPage", totalPage);
         model.addAttribute("currentPage", pageIndex);
 
-        model.addAttribute("monHocs", monHocService.getAllMonHocNotInHocPhan());
+        model.addAttribute("monHocs", monHocService.getAllMonHoc());
         model.addAttribute("chuyenNganhs", chuyenNganhService.getAllChuyenNganhs());
         model.addAttribute("hocphans", hocPhanService.getAllHocPhansByPageAndSize(pageIndex, pageSize));
         model.addAttribute("hocPhan", new HocPhan());
