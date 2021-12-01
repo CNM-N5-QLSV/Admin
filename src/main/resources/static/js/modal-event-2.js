@@ -76,31 +76,31 @@ $(document).ready(function () {
         var href = $(this).attr('href');
 
         $.get(href, function (hocphan, status) {
-            $('.myFormUpdate #maHocPhanUpdate').val(hocphan.maHocPhan);
-            $('.myFormUpdate #soTCLTUpdate').val(hocphan.soTCLT);
-            $('.myFormUpdate #soTCTHUpdate').val(hocphan.soTCTH);
+            $('.myForm #maHocPhan').val(hocphan.maHocPhan);
+            $('.myForm #soTCLT').val(hocphan.soTCLT);
+            $('.myForm #soTCTH').val(hocphan.soTCTH);
 
             var hpbb = hocphan.hocPhanBatBuoc;
             if (hpbb === true){
-                $('#hocPhanBatBuocUpdate').prop("checked", true);
+                $('.myForm #hocPhanBatBuoc').prop("checked", true);
             }else {
-                $('#hocPhanBatBuocUpdate').prop("checked", false);
+                $('.myForm #hocPhanBatBuoc').prop("checked", false);
             }
 
             if(hocphan.monHoc === null){
-                $('.myFormUpdate #monHocUpdate').val(0);
+                $('.myForm #monHoc').val(0);
             }else {
-                $('.myFormUpdate #monHocUpdate').val(hocphan.monHoc.maMonHoc);
+                $('.myForm #monHoc').val(hocphan.monHoc.maMonHoc);
             }
 
             if(hocphan.chuyenNganh === null){
-                $('.myFormUpdate #tenChuyenNganhUpdate').val(0);
+                $('.myForm #tenChuyenNganh').val(0);
             }else {
-                $('.myFormUpdate #tenChuyenNganhUpdate').val(hocphan.chuyenNganh.maChuyenNganh);
+                $('.myForm #tenChuyenNganh').val(hocphan.chuyenNganh.maChuyenNganh);
             }
         });
 
-        $('.myFormUpdate #myModalUpdate').modal();
+        $('.myForm #myModal').modal();
     });
 });
 

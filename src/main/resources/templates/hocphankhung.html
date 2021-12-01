@@ -66,7 +66,6 @@
                                                 <th>Sô tiết LT</th>
                                                 <th>Số tiết TH</th>
                                                 <th>Thứ tự học kì</th>
-                                                <th>Đạt</th>
                                                 <th>Thao tác</th>
                                             </tr>
                                             </thead>
@@ -84,15 +83,6 @@
 
                                                 <td th:text="${hpk.getThuTuHocKy()}"></td>
 
-                                                <td th:if="${hpk.getTrangThai() == ''}"></td>
-                                                <td th:if="${hpk.getTrangThai() == 'Đạt'}">
-                                                    <i style="color: #63f34e; font-size: 20px"
-                                                       class="fa fa-check-circle"></i>
-                                                </td>
-                                                <td th:if="${hpk.getTrangThai() == 'Không đạt'}">
-                                                    <i style="color: red; font-size: 20px"
-                                                       class="fa fa-times-circle"></i>
-                                                </td>
                                                 <td>
                                                     <a class="btnHPK btn btn-warning"
                                                        th:href="@{hoc-phan-khung/findHPK(maHPK=${hpk.getMaHPK()})}">
@@ -174,7 +164,7 @@
                                                    class="form-control">
                                         </div>
                                     </div>
-                                    <div class="form-group col-sm-4">
+                                    <div hidden class="form-group col-sm-4">
                                         <label>Trạng thái</label>
                                         <select value="" id="hpk_trangthai" th:field="*{trangThai}"
                                                 class="form-control">
