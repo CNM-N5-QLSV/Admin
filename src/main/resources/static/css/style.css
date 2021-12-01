@@ -5847,6 +5847,11 @@ div#sparklinehome canvas {
     background: whitesmoke;
 }
 
+.vl{
+    color: red;
+    font-style: italic;
+}
+
 
 
 
