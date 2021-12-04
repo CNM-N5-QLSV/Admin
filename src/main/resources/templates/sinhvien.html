@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/common/header :: h"/>
+<head th:replace="header :: h"/>
 <head>
     <title>Admin | Sinh viên</title>
 </head>
@@ -8,14 +8,14 @@
 <body onload="showToast()">
 
 <!-- Start Left menu area -->
-<div th:replace="/common/leftmenu :: left_menu"></div>
+<div th:replace="leftmenu :: left_menu"></div>
 <!-- End Left menu area -->
 
 <div class="all-content-wrapper">
     <div class="header-advance-area">
 
         <!-- Start Welcome area -->
-        <div th:replace="/common/header :: header"></div>
+        <div th:replace="header :: header"></div>
         <!-- End Welcome area -->
 
         <!-- Start Toast area -->
@@ -372,7 +372,7 @@
     </div>
 </div>
 
-<div th:replace="/common/header :: script"></div>
+<div th:replace="header :: script"></div>
 
 </body>
 </html>
