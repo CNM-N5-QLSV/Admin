@@ -38,8 +38,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login", "/logout").permitAll()
 
                 //Các static không cần login
-                .antMatchers("/static/css/**").permitAll()
-                .antMatchers("/static/**").permitAll()
+                .antMatchers("../static/css/**").permitAll()
+                .antMatchers("../static/**").permitAll()
 
                 //Trang chỉ dành cho admin
                 .antMatchers("/*").access("hasRole('ROLE_ADMIN')")
