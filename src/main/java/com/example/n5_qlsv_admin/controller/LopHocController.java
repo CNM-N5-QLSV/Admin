@@ -1,9 +1,12 @@
 package com.example.n5_qlsv_admin.controller;
 
 import com.example.n5_qlsv_admin.model.LopHoc;
+import com.example.n5_qlsv_admin.model.SinhVien;
 import com.example.n5_qlsv_admin.service.LopHocService;
 import com.example.n5_qlsv_admin.service.SinhVienService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +28,11 @@ public class LopHocController {
 
     @GetMapping
     public String danhSachLopHoc(Model model, @RequestParam(defaultValue = "0") int pageIndex, Principal principal){
+
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        SinhVien sinhVien = sinhVienService.findById(loginedUser.getUsername());
+        model.addAttribute("tensinhvien", sinhVien.getTenSV());
+
         int pageSize = 8;
         int totalPage = 0;
         int count = lopHocService.getAllLopHocs().size();

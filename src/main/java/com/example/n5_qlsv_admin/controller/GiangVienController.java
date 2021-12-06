@@ -34,6 +34,10 @@ public class GiangVienController {
     @GetMapping
     String danhSachMonHoc(Model theModel, @RequestParam(defaultValue = "0") int pageIndex, Principal principal) {
 
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        SinhVien sinhVien = sinhVienService.findById(loginedUser.getUsername());
+        theModel.addAttribute("tensinhvien", sinhVien.getTenSV());
+
         int pageSize = 8;
         int totalPage = 0;
         int count = giangVienService.getAllGiangVien().size();

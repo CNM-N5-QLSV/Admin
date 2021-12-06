@@ -33,9 +33,17 @@ public class HocPhanController {
     @Autowired
     private MonHocService monHocService;
 
+    @Autowired
+    private SinhVienService sinhVienService;
+
     @GetMapping
     public String danhSachHocPhan(Model model, @RequestParam(defaultValue = "0") int pageIndex,
-                                  String keyword, Long maCN){
+                                  String keyword, Long maCN, Principal principal){
+
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        SinhVien sinhVien = sinhVienService.findById(loginedUser.getUsername());
+        model.addAttribute("tensinhvien", sinhVien.getTenSV());
+
         int pageSize = 5;
         int totalPage = 0;
         int count = 0;
