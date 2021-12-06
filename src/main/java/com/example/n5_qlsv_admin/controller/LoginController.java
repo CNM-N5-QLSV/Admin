@@ -2,7 +2,7 @@ package com.example.n5_qlsv_admin.controller;
 
 import com.example.n5_qlsv_admin.model.SinhVien;
 import com.example.n5_qlsv_admin.service.*;
-import com.example.n5_qlsv_admin.util.WebUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
 @Controller
@@ -40,12 +39,14 @@ public class LoginController {
     private ChuyenNganhService chuyenNganhService;
 
     @GetMapping
-    public String adminPage(Model model, Principal principal, HttpSession session) {
+    public String adminPage(Model model, Principal principal) {
 
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
         SinhVien sinhVien = sinhVienService.findById(loginedUser.getUsername());
-        String userInfo = WebUtils.toString(loginedUser);
-        model.addAttribute("userInfo", userInfo);
+        model.addAttribute("tensinhvien", sinhVien.getTenSV());
+
+//        String userInfo = WebUtils.toString(loginedUser);
+//        model.addAttribute("userInfo", userInfo);
 
         //Thống kê
         model.addAttribute("slSinhVien", sinhVienService.getAllSinhViens().size());
@@ -56,13 +57,11 @@ public class LoginController {
         model.addAttribute("slKhoa", khoaService.getAllKhoas().size());
         model.addAttribute("slChuyenN", chuyenNganhService.getAllChuyenNganhs().size());
 
-        session.setAttribute("tensinhvien", sinhVien.getTenSV());
-
         return "index";
     }
 
     @GetMapping(value = "/login")
-    public String loginPage(Model model) {
+    public String loginPage() {
 
         return "login";
     }

@@ -1,13 +1,19 @@
 package com.example.n5_qlsv_admin.controller;
 
 import com.example.n5_qlsv_admin.model.KetQuaHocTap;
+import com.example.n5_qlsv_admin.model.SinhVien;
 import com.example.n5_qlsv_admin.service.KetQuaHocTapService;
+import com.example.n5_qlsv_admin.service.SinhVienService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/ketquahoctap")
@@ -16,9 +22,17 @@ public class KetQuaHocTapController {
     @Autowired
     private KetQuaHocTapService ketQuaHocTapService;
 
+    @Autowired
+    private SinhVienService sinhVienService;
+
     @GetMapping
     String danhSachMonHoc(Model model, @RequestParam(defaultValue = "0") int pageIndex,
-                          String maSV_KQHT) {
+                          String maSV_KQHT, Principal principal) {
+
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        SinhVien sinhVien = sinhVienService.findById(loginedUser.getUsername());
+        model.addAttribute("tensinhvien", sinhVien.getTenSV());
+
         int pageSize = 8;
         int totalPage = 0;
         int count = 0;

@@ -42,6 +42,10 @@ public class LopHocPhanController {
     @GetMapping
     String danhSachLopHocPhan(Model theModel, @RequestParam(defaultValue = "0") int pageIndex, Principal principal) {
 
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        SinhVien sinhVien = sinhVienService.findById(loginedUser.getUsername());
+        theModel.addAttribute("tensinhvien", sinhVien.getTenSV());
+
         int pageSize = 8;
         int totalPage = 0;
         int count = lopHocPhanService.getAllLopHocPhans().size();
@@ -112,7 +116,12 @@ public class LopHocPhanController {
     }
 
     @GetMapping("/CTLHP")
-    String xemCTLHP(Model model, @RequestParam long idLHP){
+    String xemCTLHP(Model model, @RequestParam long idLHP, Principal principal){
+
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        SinhVien sinhVien = sinhVienService.findById(loginedUser.getUsername());
+        model.addAttribute("tensinhvien", sinhVien.getTenSV());
+
         model.addAttribute("CTLHPs", ctlhpService.getAllCTLHPsByLHP(idLHP));
         model.addAttribute("chiTietLopHocPhan", new ChiTietLopHocPhan());
         model.addAttribute("giangViens", giangVienService.getAllGiangVien());

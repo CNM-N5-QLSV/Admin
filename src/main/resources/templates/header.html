@@ -149,25 +149,11 @@
                                             <li class="nav-item" style="padding-top: 5px">
                                                 <a href="#" data-toggle="dropdown" role="button"
                                                    aria-expanded="false" class="nav-link dropdown-toggle">
-<!--                                                    <img src="img/product/pro4.jpg" alt=""/>-->
-                                                    <!--                                                    <span class="admin-name" th:utext="${#request.userPrincipal.name}"></span>-->
-                                                    <span class="admin-name" th:utext="${session.tensinhvien}"></span>
+                                                    <span class="admin-name" th:utext="${tensinhvien}"></span>
                                                     <i class="fa fa-angle-down edu-icon edu-down-arrow"></i>
                                                 </a>
                                                 <ul role="menu"
                                                     class="dropdown-header-top author-log dropdown-menu animated zoomIn">
-<!--                                                    <li><a href="#"><span-->
-<!--                                                            class="edu-icon edu-home-admin author-log-ic"></span>Tài-->
-<!--                                                        khoản của tôi</a>-->
-<!--                                                    </li>-->
-<!--                                                    <li><a href="#"><span-->
-<!--                                                            class="edu-icon edu-user-rounded author-log-ic"></span>Thông-->
-<!--                                                        tin cá nhân</a>-->
-<!--                                                    </li>-->
-<!--                                                    <li><a href="#"><span-->
-<!--                                                            class="edu-icon edu-settings author-log-ic"></span>Cài-->
-<!--                                                        đặt</a>-->
-<!--                                                    </li>-->
                                                     <li><a th:if="${#request.userPrincipal != null}"
                                                            th:href="@{/logout}"><span
                                                             class="edu-icon edu-locked author-log-ic"></span>

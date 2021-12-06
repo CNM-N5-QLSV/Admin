@@ -172,15 +172,15 @@
                                             </div>
                                         </div>
                                         <div class="modal-body">
-                                            <input type="text" id="maKQHT" value="" th:field="*{maKQHT}">
-                                            <input type="text" id="maKQHT_LHP" value="" th:field="*{lopHocPhan.maLHP}">
-                                            <input type="text" id="maKQHT_SV" value="" th:field="*{sinhVien.maSV}">
+                                            <input type="text" hidden id="maKQHT" value="" th:field="*{maKQHT}">
+                                            <input type="text" hidden id="maKQHT_LHP" value="" th:field="*{lopHocPhan.maLHP}">
+                                            <input type="text" hidden id="maKQHT_SV" value="" th:field="*{sinhVien.maSV}">
 
                                             <div class="col-sm-12">
                                                 <div class="form-group col-sm-4">
                                                     <label>Thường kì 1</label>
                                                     <div>
-                                                        <input type="number" min="0" id="dtk1" value=""
+                                                        <input type="text" min="0" id="dtk1" value=""
                                                                th:field="*{diemTK1}"
                                                                class="form-control">
                                                     </div>
@@ -188,7 +188,7 @@
                                                 <div class="form-group col-sm-4">
                                                     <label>Thường kì 2</label>
                                                     <div>
-                                                        <input type="number" min="0" id="dtk2" value=""
+                                                        <input type="text" min="0" id="dtk2" value=""
                                                                th:field="*{diemTK2}"
                                                                class="form-control">
                                                     </div>
@@ -196,7 +196,7 @@
                                                 <div class="form-group col-sm-4">
                                                     <label>Thường kì 3</label>
                                                     <div>
-                                                        <input type="number" min="0" id="dtk3" value=""
+                                                        <input type="text" min="0" id="dtk3" value=""
                                                                th:field="*{diemTK3}"
                                                                class="form-control">
                                                     </div>
@@ -207,7 +207,7 @@
                                                 <div class="form-group col-sm-3">
                                                     <label>Thực hành 1</label>
                                                     <div>
-                                                        <input type="number" min="0" id="dth1" value=""
+                                                        <input type="text" min="0" id="dth1" value=""
                                                                th:field="*{diemTH1}"
                                                                class="form-control">
                                                     </div>
@@ -215,7 +215,7 @@
                                                 <div class="form-group col-sm-3">
                                                     <label>Thực hành 2</label>
                                                     <div>
-                                                        <input type="number" min="0" id="dth2" value=""
+                                                        <input type="text" min="0" id="dth2" value=""
                                                                th:field="*{diemTH2}"
                                                                class="form-control">
                                                     </div>
@@ -223,7 +223,7 @@
                                                 <div class="form-group col-sm-3">
                                                     <label>Giữa kỳ</label>
                                                     <div>
-                                                        <input type="number" min="0" id="dgk" value=""
+                                                        <input type="text" min="0" id="dgk" value=""
                                                                th:field="*{diemGK}"
                                                                class="form-control">
                                                     </div>
@@ -231,7 +231,7 @@
                                                 <div class="form-group col-sm-3">
                                                     <label>Cuối kỳ</label>
                                                     <div>
-                                                        <input type="number" min="0" id="dck" value=""
+                                                        <input type="text" min="0" id="dck" value=""
                                                                th:field="*{diemCK}"
                                                                class="form-control">
                                                     </div>

@@ -6,6 +6,8 @@ import com.example.n5_qlsv_admin.service.KhoaService;
 import com.example.n5_qlsv_admin.service.LopHocService;
 import com.example.n5_qlsv_admin.service.SinhVienService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/sinhVien")
@@ -32,7 +35,11 @@ public class SinhVienController {
 
     @GetMapping
     String danhSachSinhVien(Model theModel, @RequestParam(defaultValue = "0") int pageIndex,
-                            String keyword, Long mk) {
+                            String keyword, Long mk, Principal principal) {
+
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        SinhVien sinhVien = sinhVienService.findById(loginedUser.getUsername());
+        theModel.addAttribute("tensinhvien", sinhVien.getTenSV());
 
         int pageSize = 5;
         int totalPage = 0;

@@ -1,9 +1,13 @@
 package com.example.n5_qlsv_admin.controller;
 
 import com.example.n5_qlsv_admin.model.HocPhanKhung;
+import com.example.n5_qlsv_admin.model.SinhVien;
 import com.example.n5_qlsv_admin.service.HocPhanKhungService;
 import com.example.n5_qlsv_admin.service.HocPhanService;
+import com.example.n5_qlsv_admin.service.SinhVienService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/hoc-phan-khung")
@@ -22,8 +27,16 @@ public class HocPhanKhungController {
     @Autowired
     private HocPhanService hocPhanService;
 
+    @Autowired
+    private SinhVienService sinhVienService;
+
     @GetMapping
-    public String danhSachHPK(Model model, @RequestParam(defaultValue = "0") int pageIndex){
+    public String danhSachHPK(Model model, @RequestParam(defaultValue = "0") int pageIndex, Principal principal){
+
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        SinhVien sinhVien = sinhVienService.findById(loginedUser.getUsername());
+        model.addAttribute("tensinhvien", sinhVien.getTenSV());
+
         int pageSize = 8;
         int totalPage = 0;
         int count = service.getAllHPKByPageAndSize(pageIndex, 0).size();
