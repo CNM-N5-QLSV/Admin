@@ -45,12 +45,12 @@ public class SinhVienController {
         int totalPage = 0;
         int count = 0;
 
-        if(keyword != null && keyword != ""){
+        if (keyword != null && keyword != "") {
             count = sinhVienService.search(keyword, 0, 0).size();
-        }else if (mk != null){
-            count =  sinhVienService.findAllSinhViensByKhoa(mk, 0, 0).size();
-        }else {
-            count = 25;
+        } else if (mk != null) {
+            count = sinhVienService.findAllSinhViensByKhoa(mk, 0, 0).size();
+        } else {
+            count = 5;
         }
 
         if (count % pageSize == 0) {
@@ -59,18 +59,21 @@ public class SinhVienController {
             totalPage = count / pageSize + 1;
         }
 
-        if(pageIndex < 0){
+        if (pageIndex < 0) {
             pageIndex = 0;
-        }else if(pageIndex > totalPage - 1){
+        } else if (pageIndex > totalPage - 1) {
             pageIndex = totalPage - 1;
         }
 
-        if (mk != null){
+        if (mk != null) {
             theModel.addAttribute("sinhViens", sinhVienService.findAllSinhViensByKhoa(mk, pageIndex, pageSize));
-        }else if(keyword != null && keyword != ""){
+        } else if (keyword != null && keyword != "") {
             theModel.addAttribute("sinhViens", sinhVienService.search(keyword, pageIndex, pageSize));
         } else {
-            theModel.addAttribute("sinhViens", sinhVienService.getAllSinhViensByPageAndSize(pageIndex, pageSize));
+            theModel.addAttribute("sinhViens", sinhVienService.getAllSinhViens().subList(
+                    sinhVienService.getAllSinhViens().size() - 5,
+                    sinhVienService.getAllSinhViens().size()
+            ));
         }
 
         theModel.addAttribute("mk", mk);
@@ -89,11 +92,11 @@ public class SinhVienController {
 
     @PostMapping
     String luuThongTinSV(SinhVien sinhVien, RedirectAttributes redirectAttributes) {
-        try{
+        try {
             sinhVienService.saveSinhVien(sinhVien);
             redirectAttributes.addFlashAttribute("mess", "Lưu thành công");
             redirectAttributes.addFlashAttribute("suc_err", "success");
-        }catch (Exception e){
+        } catch (Exception e) {
             redirectAttributes.addFlashAttribute("mess", "Đã có lỗi xảy ra");
             redirectAttributes.addFlashAttribute("suc_err", "error");
         }
@@ -103,13 +106,13 @@ public class SinhVienController {
 
     @ResponseBody
     @GetMapping("/findSV")
-    SinhVien findSV(String id){
+    SinhVien findSV(String id) {
         return sinhVienService.findById(id);
     }
 
     @GetMapping(value = "/deleteSinhViens")
     String deleteSinhViens(HttpServletRequest req, RedirectAttributes redirectAttributes) {
-        try{
+        try {
             String[] ma_svs = req.getParameterValues("idSV");
             if (ma_svs != null) {
                 for (String ma_sv : ma_svs) {
@@ -117,11 +120,11 @@ public class SinhVienController {
                 }
                 redirectAttributes.addFlashAttribute("mess", "Xóa sinh viên thành công");
                 redirectAttributes.addFlashAttribute("suc_err", "success");
-            }else {
+            } else {
                 redirectAttributes.addFlashAttribute("mess", "Bạn chưa chọn dòng để xóa");
                 redirectAttributes.addFlashAttribute("suc_err", "warning");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             redirectAttributes.addFlashAttribute("mess", "Sinh viên này đã đăng ký lớp học phần, không thể xóa");
             redirectAttributes.addFlashAttribute("suc_err", "error");
         }
@@ -130,12 +133,12 @@ public class SinhVienController {
     }
 
     @PostMapping("/upload")
-    String saveObjectsByFile(MultipartFile fileUpload, RedirectAttributes redirectAttributes){
+    String saveObjectsByFile(MultipartFile fileUpload, RedirectAttributes redirectAttributes) {
         try {
             sinhVienService.uploadFile(fileUpload);
             redirectAttributes.addFlashAttribute("mess", "Tải file lên thành công");
             redirectAttributes.addFlashAttribute("suc_err", "success");
-        }catch (Exception e){
+        } catch (Exception e) {
             redirectAttributes.addFlashAttribute("mess", "Sai định dạng file (.xlsx) hoặc lớn hơn 5MB");
             redirectAttributes.addFlashAttribute("suc_err", "error");
         }

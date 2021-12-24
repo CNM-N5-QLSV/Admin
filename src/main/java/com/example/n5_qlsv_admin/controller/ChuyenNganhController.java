@@ -45,7 +45,7 @@ public class ChuyenNganhController {
         if(mk != null){
             count = chuyenNganhService.findAllChuyenNganhsByKhoa(mk, 0, 0).size();
         }else {
-            count = chuyenNganhService.getAllChuyenNganhsByPageAndSize(0, 0).size();
+            count = 5;
         }
 
         if (count % pageSize == 0) {
@@ -65,7 +65,10 @@ public class ChuyenNganhController {
                     chuyenNganhService.findAllChuyenNganhsByKhoa(mk, pageIndex, pageSize));
         }else {
             theModel.addAttribute("chuyenNganhs",
-                    chuyenNganhService.getAllChuyenNganhsByPageAndSize(pageIndex, pageSize));
+                    chuyenNganhService.getAllChuyenNganhs().subList(
+                            chuyenNganhService.getAllChuyenNganhs().size() - 5,
+                            chuyenNganhService.getAllChuyenNganhs().size()
+                    ));
         }
 
         theModel.addAttribute("mk", mk);

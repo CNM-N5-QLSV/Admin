@@ -65,7 +65,10 @@ public class MonHocController {
                     monHocService.findAllByKhoa(mk, pageIndex, pageSize));
         }else {
             theModel.addAttribute("monHocs",
-                    monHocService.getAllMonHocByPageAndSize(pageIndex, pageSize));
+                    monHocService.getAllMonHoc().subList(
+                            monHocService.getAllMonHoc().size() - 5,
+                            monHocService.getAllMonHoc().size()
+                    ));
         }
 
         theModel.addAttribute("totalPage", totalPage);

@@ -53,7 +53,7 @@ public class HocPhanController {
         }else if (maCN != null){
             count =  hocPhanService.findAllByChuyenNganh(maCN, 0, 0).size();
         }else {
-            count = 25;
+            count = 5;
         }
 
         if (count % pageSize == 0){
@@ -73,7 +73,10 @@ public class HocPhanController {
         }else if(keyword != null && keyword != ""){
             model.addAttribute("hocphans", hocPhanService.searchAllByKeyword(keyword, pageIndex, pageSize));
         } else {
-            model.addAttribute("hocphans", hocPhanService.getAllHocPhansByPageAndSize(pageIndex, pageSize));
+            model.addAttribute("hocphans", hocPhanService.getAllHocPhans().subList(
+                    hocPhanService.getAllHocPhans().size() - 5,
+                    hocPhanService.getAllHocPhans().size()
+            ));
         }
 
         model.addAttribute("mcn", maCN);
